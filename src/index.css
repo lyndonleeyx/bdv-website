@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+@theme {
+  /* Custom colors */
+  --color-beige-50: #faf9f7;
+  --color-beige-100: #f5f3f0;
+  --color-beige-200: #e8e4de;
+  --color-beige-300: #d4cec4;
+
+  --color-bdv-yellow: #FFD247;
+  --color-bdv-yellow-light: #fae588;
+  --color-bdv-blue: #0285B6;
+
+  /* Font family */
+  --font-sans: Helvetica, Arial, sans-serif;
+
+  /* Line heights (from Squarespace CSS) */
+  --heading-line-height: 1.1em;
+  --body-line-height: 1.3em;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-image: url('/src/assets/images/decorative/website background.webp');
+    background-size: cover;
+    background-attachment: scroll;
+    background-repeat: no-repeat;
+    background-position: top center;
+    color: #111827;
+    font-family: var(--font-sans);
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Make headings semi-bold to differentiate from body text */
+  .font-bold, h1, h2, h3, h4, h5, h6 {
+    font-weight: 550 !important;
+  }
+
+  /* Make strong and b tags semi-bold */
+  strong, b {
+    font-weight: 550 !important;
+  }
+
+  /* Squarespace Section Height System */
+  /* section-height--large with vertical-alignment--middle applies 10vmax padding */
+  section[data-section-height="large"] .content-wrapper {
+    padding-top: 8vmax;
+    padding-bottom: 10vmax;
+  }
+
+  /* section-height--medium applies 6.6vmax padding */
+  section[data-section-height="medium"] .content-wrapper {
+    padding-top: 6.6vmax;
+    padding-bottom: 6.6vmax;
+  }
+
+  /* section-height--small applies 3vmax padding */
+  section[data-section-height="small"] .content-wrapper {
+    padding-top: 3vmax;
+    padding-bottom: 3vmax;
+  }
+
+  /* section-height--custom with 0 height applies 0 padding */
+  section[data-section-height="custom"] .content-wrapper {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cat:*)",
+      "Bash(tr '>' '\\n')",
+      "Bash(sed:*)",
+      "Bash(python3:*)",
+      "Bash(sips:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
