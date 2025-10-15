@@ -1,12 +1,32 @@
 import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
 
 const Hero = () => {
+  const [displayText, setDisplayText] = useState('');
+  const [showCursor, setShowCursor] = useState(true);
+  const fullText = 'built:\n   different';
+
+  useEffect(() => {
+    let currentIndex = 0;
+    const typingInterval = setInterval(() => {
+      if (currentIndex <= fullText.length) {
+        setDisplayText(fullText.slice(0, currentIndex));
+        currentIndex++;
+      } else {
+        clearInterval(typingInterval);
+        setTimeout(() => setShowCursor(false), 500); // Hide cursor after 0.5s
+      }
+    }, 100); // 100ms per character
+
+    return () => clearInterval(typingInterval);
+  }, []);
   return (
     <section
       id="hero"
       className="relative overflow-hidden"
       style={{
-        paddingTop: '66.8906px',
+        paddingTop: '15vh',
+        paddingBottom: '2vh'
       }}
     >
       {/* Section Background */}
@@ -21,10 +41,6 @@ const Hero = () => {
             objectPosition: '48.058% 12.001%'
           }}
           loading="eager"
-        />
-        <div
-          className="absolute inset-0 bg-white"
-          style={{ opacity: 0.15 }}
         />
       </div>
 
@@ -46,26 +62,31 @@ const Hero = () => {
             position: 'relative',
             rowGap: '11px',
             columnGap: '11px',
-            overflowX: 'clip'
+            overflowX: 'visible'
           } as React.CSSProperties}
         >
           {/* Yellow Stroke - Z-Index 1 */}
           <motion.div
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.65, delay: 0.101695 }}
-            className="fe-block yellow-stroke hidden md:block"
+            animate={{
+              opacity: 1,
+              y: [0, -20, 0]
+            }}
+            transition={{
+              opacity: { duration: 0.65, delay: 0.101695 },
+              y: { duration: 40, repeat: Infinity, ease: "easeInOut" }
+            }}
+            className="fe-block yellow-stroke md:block"
             style={{
               zIndex: 1
             }}
           >
-            <div className="sqs-block image-block sqs-block-image sqs-stretched" style={{ height: '100%' }}>
-              <div className="sqs-block-content" style={{ height: '100%', width: '100%' }}>
-                <div className="image-block-outer-wrapper" style={{ height: '100%' }}>
+            <div className="sqs-block image-block sqs-block-image sqs-stretched">
+              <div className="sqs-block-content" style={{ width: '100%' }}>
+                <div className="image-block-outer-wrapper">
                   <div
                     className="fluid-image-animation-wrapper sqs-image sqs-block-alignment-wrapper"
                     style={{
-                      height: '100%',
                       transitionTimingFunction: 'ease',
                       transitionDuration: '0.65s',
                       transitionDelay: '0.101695s',
@@ -75,94 +96,23 @@ const Hero = () => {
                     <div
                       className="fluid-image-container sqs-image-content"
                       style={{
-                        overflow: 'hidden',
-                        maskImage: '-webkit-radial-gradient(center, white, black)',
-                        WebkitMaskImage: '-webkit-radial-gradient(center, white, black)',
+                        overflow: 'visible',
                         position: 'relative',
-                        width: '100%',
-                        height: '100%'
+                        width: '200%',
+                        marginLeft: '-50%',
+                        marginTop: '-50%'
                       }}
                     >
-                      <div className="content-fit" style={{ height: '100%' }}>
+                      <div className="content-fit">
                         <img
-                          src="/src/assets/images/decorative/yellow+stroke.webp"
+                          src="/src/assets/images/decorative/blue-yellow-stroke.png"
                           alt=""
-                          width="1479"
-                          height="1080"
+                          width="2248"
+                          height="2172"
                           style={{
                             display: 'block',
                             objectFit: 'contain',
                             objectPosition: '50% 50%',
-                            height: '100%',
-                            width: '100%'
-                          }}
-                          loading="lazy"
-                        />
-                        <div
-                          className="fluidImageOverlay"
-                          style={{
-                            position: 'absolute',
-                            top: 0,
-                            left: 0,
-                            width: '100%',
-                            height: '100%',
-                            mixBlendMode: 'normal',
-                            opacity: 0
-                          }}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Blue Stroke - Z-Index 2 */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.65, delay: 0.135593 }}
-            className="fe-block blue-stroke hidden md:block"
-            style={{
-              zIndex: 2
-            }}
-          >
-            <div className="sqs-block image-block sqs-block-image sqs-stretched" style={{ height: '100%' }}>
-              <div className="sqs-block-content" style={{ height: '100%', width: '100%' }}>
-                <div className="image-block-outer-wrapper" style={{ height: '100%' }}>
-                  <div
-                    className="fluid-image-animation-wrapper sqs-image sqs-block-alignment-wrapper"
-                    style={{
-                      height: '100%',
-                      transitionTimingFunction: 'ease',
-                      transitionDuration: '0.65s',
-                      transitionDelay: '0.135593s',
-                      animationDuration: '0.65s'
-                    }}
-                  >
-                    <div
-                      className="fluid-image-container sqs-image-content"
-                      style={{
-                        overflow: 'hidden',
-                        maskImage: '-webkit-radial-gradient(center, white, black)',
-                        WebkitMaskImage: '-webkit-radial-gradient(center, white, black)',
-                        position: 'relative',
-                        width: '100%',
-                        height: '100%'
-                      }}
-                    >
-                      <div className="content-fit" style={{ height: '100%' }}>
-                        <img
-                          src="/src/assets/images/decorative/blue+stroke.webp"
-                          alt=""
-                          width="1640"
-                          height="994"
-                          style={{
-                            display: 'block',
-                            objectFit: 'contain',
-                            objectPosition: '50% 50%',
-                            height: '100%',
                             width: '100%'
                           }}
                           loading="lazy"
@@ -194,14 +144,14 @@ const Hero = () => {
             transition={{ duration: 0.65, delay: 0.118644 }}
             className="fe-block tagline"
             style={{
-              gridArea: '2/2/5/9',
+              gridArea: '2/2/4/10',
               zIndex: 3,
               mixBlendMode: 'normal'
             }}
           >
-            <div className="sqs-block flex items-center justify-center md:items-start md:justify-start">
+            <div className="sqs-block flex items-start justify-start">
               <p
-                className="text-[1.8rem] text-gray-700 text-center md:text-left"
+                className="text-[1.3rem] text-gray-700"
                 style={{
                   lineHeight: '1.3em',
                   whiteSpace: 'normal'
@@ -212,14 +162,11 @@ const Hero = () => {
             </div>
           </motion.div>
 
-          {/* "built:" Heading - Z-Index 4 */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.65, delay: 0.152542 }}
-            className="fe-block built-heading"
+          {/* "built: different" Heading - Z-Index 4 */}
+          <div
+            className="fe-block combined-heading"
             style={{
-              gridArea: '4/2/6/6',
+              gridArea: '5/2/9/10',
               zIndex: 4,
               mixBlendMode: 'normal'
             }}
@@ -232,23 +179,22 @@ const Hero = () => {
                   whiteSpace: 'pre-wrap'
                 }}
               >
-                built:
+                {displayText}
+                {showCursor && <span className="typing-cursor">|</span>}
               </h1>
             </div>
-          </motion.div>
+          </div>
 
           {/* Hero Tape - Z-Index 5 */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.65, delay: 0.186441 }}
-            className="fe-block hero-tape"
+          <div
+            className="fe-block hero-tape hidden md:flex"
             style={{
-              gridArea: '7/4/9/10',
-              zIndex: 5
+              gridArea: '10/2/11/8',
+              zIndex: 5,
+              marginTop: '-4rem'
             }}
           >
-            <div className="sqs-block flex items-center justify-center md:items-start md:justify-start">
+            <div className="sqs-block flex items-start justify-center">
               <div
                 className="fluid-image-container"
                 style={{
@@ -256,8 +202,10 @@ const Hero = () => {
                   maskImage: '-webkit-radial-gradient(center, white, black)',
                   WebkitMaskImage: '-webkit-radial-gradient(center, white, black)',
                   position: 'relative',
-                  width: '190.112px',
-                  height: '100%'
+                  width: '100%',
+                  maxWidth: '250px',
+                  height: '100%',
+                  transform: 'scale(0.8)'
                 }}
               >
                 <img
@@ -268,38 +216,16 @@ const Hero = () => {
                   style={{
                     display: 'block',
                     objectFit: 'contain',
-                    objectPosition: '47.13114754098361% 70.41050903119869%'
+                    objectPosition: '50% 50%',
+                    width: '100%',
+                    height: 'auto',
+                    opacity: 0.8
                   }}
                   loading="lazy"
                 />
               </div>
             </div>
-          </motion.div>
-
-          {/* "different" Heading - Z-Index 8 */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.65, delay: 0.169492 }}
-            className="fe-block different-heading"
-            style={{
-              gridArea: '6/4/8/10',
-              zIndex: 8,
-              mixBlendMode: 'normal'
-            }}
-          >
-            <div className="sqs-block flex items-start justify-start">
-              <h1
-                className="text-[4.5rem] md:text-[6.2rem] font-bold text-gray-900"
-                style={{
-                  lineHeight: '1.1em',
-                  whiteSpace: 'pre-wrap'
-                }}
-              >
-                different
-              </h1>
-            </div>
-          </motion.div>
+          </div>
 
           {/* Description - Z-Index 7 */}
           <motion.div
@@ -308,14 +234,14 @@ const Hero = () => {
             transition={{ duration: 0.65, delay: 0.20339 }}
             className="fe-block description"
             style={{
-              gridArea: '9/2/15/10',
+              gridArea: '11/2/14/10',
               zIndex: 7
             }}
           >
             <div className="sqs-block flex items-start justify-start">
-              <div style={{ borderRadius: '30px' }}>
+              <div style={{ borderRadius: '30px', maxWidth: '560px' }}>
                 <p
-                  className="text-[1.8rem] text-gray-900"
+                  className="text-[1.26rem] text-gray-900"
                   style={{
                     lineHeight: '1.3em',
                     whiteSpace: 'pre-wrap'
@@ -330,12 +256,41 @@ const Hero = () => {
 
         {/* Grid Styles */}
         <style dangerouslySetInnerHTML={{__html: `
+          /* Mobile: Tighter line-height for headings */
+          #hero h1 {
+            line-height: 1.05em !important;
+          }
+
           #hero .fluid-engine-grid {
-            grid-template-rows: repeat(15, minmax(24px, auto));
+            grid-template-rows: repeat(20, minmax(24px, auto));
             grid-template-columns: minmax(var(--grid-gutter), 1fr) repeat(8, minmax(0, var(--cell-max-width))) minmax(var(--grid-gutter), 1fr);
           }
 
+          /* Disable animations for users who prefer reduced motion */
+          @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+          }
+
+          .typing-cursor {
+            animation: blink 1s infinite;
+            margin-left: 2px;
+          }
+
+          @media (prefers-reduced-motion: reduce) {
+            #hero * {
+              animation-duration: 0.01ms !important;
+              animation-iteration-count: 1 !important;
+              transition-duration: 0.01ms !important;
+            }
+          }
+
           @media (min-width: 768px) {
+            /* Desktop: Restore normal line-height */
+            #hero h1 {
+              line-height: 1.1em !important;
+            }
+
             #hero .fluid-engine-grid {
               --grid-gutter: calc(var(--sqs-site-gutter, 4vw) - 11.0px);
               --cell-max-width: calc((var(--sqs-site-max-width, 1500px) - (11.0px * (24 - 1))) / 24);
@@ -347,25 +302,22 @@ const Hero = () => {
             }
 
             .fe-block.yellow-stroke {
-              grid-area: 1/11/21/27 !important;
+              grid-area: 1/1/20/13 !important;
+              transform: translateX(-15%) translateY(-10%) scale(2.5);
             }
 
             .fe-block.yellow-stroke .sqs-block {
               justify-content: center;
-              align-items: center;
+              align-items: flex-start;
             }
 
-            .fe-block.blue-stroke {
-              grid-area: 4/11/21/27 !important;
-            }
-
-            .fe-block.blue-stroke .sqs-block {
-              justify-content: center;
-              align-items: center;
+            .fe-block.yellow-stroke img {
+              opacity: 1;
+              filter: saturate(1.4) contrast(1.15);
             }
 
             .fe-block.tagline {
-              grid-area: 3/2/6/9 !important;
+              grid-area: 2/2/4/12 !important;
             }
 
             .fe-block.tagline .sqs-block {
@@ -373,40 +325,32 @@ const Hero = () => {
               align-items: flex-start;
             }
 
-            .fe-block.built-heading {
-              grid-area: 6/2/9/17 !important;
+            .fe-block.combined-heading {
+              grid-area: 5/14/9/26 !important;
             }
 
-            .fe-block.built-heading .sqs-block {
+            .fe-block.combined-heading .sqs-block {
               justify-content: flex-start;
               align-items: flex-start;
             }
 
             .fe-block.hero-tape {
-              grid-area: 11/7/14/13 !important;
+              grid-area: 10/17/11/25 !important;
+              margin-top: -6rem !important;
             }
 
             .fe-block.hero-tape .sqs-block {
-              justify-content: flex-start;
-              align-items: flex-start;
-            }
-
-            .fe-block.different-heading {
-              grid-area: 9/6/12/16 !important;
-            }
-
-            .fe-block.different-heading .sqs-block {
-              justify-content: flex-start;
+              justify-content: center;
               align-items: flex-start;
             }
 
             .fe-block.description {
-              grid-area: 15/2/20/18 !important;
+              grid-area: 11/14/14/24 !important;
             }
 
             .fe-block.description .sqs-block {
-              justify-content: center;
-              align-items: center;
+              justify-content: flex-start;
+              align-items: flex-start;
             }
           }
         `}} />

@@ -6,7 +6,7 @@ const SectionDivider = () => {
       id="sketch-section"
       className="relative overflow-hidden"
       data-section-theme="light"
-      data-section-height="custom"
+      data-section-height="medium"
     >
       {/* Section Background */}
       <div className="absolute inset-0 -z-10">
@@ -45,12 +45,13 @@ const SectionDivider = () => {
         >
           {/* Heading Block */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.65, delay: 0.220339 }}
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
             className="fe-block"
             style={{
-              gridArea: '2/2/7/10',
+              gridArea: '1/2/4/10',
               zIndex: 1,
               mixBlendMode: 'normal'
             }}
@@ -67,23 +68,31 @@ const SectionDivider = () => {
                 <span className="relative inline-block">
                   <span className="relative z-10">sketch</span>
                   {/* Jagged underline - matches Squarespace's cubic bezier pattern */}
-                  <svg
+                  <motion.svg
                     className="absolute left-0 w-full h-3"
                     style={{
                       bottom: '-0.15em'
                     }}
                     viewBox="0 0 119 12"
                     preserveAspectRatio="none"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ duration: 0.3, delay: 0.5 }}
                   >
-                    <path
+                    <motion.path
                       d="M0,8 c 4.0625,-1.95 13.40625,-7.8 16.25,-7.8 c 2.84375,0 -3.65625,5.85 -4.875,7.8 c 4.0625,-1.95 13.40625,-7.8 16.25,-7.8 c 2.84375,0 -3.65625,5.85 -4.875,7.8 c 4.0625,-1.95 13.40625,-7.8 16.25,-7.8 c 2.84375,0 -3.65625,5.85 -4.875,7.8 c 4.0625,-1.95 13.40625,-7.8 16.25,-7.8 c 2.84375,0 -3.65625,5.85 -4.875,7.8 c 4.0625,-1.95 13.40625,-7.8 16.25,-7.8 c 2.84375,0 -3.65625,5.85 -4.875,7.8 c 4.0625,-1.95 13.40625,-7.8 16.25,-7.8 c 2.84375,0 -3.65625,5.85 -4.875,7.8 c 4.0625,-1.95 13.40625,-7.8 16.25,-7.8 c 2.84375,0 -3.65625,5.85 -4.875,7.8 c 4.0625,-1.95 13.40625,-7.8 16.25,-7.8 c 2.84375,0 -3.65625,5.85 -4.875,7.8 c 4.0625,-1.95 13.40625,-7.8 16.25,-7.8 c 2.84375,0 -3.65625,5.85 -4.875,7.8 c 4.0625,-1.95 13.40625,-7.8 16.25,-7.8"
                       stroke="var(--color-bdv-yellow)"
                       strokeWidth="3.5"
                       fill="none"
                       strokeLinecap="square"
                       strokeLinejoin="bevel"
+                      initial={{ pathLength: 0 }}
+                      whileInView={{ pathLength: 1 }}
+                      viewport={{ once: true, margin: "-100px" }}
+                      transition={{ duration: 1.5, delay: 0.5, ease: "easeInOut" }}
                     />
-                  </svg>
+                  </motion.svg>
                 </span>
                 .
               </h2>
@@ -94,7 +103,7 @@ const SectionDivider = () => {
         {/* Grid Styles */}
         <style dangerouslySetInnerHTML={{__html: `
           #sketch-section .fluid-engine-grid {
-            grid-template-rows: repeat(7, minmax(24px, auto));
+            grid-template-rows: repeat(4, minmax(24px, auto));
             grid-template-columns: minmax(var(--grid-gutter), 1fr) repeat(8, minmax(0, var(--cell-max-width))) minmax(var(--grid-gutter), 1fr);
           }
 
@@ -105,12 +114,12 @@ const SectionDivider = () => {
               --row-height-scaling-factor: 0.0215;
               --container-width: min(var(--sqs-site-max-width, 1500px), calc(100vw - var(--sqs-site-gutter, 4vw) * 2));
 
-              grid-template-rows: repeat(5, minmax(calc(var(--container-width) * var(--row-height-scaling-factor)), auto)) !important;
+              grid-template-rows: repeat(3, minmax(calc(var(--container-width) * var(--row-height-scaling-factor)), auto)) !important;
               grid-template-columns: minmax(var(--grid-gutter), 1fr) repeat(24, minmax(0, var(--cell-max-width))) minmax(var(--grid-gutter), 1fr) !important;
             }
 
             #sketch-section .fe-block {
-              grid-area: 3/2/4/26 !important;
+              grid-area: 2/2/3/26 !important;
             }
           }
         `}} />

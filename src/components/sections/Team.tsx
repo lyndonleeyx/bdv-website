@@ -4,7 +4,7 @@ const Team = () => {
   return (
     <section
       id="team"
-      className="relative overflow-hidden mb-5"
+      className="relative overflow-hidden"
       data-section-theme="light"
       data-section-height="large"
     >
@@ -46,9 +46,10 @@ const Team = () => {
         >
           {/* Background Scribble/Vector - Z-Index 1 */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.65, delay: 0.237288 }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
             className="fe-block background-scribble hidden md:block"
             style={{
               gridArea: '3/4/15/11',
@@ -98,9 +99,10 @@ const Team = () => {
 
           {/* "We are Builders" Heading - Z-Index 3 */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.65, delay: 0.254237 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
             className="fe-block heading"
             style={{
               gridArea: '1/2/5/10',
@@ -123,9 +125,10 @@ const Team = () => {
 
           {/* Huey's Photo - Z-Index 2 */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.65, delay: 0.271186 }}
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
             className="fe-block huey-photo"
             style={{
               gridArea: '5/2/15/7',
@@ -174,9 +177,10 @@ const Team = () => {
 
           {/* Huey's Name - Z-Index 5 */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.65, delay: 0.305085 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
             className="fe-block huey-name"
             style={{
               gridArea: '15/2/16/5',
@@ -199,9 +203,10 @@ const Team = () => {
 
           {/* Huey's Title - Z-Index 6 */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.65, delay: 0.288136 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
             className="fe-block huey-title"
             style={{
               gridArea: '15/5/16/10',
@@ -224,9 +229,10 @@ const Team = () => {
 
           {/* Huey's Bio - Z-Index 8 */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.65, delay: 0.322034 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, delay: 0.25, ease: "easeOut" }}
             className="fe-block huey-bio"
             style={{
               gridArea: '16/2/22/10',
@@ -249,9 +255,10 @@ const Team = () => {
 
           {/* Serge's Photo - Z-Index 4 */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.65, delay: 0.338983 }}
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
             className="fe-block serge-photo"
             style={{
               gridArea: '22/5/29/10',
@@ -300,9 +307,10 @@ const Team = () => {
 
           {/* Serge's Title - Z-Index 9 */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.65, delay: 0.389831 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, delay: 0.35, ease: "easeOut" }}
             className="fe-block serge-title"
             style={{
               gridArea: '29/2/30/6',
@@ -325,9 +333,10 @@ const Team = () => {
 
           {/* Serge's Name - Z-Index 8 */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.65, delay: 0.372881 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
             className="fe-block serge-name"
             style={{
               gridArea: '29/6/31/10',
@@ -350,9 +359,10 @@ const Team = () => {
 
           {/* Serge's Bio - Z-Index 7 */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.65, delay: 0.355932 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, delay: 0.45, ease: "easeOut" }}
             className="fe-block serge-bio"
             style={{
               gridArea: '30/2/36/10',

@@ -77,6 +77,9 @@ const Services = () => {
           transition={{ duration: 0.6 }}
           className="mb-8"
         >
+          <h2 className="text-[1.8rem] text-gray-600 mb-4" style={{ lineHeight: '1.1em' }}>
+            How We Partner
+          </h2>
           <h1 className="text-[4rem] md:text-[6.2rem] font-bold mb-3" style={{ lineHeight: '1.1em' }}>
             <span className="text-gray-900">We're your first </span>
             <span className="text-bdv-yellow">cofounder</span>
