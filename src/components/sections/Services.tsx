@@ -32,7 +32,7 @@ const Services = () => {
   return (
     <section
       id="services"
-      className="relative overflow-hidden mb-16"
+      className="relative overflow-hidden"
       data-section-height="medium"
     >
       {/* Section Background */}

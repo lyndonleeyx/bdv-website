@@ -26,7 +26,7 @@ const Hero = () => {
       className="relative overflow-hidden"
       style={{
         paddingTop: '15vh',
-        paddingBottom: '2vh'
+        paddingBottom: '0'
       }}
     >
       {/* Section Background */}
@@ -49,7 +49,7 @@ const Hero = () => {
         className="content-wrapper"
         style={{
           paddingTop: 'calc(0vmax / 10)',
-          paddingBottom: 'calc(0vmax / 10)'
+          paddingBottom: '6.6vmax'
         }}
       >
         {/* Fluid Engine Grid */}
@@ -76,7 +76,7 @@ const Hero = () => {
               opacity: { duration: 0.65, delay: 0.101695 },
               y: { duration: 40, repeat: Infinity, ease: "easeInOut" }
             }}
-            className="fe-block yellow-stroke md:block"
+            className="fe-block yellow-stroke block"
             style={{
               zIndex: 1
             }}
@@ -262,8 +262,19 @@ const Hero = () => {
           }
 
           #hero .fluid-engine-grid {
-            grid-template-rows: repeat(20, minmax(24px, auto));
+            grid-template-rows: repeat(14, minmax(24px, auto));
             grid-template-columns: minmax(var(--grid-gutter), 1fr) repeat(8, minmax(0, var(--cell-max-width))) minmax(var(--grid-gutter), 1fr);
+          }
+
+          /* Mobile stroke styling */
+          .fe-block.yellow-stroke {
+            grid-area: 1/1/15/10 !important;
+            opacity: 0.3;
+          }
+
+          .fe-block.yellow-stroke .sqs-block {
+            justify-content: center;
+            align-items: center;
           }
 
           /* Disable animations for users who prefer reduced motion */
@@ -291,6 +302,11 @@ const Hero = () => {
               line-height: 1.1em !important;
             }
 
+            /* Desktop: Reduce hero bottom padding */
+            #hero .content-wrapper {
+              padding-bottom: 0 !important;
+            }
+
             #hero .fluid-engine-grid {
               --grid-gutter: calc(var(--sqs-site-gutter, 4vw) - 11.0px);
               --cell-max-width: calc((var(--sqs-site-max-width, 1500px) - (11.0px * (24 - 1))) / 24);
@@ -304,6 +320,7 @@ const Hero = () => {
             .fe-block.yellow-stroke {
               grid-area: 1/1/20/13 !important;
               transform: translateX(-15%) translateY(-10%) scale(2.5);
+              opacity: 1;
             }
 
             .fe-block.yellow-stroke .sqs-block {

@@ -4,8 +4,8 @@ const CTA = () => {
   return (
     <section
       id="contact"
-      className="relative overflow-hidden mb-32"
-      data-section-height="small"
+      className="relative overflow-hidden"
+      data-section-height="medium"
     >
       {/* Section Background */}
       <div className="absolute inset-0 -z-10">

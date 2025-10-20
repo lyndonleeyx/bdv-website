@@ -6,7 +6,7 @@ const Team = () => {
       id="team"
       className="relative overflow-hidden"
       data-section-theme="light"
-      data-section-height="large"
+      data-section-height="medium"
     >
       {/* Section Background */}
       <div className="absolute inset-0 -z-10">
@@ -37,7 +37,7 @@ const Team = () => {
             '--cell-max-width': 'calc((var(--sqs-site-max-width, 1500px) - (11.0px * (8 - 1))) / 8)',
             display: 'grid',
             position: 'relative',
-            gridTemplateRows: 'repeat(36, minmax(24px, auto))',
+            gridTemplateRows: 'repeat(39, minmax(24px, auto))',
             gridTemplateColumns: 'minmax(var(--grid-gutter), 1fr) repeat(8, minmax(0, var(--cell-max-width))) minmax(var(--grid-gutter), 1fr)',
             rowGap: '11px',
             columnGap: '11px',
@@ -261,7 +261,7 @@ const Team = () => {
             transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
             className="fe-block serge-photo"
             style={{
-              gridArea: '22/5/29/10',
+              gridArea: '22/5/32/10',
               zIndex: 4
             }}
           >
@@ -313,7 +313,7 @@ const Team = () => {
             transition={{ duration: 0.8, delay: 0.35, ease: "easeOut" }}
             className="fe-block serge-title"
             style={{
-              gridArea: '29/2/30/6',
+              gridArea: '32/2/33/6',
               zIndex: 9,
               mixBlendMode: 'normal'
             }}
@@ -339,7 +339,7 @@ const Team = () => {
             transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
             className="fe-block serge-name"
             style={{
-              gridArea: '29/6/31/10',
+              gridArea: '32/6/34/10',
               zIndex: 8,
               mixBlendMode: 'normal'
             }}
@@ -365,7 +365,7 @@ const Team = () => {
             transition={{ duration: 0.8, delay: 0.45, ease: "easeOut" }}
             className="fe-block serge-bio"
             style={{
-              gridArea: '30/2/36/10',
+              gridArea: '33/2/39/10',
               zIndex: 7,
               mixBlendMode: 'normal'
             }}

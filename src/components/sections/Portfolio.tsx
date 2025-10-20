@@ -13,9 +13,14 @@ const Portfolio = () => {
   ];
 
   return (
-    <section id="portfolio" className="pt-14 pb-12 px-[2vw] mb-20">
-      <div className="max-w-7xl mx-auto">
-        {/* Section Title */}
+    <section
+      id="portfolio"
+      className="relative overflow-hidden px-[2vw]"
+      data-section-height="medium"
+    >
+      <div className="content-wrapper" style={{ paddingTop: '3.3vmax' }}>
+        <div className="max-w-7xl mx-auto">
+          {/* Section Title */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -58,6 +63,7 @@ const Portfolio = () => {
             </motion.div>
           ))}
         </motion.div>
+        </div>
       </div>
     </section>
   );

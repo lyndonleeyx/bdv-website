@@ -5,7 +5,9 @@
       "Bash(tr '>' '\\n')",
       "Bash(sed:*)",
       "Bash(python3:*)",
-      "Bash(sips:*)"
+      "Bash(sips:*)",
+      "Bash(git remote add:*)",
+      "Bash(git push:*)"
     ],
     "deny": [],
     "ask": []
