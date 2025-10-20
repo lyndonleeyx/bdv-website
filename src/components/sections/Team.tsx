@@ -387,6 +387,11 @@ const Team = () => {
         {/* Desktop Grid Overrides */}
         <style dangerouslySetInnerHTML={{__html: `
           @media (min-width: 768px) {
+            /* Desktop: Increase spacing from SectionDivider */
+            #team {
+              margin-top: 1.3vmax !important;
+            }
+
             .fluid-engine-grid {
               --grid-gutter: calc(var(--sqs-site-gutter, 4vw) - 11.0px);
               --cell-max-width: calc((var(--sqs-site-max-width, 1500px) - (11.0px * (24 - 1))) / 24);

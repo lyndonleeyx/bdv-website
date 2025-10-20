@@ -108,6 +108,11 @@ const SectionDivider = () => {
           }
 
           @media (min-width: 768px) {
+            /* Desktop: Pull section closer to Hero */
+            #sketch-section {
+              margin-top: -7.2vmax !important;
+            }
+
             #sketch-section .fluid-engine-grid {
               --grid-gutter: calc(var(--sqs-site-gutter, 4vw) - 11.0px);
               --cell-max-width: calc((var(--sqs-site-max-width, 1500px) - (11.0px * (24 - 1))) / 24);

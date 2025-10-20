@@ -297,6 +297,11 @@ const Hero = () => {
           }
 
           @media (min-width: 768px) {
+            /* Desktop: Allow stroke to overflow into next section */
+            #hero {
+              overflow: visible !important;
+            }
+
             /* Desktop: Restore normal line-height */
             #hero h1 {
               line-height: 1.1em !important;
