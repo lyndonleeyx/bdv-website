@@ -2,14 +2,14 @@ import { motion } from 'framer-motion';
 
 const Portfolio = () => {
   const companies = [
-    { name: 'Affirm', logo: '/src/assets/images/logo/affirm_logo.png', scale: 1.0 },
-    { name: 'PayPal', logo: '/src/assets/images/logo/paypal_logo.png', scale: 1.0 },
-    { name: 'RevenueWell', logo: '/src/assets/images/logo/revenuewell_logo.png', scale: 1.3 },
-    { name: 'ClubAutomation', logo: '/src/assets/images/logo/club_automation_logo.png', scale: 1.3 },
-    { name: 'Flexport', logo: '/src/assets/images/logo/flexport_logo.png', scale: 0.9 },
-    { name: 'Grab', logo: '/src/assets/images/logo/grab_logo.png', scale: 0.8 },
-    { name: 'Chainlink', logo: '/src/assets/images/logo/chainlink_logo.png', scale: 1.0 },
-    { name: 'Terraformation', logo: '/src/assets/images/logo/terraformation_logo.png', scale: 1.3 },
+    { name: 'Affirm', logo: '/assets/images/logo/affirm_logo.png', scale: 1.0 },
+    { name: 'PayPal', logo: '/assets/images/logo/paypal_logo.png', scale: 1.0 },
+    { name: 'RevenueWell', logo: '/assets/images/logo/revenuewell_logo.png', scale: 1.3 },
+    { name: 'ClubAutomation', logo: '/assets/images/logo/club_automation_logo.png', scale: 1.3 },
+    { name: 'Flexport', logo: '/assets/images/logo/flexport_logo.png', scale: 0.9 },
+    { name: 'Grab', logo: '/assets/images/logo/grab_logo.png', scale: 0.8 },
+    { name: 'Chainlink', logo: '/assets/images/logo/chainlink_logo.png', scale: 1.0 },
+    { name: 'Terraformation', logo: '/assets/images/logo/terraformation_logo.png', scale: 1.3 },
   ];
 
   return (

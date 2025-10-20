@@ -11,7 +11,7 @@ const Footer = () => {
       {/* Section Background */}
       <div className="absolute inset-0 -z-10">
         <img
-          src="/src/assets/images/decorative/website background.webp"
+          src="/assets/images/decorative/website background.webp"
           alt=""
           width="612"
           height="746"
@@ -37,7 +37,7 @@ const Footer = () => {
               className="flex justify-center md:justify-start md:w-1/4"
             >
               <img
-                src="/src/assets/images/logo/bdv logo.png"
+                src="/assets/images/logo/bdv logo.png"
                 alt="Built Different Ventures"
                 width="755"
                 height="198"

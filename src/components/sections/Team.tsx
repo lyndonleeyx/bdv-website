@@ -11,7 +11,7 @@ const Team = () => {
       {/* Section Background */}
       <div className="absolute inset-0 -z-10">
         <img
-          src="/src/assets/images/decorative/website background.webp"
+          src="/assets/images/decorative/website background.webp"
           alt=""
           width="612"
           height="746"
@@ -76,7 +76,7 @@ const Team = () => {
                     >
                       <div className="content-fit" style={{ height: '100%' }}>
                         <img
-                          src="/src/assets/images/decorative/team-scribble.webp"
+                          src="/assets/images/decorative/team-scribble.webp"
                           alt=""
                           width="771"
                           height="500"
@@ -154,7 +154,7 @@ const Team = () => {
                     >
                       <div className="content-fill" style={{ height: '100%' }}>
                         <img
-                          src="/src/assets/images/team/huey_headshot.webp"
+                          src="/assets/images/team/huey_headshot.webp"
                           alt="Huey Lin"
                           width="1280"
                           height="853"
@@ -284,7 +284,7 @@ const Team = () => {
                     >
                       <div className="content-fill" style={{ height: '100%' }}>
                         <img
-                          src="/src/assets/images/team/serge_headshot.webp"
+                          src="/assets/images/team/serge_headshot.webp"
                           alt="Serge Longin"
                           width="1000"
                           height="852"

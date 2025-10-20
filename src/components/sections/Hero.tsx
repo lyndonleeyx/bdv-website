@@ -32,7 +32,7 @@ const Hero = () => {
       {/* Section Background */}
       <div className="absolute inset-0 -z-10">
         <img
-          src="/src/assets/images/decorative/website background.webp"
+          src="/assets/images/decorative/website background.webp"
           alt=""
           width="3770"
           height="4583"
@@ -105,7 +105,7 @@ const Hero = () => {
                     >
                       <div className="content-fit">
                         <img
-                          src="/src/assets/images/decorative/blue-yellow-stroke.png"
+                          src="/assets/images/decorative/blue-yellow-stroke.png"
                           alt=""
                           width="2248"
                           height="2172"
@@ -209,7 +209,7 @@ const Hero = () => {
                 }}
               >
                 <img
-                  src="/src/assets/images/decorative/hero-tape.webp"
+                  src="/assets/images/decorative/hero-tape.webp"
                   alt=""
                   width="781"
                   height="304"

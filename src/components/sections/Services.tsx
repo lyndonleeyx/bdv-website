@@ -38,7 +38,7 @@ const Services = () => {
       {/* Section Background */}
       <div className="absolute inset-0 -z-10">
         <img
-          src="/src/assets/images/decorative/website background.webp"
+          src="/assets/images/decorative/website background.webp"
           alt=""
           width="612"
           height="746"
@@ -50,7 +50,7 @@ const Services = () => {
 
       {/* Background decorative scribble on right */}
       <img
-        src="/src/assets/images/decorative/services-scribble.webp"
+        src="/assets/images/decorative/services-scribble.webp"
         alt=""
         width="1505"
         height="1636"

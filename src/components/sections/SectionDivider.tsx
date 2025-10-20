@@ -11,7 +11,7 @@ const SectionDivider = () => {
       {/* Section Background */}
       <div className="absolute inset-0 -z-10">
         <img
-          src="/src/assets/images/decorative/website background.webp"
+          src="/assets/images/decorative/website background.webp"
           alt=""
           width="612"
           height="746"

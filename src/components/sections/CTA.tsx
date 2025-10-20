@@ -10,7 +10,7 @@ const CTA = () => {
       {/* Section Background */}
       <div className="absolute inset-0 -z-10">
         <img
-          src="/src/assets/images/decorative/website background.webp"
+          src="/assets/images/decorative/website background.webp"
           alt=""
           width="612"
           height="746"
@@ -64,7 +64,7 @@ const CTA = () => {
             className="flex justify-center md:justify-start md:w-1/6"
           >
             <img
-              src="/src/assets/images/decorative/cta-scribble.webp"
+              src="/assets/images/decorative/cta-scribble.webp"
               alt=""
               width="545"
               height="324"
