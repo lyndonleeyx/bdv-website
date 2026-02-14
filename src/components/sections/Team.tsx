@@ -8,6 +8,7 @@ interface TeamMember {
   image: string | null;
   funImage: string | null;
   bio: string;
+  imageStyle?: React.CSSProperties;
 }
 
 const team: TeamMember[] = [
@@ -16,14 +17,14 @@ const team: TeamMember[] = [
     title: 'Partner & Cofounder',
     image: '/assets/images/team/huey_headshot.webp',
     funImage: null,
-    bio: 'Serial entrepreneur and operator with deep experience in fintech and cross-border commerce. Huey brings a builder-first mentality to every venture.',
+    bio: 'Huey brings big ideas to life and scale. Part of the original PayPal mafia, Huey was one of the first product managers at PayPal, then became the founding COO at Affirm (NASDAQ: AFRM). She later served as President of Asia at Flexport and a Venture Partner at Notable Capital (fka GGV Capital). She now serves on the boards of Hang Seng Bank, Singapore Exchange, and Nium.',
   },
   {
     name: 'Serge Longin',
     title: 'Partner & Cofounder',
     image: '/assets/images/team/serge_headshot.webp',
     funImage: null,
-    bio: 'Seasoned investor and strategist with a track record of identifying transformative B2B opportunities across global markets.',
+    bio: 'A repeat founder who bootstrapped two US startups, RevenueWell and Club Automation, to a combined exit of over $100M. Both were acquired by private equity after becoming category leaders in dental SaaS and fitness ops. Serge runs our rigorous idea validation process and brings product, GTM, finance, and operations experience to ensure our startups find their footing.',
   },
   {
     name: 'Peter Rosberg',
@@ -38,6 +39,7 @@ const team: TeamMember[] = [
     image: '/assets/images/team/lyndon_headshot.jpeg',
     funImage: null,
     bio: 'Product-minded builder with expertise in AI-powered solutions for complex enterprise workflows.',
+    imageStyle: { objectPosition: 'center 15%', transform: 'scale(1.4)' },
   },
   {
     name: 'Eric Le Blanc',
@@ -80,6 +82,7 @@ const FlipCard = ({
                 src={member.image}
                 alt={member.name}
                 className="w-full h-full object-cover"
+                style={member.imageStyle}
               />
             ) : (
               <div className="w-full h-full flex items-center justify-center">
@@ -114,7 +117,7 @@ const FlipCard = ({
           className="text-text"
           style={{ fontSize: '1.05rem', fontWeight: 600 }}
         >
-          {member.name} —
+          {member.name}
         </p>
         <p className="text-muted" style={{ fontSize: '0.9rem' }}>
           {member.title}
@@ -199,6 +202,7 @@ const TeamModal = ({
                     src={member.image}
                     alt={member.name}
                     className="w-full h-full object-cover"
+                    style={member.imageStyle}
                   />
                 ) : (
                   <div className="w-full h-full min-h-[240px] flex items-center justify-center">

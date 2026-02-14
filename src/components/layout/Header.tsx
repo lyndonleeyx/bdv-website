@@ -71,7 +71,7 @@ const Header = () => {
         <div className="max-w-[1400px] mx-auto flex items-center justify-between py-6">
           {/* Logo */}
           <img
-            src="/assets/images/logo/bdv logo.png"
+            src="/assets/images/logo/bdv-logo-full.png"
             alt="Built Different Ventures"
             className="h-[30px] md:h-[40px] w-auto cursor-pointer"
             onClick={() => scrollToSection('hero')}

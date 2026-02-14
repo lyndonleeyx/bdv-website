@@ -1,14 +1,16 @@
 import AnimateIn from '../ui/AnimateIn';
 
 const companies = [
-  { name: 'Affirm', logo: '/assets/images/logo/affirm_logo.png', cardImage: '/assets/images/cards/affirm-carousel.png', bg: '#1a1a2e', logoW: 105, logoTop: 17 },
-  { name: 'PayPal', logo: '/assets/images/logo/paypal_logo.png', cardImage: '/assets/images/cards/paypal-carousel.webp', bg: '#16213e', logoW: 125, logoTop: 16, imgPos: '75% center' },
-  { name: 'RevenueWell', logo: '/assets/images/logo/revenuewell_logo.png', cardImage: '/assets/images/cards/revenuewell-carousel.png', bg: '#0f3460', logoW: 210, logoTop: 2 },
-  { name: 'Club Automation', logo: '/assets/images/logo/club_automation_logo.png', cardImage: '/assets/images/cards/clubautomation-carousel.webp', bg: '#1a1a2e', logoW: 210, logoTop: 2 },
-  { name: 'Flexport', logo: '/assets/images/logo/flexport_logo.png', cardImage: '/assets/images/cards/flexport-carousel.avif', bg: '#16213e', logoW: 95, logoTop: 26 },
-  { name: 'Grab', logo: '/assets/images/logo/grab_logo.png', cardImage: '/assets/images/cards/grab-carousel.jpg', bg: '#0f3460', logoW: 72, logoTop: 29 },
-  { name: 'Chainlink', logo: '/assets/images/logo/chainlink_logo.png', cardImage: '/assets/images/cards/chainlink-carousel.avif', bg: '#1a1a2e', logoW: 145, logoTop: 15 },
-  { name: 'Terraformation', logo: '/assets/images/logo/terraformation_logo.png', cardImage: '/assets/images/cards/terraformation-carousel.webp', bg: '#16213e', logoW: 205, logoTop: 4 },
+  { name: 'Affirm', logo: '/assets/images/logo/affirm_logo.png', cardImage: '/assets/images/cards/affirm-carousel.png', bg: '#1a1a2e', logoW: 105, logoTop: 23, logoLeft: 4 },
+  { name: 'PayPal', logo: '/assets/images/logo/paypal_logo.png', cardImage: '/assets/images/cards/paypal-carousel.webp', bg: '#16213e', logoW: 125, logoTop: 20, logoLeft: 14, imgPos: '75% center' },
+  { name: 'RevenueWell', logo: '/assets/images/logo/revenuewell_logo.png', cardImage: '/assets/images/cards/revenuewell-carousel.png', bg: '#0f3460', logoW: 225, logoTop: 1, logoLeft: -17 },
+  { name: 'Club Automation', logo: '/assets/images/logo/club_automation_logo.png', cardImage: '/assets/images/cards/clubautomation-carousel.webp', bg: '#1a1a2e', logoW: 210, logoTop: 3, logoLeft: 5 },
+  { name: 'Flexport', logo: '/assets/images/logo/flexport_logo.png', cardImage: '/assets/images/cards/flexport-carousel.avif', bg: '#16213e', logoW: 95, logoTop: 25, logoLeft: 16 },
+  { name: 'Grab', logo: '/assets/images/logo/grab_logo.png', cardImage: '/assets/images/cards/grab-carousel.jpg', bg: '#0f3460', logoW: 72, logoTop: 29, logoLeft: 12 },
+  { name: 'Chainlink', logo: '/assets/images/logo/chainlink_logo.png', cardImage: '/assets/images/cards/chainlink-carousel.avif', bg: '#1a1a2e', logoW: 145, logoTop: 16, logoLeft: 13 },
+  { name: 'Terraformation', logo: '/assets/images/logo/terraformation_logo.png', cardImage: '/assets/images/cards/terraformation-carousel.webp', bg: '#16213e', logoW: 205, logoTop: 4, logoLeft: 8 },
+  { name: 'TheRealReal', logo: '/assets/images/logo/therealreal-logo.png', cardImage: '/assets/images/cards/therealreal-carousel.webp', bg: '#1a1a2e', logoW: 135, logoTop: 27, logoLeft: 20 },
+  { name: 'Ripple', logo: '/assets/images/logo/ripple-logo.png', cardImage: '/assets/images/cards/ripple-carousel.avif', bg: '#0f3460', logoW: 100, logoTop: 30, logoLeft: 20 },
 ];
 
 // Duplicate for seamless loop
@@ -91,7 +93,7 @@ const PastLife = () => {
                 style={{
                   width: `${company.logoW}px`,
                   top: `${company.logoTop}px`,
-                  left: '20px',
+                  left: `${company.logoLeft ?? 20}px`,
                   filter: 'brightness(0) invert(1)',
                 }}
               />
