@@ -52,39 +52,17 @@ const FooterCTA = () => {
             {/* Contact pill button */}
             <a
               href="mailto:hello@builtdifferent.vc"
-              className="inline-flex items-center gap-2 border border-text rounded-full px-6 py-3 text-[14px] font-medium tracking-wide uppercase text-text hover:bg-text hover:text-cream transition-colors"
+              className="inline-flex items-center border border-[#1a1a1a]/20 rounded-full px-6 py-3 text-[14px] font-medium tracking-wide uppercase text-[#1a1a1a] hover:bg-[#1a1a1a] hover:text-white transition-colors"
             >
               Contact Us
-              <span className="text-[12px]">&rarr;</span>
-            </a>
-
-            {/* Email circle */}
-            <a
-              href="mailto:hello@builtdifferent.vc"
-              className="w-[44px] h-[44px] rounded-full bg-coral flex items-center justify-center text-white hover:opacity-80 transition-opacity"
-              aria-label="Email"
-            >
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <rect width="20" height="16" x="2" y="4" rx="2" />
-                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-              </svg>
             </a>
 
             {/* LinkedIn circle */}
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/company/builtdifferentsg"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-[44px] h-[44px] rounded-full bg-lavender flex items-center justify-center text-white hover:opacity-80 transition-opacity"
+              className="w-[44px] h-[44px] rounded-full border border-[#1a1a1a]/20 flex items-center justify-center text-[#1a1a1a] hover:bg-[#1a1a1a] hover:text-white transition-colors"
               aria-label="LinkedIn"
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">

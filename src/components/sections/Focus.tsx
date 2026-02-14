@@ -1,12 +1,12 @@
 import AnimateIn from '../ui/AnimateIn';
 
 const photos = [
-  '/assets/images/collage/collage-pic-1.png',
-  '/assets/images/collage/collage-pic-5.jpeg',
-  '/assets/images/collage/collage-pic-3.jpg',
-  '/assets/images/collage/collage-pic-4.jpg',
-  '/assets/images/collage/collage-pic-2.png',
-  '/assets/images/collage/collage-pic-6.jpeg',
+  { src: '/assets/images/collage/collage-pic-1.png', pos: 'center 30%' },   // Row 1 wide: landscape dinner
+  { src: '/assets/images/collage/collage-pic-3.jpg', pos: 'top' },          // Row 1 narrow: portrait conference
+  { src: '/assets/images/collage/collage-pic-4.jpg', pos: 'center 35%' },   // Row 2 narrow: office visit
+  { src: '/assets/images/collage/collage-pic-5.jpeg', pos: 'center' },      // Row 2 wide: landscape group selfie
+  { src: '/assets/images/collage/collage-pic-6.jpeg', pos: 'center 25%' },  // Row 3 wide: outdoor dinner
+  { src: '/assets/images/collage/collage-pic-2.png', pos: 'top' },          // Row 3 narrow: portrait selfie
 ];
 
 const Focus = () => {
@@ -77,34 +77,40 @@ const Focus = () => {
             style={{ height: '630px' }}
           >
             <img
-              src={photos[0]}
+              src={photos[0].src}
               alt=""
               className="col-span-2 w-full h-full object-cover rounded-xl"
+              style={{ objectPosition: photos[0].pos }}
             />
             <img
-              src={photos[1]}
+              src={photos[1].src}
               alt=""
               className="w-full h-full object-cover rounded-xl"
+              style={{ objectPosition: photos[1].pos }}
             />
             <img
-              src={photos[2]}
+              src={photos[2].src}
               alt=""
               className="w-full h-full object-cover rounded-xl"
+              style={{ objectPosition: photos[2].pos }}
             />
             <img
-              src={photos[3]}
+              src={photos[3].src}
               alt=""
               className="col-span-2 w-full h-full object-cover rounded-xl"
+              style={{ objectPosition: photos[3].pos }}
             />
             <img
-              src={photos[4]}
+              src={photos[4].src}
               alt=""
               className="col-span-2 w-full h-full object-cover rounded-xl"
+              style={{ objectPosition: photos[4].pos }}
             />
             <img
-              src={photos[5]}
+              src={photos[5].src}
               alt=""
               className="w-full h-full object-cover rounded-xl"
+              style={{ objectPosition: photos[5].pos }}
             />
           </div>
         </AnimateIn>

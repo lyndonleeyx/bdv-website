@@ -7,7 +7,7 @@ const stages = [
     subtitle: 'Designing for Visionaries',
     description:
       'Write down a testable idea: Articulate your concept clearly enough to test it. Get to know us during this time!',
-    sketch: '/assets/images/decorative/architect-sketch.png',
+    sketch: '/assets/images/decorative/bridge-sketch.png',
     color: '#B84332',
   },
   {
@@ -16,7 +16,7 @@ const stages = [
     subtitle: 'Simplifying the Complex',
     description:
       'Validate the pain exists: Talk to target customers until you deeply understand their problem and can complete their sentences about it.',
-    sketch: '/assets/images/decorative/bridge-sketch.png',
+    sketch: '/assets/images/decorative/junction-sketch.png',
     color: '#3D5A80',
   },
   {
@@ -25,7 +25,7 @@ const stages = [
     subtitle: 'Strengthening the Foundation',
     description:
       "De-risk the solution: Confirm customers want what you're building, will pay for it, and that you can actually build it.",
-    sketch: '/assets/images/decorative/architect-sketch.png',
+    sketch: '/assets/images/decorative/building-sketch.png',
     color: '#2A7F62',
   },
   {
@@ -34,7 +34,7 @@ const stages = [
     subtitle: 'Creating Moments that Resonate',
     description:
       'Prove you can reach them: Demonstrate a viable path to access and acquire customers in this market.',
-    sketch: '/assets/images/decorative/bridge-sketch.png',
+    sketch: '/assets/images/decorative/jetplane-sketch.png',
     color: '#C4841D',
   },
 ];
@@ -183,7 +183,7 @@ const Stages = () => {
                 style={{
                   maxHeight: '250px',
                   width: 'auto',
-                  opacity: 0.15,
+                  opacity: 0.6,
                 }}
               />
             </div>
