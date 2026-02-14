@@ -1,0 +1,198 @@
+import AnimateIn from '../ui/AnimateIn';
+
+const stages = [
+  {
+    number: '1',
+    title: 'Informal',
+    subtitle: 'Designing for Visionaries',
+    description:
+      'Write down a testable idea: Articulate your concept clearly enough to test it. Get to know us during this time!',
+    sketch: '/assets/images/decorative/architect-sketch.png',
+    color: '#B84332',
+  },
+  {
+    number: '2',
+    title: 'Exploration',
+    subtitle: 'Simplifying the Complex',
+    description:
+      'Validate the pain exists: Talk to target customers until you deeply understand their problem and can complete their sentences about it.',
+    sketch: '/assets/images/decorative/bridge-sketch.png',
+    color: '#3D5A80',
+  },
+  {
+    number: '3',
+    title: 'Entrepreneur-in-Residence',
+    subtitle: 'Strengthening the Foundation',
+    description:
+      "De-risk the solution: Confirm customers want what you're building, will pay for it, and that you can actually build it.",
+    sketch: '/assets/images/decorative/architect-sketch.png',
+    color: '#2A7F62',
+  },
+  {
+    number: '4',
+    title: 'Investment',
+    subtitle: 'Creating Moments that Resonate',
+    description:
+      'Prove you can reach them: Demonstrate a viable path to access and acquire customers in this market.',
+    sketch: '/assets/images/decorative/bridge-sketch.png',
+    color: '#C4841D',
+  },
+];
+
+const CARD_OFFSET = 120;
+
+const Stages = () => {
+  return (
+    <section id="stages" style={{ marginBottom: 'clamp(3.5rem, 3rem + 1.5vw, 5rem)' }}>
+      {/* Section header */}
+      <div
+        style={{
+          paddingTop: 'clamp(3.5rem, 3rem + 1.5vw, 5rem)',
+          paddingBottom: 'clamp(2rem, 1.5rem + 1vw, 3rem)',
+          paddingInline: 'clamp(1.5rem, 1rem + 3vw, 4rem)',
+        }}
+      >
+        <div className="max-w-[1400px] mx-auto">
+          <AnimateIn>
+            <p
+              className="text-text/40 uppercase tracking-widest mb-4"
+              style={{ fontSize: '0.875rem', fontWeight: 500 }}
+            >
+              Process
+            </p>
+            <h2
+              className="text-text mb-4"
+              style={{
+                fontSize: 'clamp(2.5rem, 1.8rem + 2.9vw, 5rem)',
+                lineHeight: 1.1,
+              }}
+            >
+              Four Stages to Launch
+            </h2>
+            <p
+              className="text-muted max-w-[500px]"
+              style={{
+                fontSize: 'clamp(1rem, 0.85rem + 0.6vw, 1.25rem)',
+                lineHeight: 1.6,
+                fontWeight: 300,
+              }}
+            >
+              Four stages from first conversation to funded company. Each one
+              designed to de-risk the next.
+            </p>
+          </AnimateIn>
+        </div>
+      </div>
+
+      {/* Stacked cards */}
+      {stages.map((stage, index) => (
+        <div
+          key={stage.title}
+          className="sticky relative"
+          style={{
+            top: `${index * CARD_OFFSET}px`,
+            width: '100vw',
+            marginLeft: 'calc(-50vw + 50%)',
+            backgroundColor: 'rgba(255,255,255,0.4)',
+            backdropFilter: 'blur(12px)',
+            WebkitBackdropFilter: 'blur(12px)',
+            borderTop: '1px solid rgba(0,0,0,0.06)',
+            borderRadius: '1.5rem 1.5rem 0 0',
+            zIndex: index + 1,
+            boxShadow:
+              index > 0 ? '0 -4px 20px rgba(0,0,0,0.06)' : undefined,
+          }}
+        >
+          <div
+            className="max-w-[1400px] mx-auto grid md:grid-cols-2 gap-6 md:gap-12 items-start"
+            style={{
+              padding: '1.5rem clamp(1.5rem, 1rem + 3vw, 4rem)',
+            }}
+          >
+            {/* Left column — text */}
+            <div>
+              <p
+                className="mb-2"
+                style={{
+                  fontSize: '0.875rem',
+                  fontWeight: 500,
+                  color: 'rgba(0,0,0,0.35)',
+                }}
+              >
+                {stage.number} —
+              </p>
+
+              <h2
+                style={{
+                  fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+                  fontWeight: 900,
+                  lineHeight: 1.05,
+                  color: '#1a1a1a',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {stage.title}
+              </h2>
+
+              <p
+                className="mt-2"
+                style={{
+                  fontSize: '1rem',
+                  fontWeight: 600,
+                  color: '#1a1a1a',
+                }}
+              >
+                {stage.subtitle}
+              </p>
+
+              <p
+                className="max-w-[500px] mt-4"
+                style={{
+                  fontSize: '1rem',
+                  lineHeight: 1.7,
+                  color: '#666',
+                  fontWeight: 300,
+                }}
+              >
+                {stage.description}
+              </p>
+
+              {/* Pagination dots */}
+              <div className="flex gap-2 mt-6">
+                {stages.map((_, dotIndex) => (
+                  <div
+                    key={dotIndex}
+                    className="w-2.5 h-2.5 rounded-full"
+                    style={{
+                      backgroundColor:
+                        dotIndex === index
+                          ? '#1a1a1a'
+                          : 'rgba(0,0,0,0.12)',
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Right column — sketch */}
+            <div className="flex items-start justify-end">
+              <img
+                src={stage.sketch}
+                alt={`${stage.title} illustration`}
+                className="object-contain"
+                style={{
+                  maxHeight: '250px',
+                  width: 'auto',
+                  opacity: 0.15,
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      ))}
+
+    </section>
+  );
+};
+
+export default Stages;

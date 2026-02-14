@@ -1,502 +1,314 @@
-import { motion } from 'framer-motion';
+import { useState, useCallback, useEffect } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import AnimateIn from '../ui/AnimateIn';
+
+interface TeamMember {
+  name: string;
+  title: string;
+  image: string | null;
+  funImage: string | null;
+  bio: string;
+}
+
+const team: TeamMember[] = [
+  {
+    name: 'Huey Lin',
+    title: 'Partner & Cofounder',
+    image: '/assets/images/team/huey_headshot.webp',
+    funImage: null,
+    bio: 'Serial entrepreneur and operator with deep experience in fintech and cross-border commerce. Huey brings a builder-first mentality to every venture.',
+  },
+  {
+    name: 'Serge Longin',
+    title: 'Partner & Cofounder',
+    image: '/assets/images/team/serge_headshot.webp',
+    funImage: null,
+    bio: 'Seasoned investor and strategist with a track record of identifying transformative B2B opportunities across global markets.',
+  },
+  {
+    name: 'Peter Rosberg',
+    title: 'Partner & Studio CTO',
+    image: '/assets/images/team/peter_headshot.png',
+    funImage: null,
+    bio: 'Full-stack technologist who has built and scaled engineering teams at multiple high-growth startups. Peter architects the technical foundation for every studio venture.',
+  },
+  {
+    name: 'Lyndon Lee',
+    title: 'Partner & CoBuilder',
+    image: '/assets/images/team/lyndon_headshot.jpeg',
+    funImage: null,
+    bio: 'Product-minded builder with expertise in AI-powered solutions for complex enterprise workflows.',
+  },
+  {
+    name: 'Eric Le Blanc',
+    title: 'Partner & CoBuilder',
+    image: null,
+    funImage: null,
+    bio: 'Experienced operator and venture builder focused on bringing innovative B2B solutions from zero to one.',
+  },
+];
+
+const FlipCard = ({
+  member,
+  index,
+  onCardClick,
+}: {
+  member: TeamMember;
+  index: number;
+  onCardClick: (member: TeamMember) => void;
+}) => (
+  <AnimateIn delay={index * 0.1}>
+    <div
+      className="group cursor-pointer"
+      role="button"
+      tabIndex={0}
+      onClick={() => onCardClick(member)}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onCardClick(member);
+        }
+      }}
+    >
+      {/* Image with 3D flip */}
+      <div className="perspective-1000">
+        <div className="relative aspect-[3/4] flip-card-inner">
+          {/* Front face — formal headshot */}
+          <div className="absolute inset-0 backface-hidden rounded-[24px] overflow-hidden bg-[#e8e3dc]">
+            {member.image ? (
+              <img
+                src={member.image}
+                alt={member.name}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center">
+                <span className="text-muted text-[48px]">?</span>
+              </div>
+            )}
+          </div>
+
+          {/* Back face — fun photo (placeholder) */}
+          <div className="absolute inset-0 backface-hidden rotate-y-180 rounded-[24px] overflow-hidden bg-[#e8e3dc]">
+            {member.funImage ? (
+              <img
+                src={member.funImage}
+                alt={`${member.name} — casual`}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-coral/20 to-lavender/30">
+                <span className="text-[64px] mb-2">&#128513;</span>
+                <span className="text-muted text-sm font-medium">
+                  Fun photo coming soon
+                </span>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Info — outside card */}
+      <div className="mt-4">
+        <p
+          className="text-text"
+          style={{ fontSize: '1.05rem', fontWeight: 600 }}
+        >
+          {member.name} —
+        </p>
+        <p className="text-muted" style={{ fontSize: '0.9rem' }}>
+          {member.title}
+        </p>
+      </div>
+    </div>
+  </AnimateIn>
+);
+
+const TeamModal = ({
+  member,
+  onClose,
+}: {
+  member: TeamMember | null;
+  onClose: () => void;
+}) => {
+  useEffect(() => {
+    if (!member) return;
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', handleKey);
+    return () => document.removeEventListener('keydown', handleKey);
+  }, [member, onClose]);
+
+  useEffect(() => {
+    if (member) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [member]);
+
+  return (
+    <AnimatePresence>
+      {member && (
+        <motion.div
+          className="fixed inset-0 z-[60] bg-black/40 flex items-center justify-center"
+          style={{ backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)' }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.25 }}
+          onClick={onClose}
+        >
+          <motion.div
+            className="bg-cream rounded-[24px] max-w-2xl w-[90vw] mx-4 relative shadow-xl overflow-hidden"
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close button */}
+            <button
+              onClick={onClose}
+              className="absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-black/5 hover:bg-black/10 transition-colors text-muted hover:text-text"
+              aria-label="Close"
+            >
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+              >
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
+
+            <div className="grid md:grid-cols-[2fr_3fr]">
+              {/* Left — photo */}
+              <div className="bg-[#e8e3dc] aspect-[3/4] md:aspect-auto">
+                {member.image ? (
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="w-full h-full min-h-[240px] flex items-center justify-center">
+                    <span className="text-muted text-[48px]">?</span>
+                  </div>
+                )}
+              </div>
+
+              {/* Right — text */}
+              <div className="p-8 md:p-10 flex flex-col justify-center">
+                <p
+                  className="text-text/40 uppercase tracking-widest mb-3"
+                  style={{ fontSize: '0.75rem', fontWeight: 500 }}
+                >
+                  {member.title}
+                </p>
+                <h3
+                  className="text-text mb-5"
+                  style={{ fontSize: '1.75rem', fontWeight: 700, lineHeight: 1.2 }}
+                >
+                  {member.name}
+                </h3>
+
+                {/* Divider */}
+                <div
+                  style={{
+                    width: '40px',
+                    height: '1px',
+                    backgroundColor: '#DDDAD5',
+                    marginBottom: '1.25rem',
+                  }}
+                />
+
+                <p
+                  className="text-text/70"
+                  style={{
+                    fontSize: '0.95rem',
+                    lineHeight: 1.7,
+                    fontWeight: 300,
+                  }}
+                >
+                  {member.bio}
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+};
 
 const Team = () => {
+  const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
+  const handleClose = useCallback(() => setSelectedMember(null), []);
+
   return (
     <section
       id="team"
-      className="relative overflow-hidden"
-      data-section-theme="light"
-      data-section-height="medium"
+      style={{
+        paddingBlock: 'clamp(3.5rem, 3rem + 1.5vw, 5rem)',
+        paddingInline: 'clamp(1.5rem, 1rem + 3vw, 4rem)',
+      }}
     >
-      {/* Section Background */}
-      <div className="absolute inset-0 -z-10">
-        <img
-          src="/assets/images/decorative/website background.webp"
-          alt=""
-          width="612"
-          height="746"
-          className="w-full h-full object-cover"
-          style={{
-            objectPosition: '50% 33.602%'
-          }}
-          loading="lazy"
-        />
-        <div
-          className="absolute inset-0 bg-white"
-          style={{ opacity: 0.15 }}
-        />
-      </div>
+      <div className="max-w-[1400px] mx-auto">
+        {/* Intro */}
+        <AnimateIn>
+          <div className="mb-12 md:mb-16">
+            <p
+              className="text-text/40 uppercase tracking-widest mb-4"
+              style={{ fontSize: '0.875rem', fontWeight: 500 }}
+            >
+              Team
+            </p>
+            <h2
+              className="text-text"
+              style={{
+                fontSize: 'clamp(2.5rem, 1.8rem + 2.9vw, 5rem)',
+                lineHeight: 1.1,
+              }}
+            >
+              Your Founding Team
+            </h2>
+            <p
+              className="text-muted mt-3"
+              style={{
+                fontSize: 'clamp(1rem, 0.85rem + 0.6vw, 1.25rem)',
+                fontWeight: 300,
+              }}
+            >
+              Builders, operators & investors.
+            </p>
+          </div>
+        </AnimateIn>
 
-      {/* Content Wrapper - padding applied via CSS section-height--large class */}
-      <div className="content-wrapper">
-        {/* Fluid Engine Grid */}
-        <div
-          className="fluid-engine-grid"
-          style={{
-            '--grid-gutter': 'calc(var(--sqs-mobile-site-gutter, 6vw) - 11.0px)',
-            '--cell-max-width': 'calc((var(--sqs-site-max-width, 1500px) - (11.0px * (8 - 1))) / 8)',
-            display: 'grid',
-            position: 'relative',
-            gridTemplateRows: 'repeat(39, minmax(24px, auto))',
-            gridTemplateColumns: 'minmax(var(--grid-gutter), 1fr) repeat(8, minmax(0, var(--cell-max-width))) minmax(var(--grid-gutter), 1fr)',
-            rowGap: '11px',
-            columnGap: '11px',
-            overflowX: 'clip'
-          } as React.CSSProperties}
-        >
-          {/* Background Scribble/Vector - Z-Index 1 */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="fe-block background-scribble hidden md:block"
-            style={{
-              gridArea: '3/4/15/11',
-              zIndex: 1
-            }}
-          >
-            <div className="sqs-block image-block sqs-block-image sqs-stretched" style={{ height: '100%' }}>
-              <div className="sqs-block-content" style={{ height: '100%', width: '100%' }}>
-                <div className="image-block-outer-wrapper" style={{ height: '100%' }}>
-                  <div
-                    className="fluid-image-animation-wrapper sqs-image sqs-block-alignment-wrapper"
-                    style={{ height: '100%' }}
-                  >
-                    <div
-                      className="fluid-image-container sqs-image-content"
-                      style={{
-                        overflow: 'hidden',
-                        maskImage: '-webkit-radial-gradient(center, white, black)',
-                        WebkitMaskImage: '-webkit-radial-gradient(center, white, black)',
-                        position: 'relative',
-                        width: '100%',
-                        height: '100%'
-                      }}
-                    >
-                      <div className="content-fit" style={{ height: '100%' }}>
-                        <img
-                          src="/assets/images/decorative/team-scribble.webp"
-                          alt=""
-                          width="771"
-                          height="500"
-                          style={{
-                            display: 'block',
-                            objectFit: 'contain',
-                            objectPosition: '50% 50%',
-                            height: '100%',
-                            width: '100%'
-                          }}
-                          loading="lazy"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* "We are Builders" Heading - Z-Index 3 */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="fe-block heading"
-            style={{
-              gridArea: '1/2/5/10',
-              zIndex: 3,
-              mixBlendMode: 'normal'
-            }}
-          >
-            <div className="sqs-block flex items-start justify-start">
-              <h1
-                className="text-[4.5rem] md:text-[6.2rem] font-bold text-center md:text-center"
-                style={{
-                  lineHeight: '1.1em',
-                  whiteSpace: 'pre-wrap'
-                }}
-              >
-                We are <span className="text-bdv-yellow">Builders</span>
-              </h1>
-            </div>
-          </motion.div>
-
-          {/* Huey's Photo - Z-Index 2 */}
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
-            className="fe-block huey-photo"
-            style={{
-              gridArea: '5/2/15/7',
-              zIndex: 2
-            }}
-          >
-            <div className="sqs-block image-block sqs-block-image sqs-stretched" style={{ height: '100%' }}>
-              <div className="sqs-block-content" style={{ height: '100%', width: '100%' }}>
-                <div className="image-block-outer-wrapper" style={{ height: '100%' }}>
-                  <div
-                    className="fluid-image-animation-wrapper sqs-image sqs-block-alignment-wrapper"
-                    style={{ height: '100%' }}
-                  >
-                    <div
-                      className="fluid-image-container sqs-image-content"
-                      style={{
-                        overflow: 'hidden',
-                        WebkitMaskImage: '-webkit-radial-gradient(white, black)',
-                        position: 'relative',
-                        width: '100%',
-                        height: '100%'
-                      }}
-                    >
-                      <div className="content-fill" style={{ height: '100%' }}>
-                        <img
-                          src="/assets/images/team/huey_headshot.webp"
-                          alt="Huey Lin"
-                          width="1280"
-                          height="853"
-                          style={{
-                            display: 'block',
-                            objectFit: 'cover',
-                            objectPosition: '50% 50%',
-                            height: '100%',
-                            width: '100%'
-                          }}
-                          loading="lazy"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Huey's Name - Z-Index 5 */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
-            className="fe-block huey-name"
-            style={{
-              gridArea: '15/2/16/5',
-              zIndex: 5,
-              mixBlendMode: 'normal'
-            }}
-          >
-            <div className="sqs-block flex items-start justify-start">
-              <h3
-                className="text-[1.8rem] font-bold text-bdv-blue"
-                style={{
-                  lineHeight: '1.1em',
-                  whiteSpace: 'pre-wrap'
-                }}
-              >
-                Huey Lin
-              </h3>
-            </div>
-          </motion.div>
-
-          {/* Huey's Title - Z-Index 6 */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-            className="fe-block huey-title"
-            style={{
-              gridArea: '15/5/16/10',
-              zIndex: 6,
-              mixBlendMode: 'normal'
-            }}
-          >
-            <div className="sqs-block flex items-end justify-end md:items-start md:justify-start">
-              <h4
-                className="text-[1.5rem] font-bold text-gray-900"
-                style={{
-                  lineHeight: '1.1em',
-                  whiteSpace: 'pre-wrap'
-                }}
-              >
-                <strong>Cofounder &amp; GP</strong>
-              </h4>
-            </div>
-          </motion.div>
-
-          {/* Huey's Bio - Z-Index 8 */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, delay: 0.25, ease: "easeOut" }}
-            className="fe-block huey-bio"
-            style={{
-              gridArea: '16/2/22/10',
-              zIndex: 10,
-              mixBlendMode: 'normal'
-            }}
-          >
-            <div className="sqs-block flex items-start justify-start">
-              <p
-                className="text-[18px] text-gray-900"
-                style={{
-                  lineHeight: '1.3em',
-                  whiteSpace: 'pre-wrap'
-                }}
-              >
-                Huey brings big ideas to life and scale. Part of the original PayPal mafia, Huey was one of the first product managers at PayPal, then became the founding COO at Affirm (NASDAQ: AFRM). She later served as President of Asia at Flexport and a Venture Partner at Notable Capital (fka GGV Capital). She now serves on the boards of Hang Seng Bank, Singapore Exchange, and Nium.
-              </p>
-            </div>
-          </motion.div>
-
-          {/* Serge's Photo - Z-Index 4 */}
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-            className="fe-block serge-photo"
-            style={{
-              gridArea: '22/5/32/10',
-              zIndex: 4
-            }}
-          >
-            <div className="sqs-block image-block sqs-block-image sqs-stretched" style={{ height: '100%' }}>
-              <div className="sqs-block-content" style={{ height: '100%', width: '100%' }}>
-                <div className="image-block-outer-wrapper" style={{ height: '100%' }}>
-                  <div
-                    className="fluid-image-animation-wrapper sqs-image sqs-block-alignment-wrapper"
-                    style={{ height: '100%' }}
-                  >
-                    <div
-                      className="fluid-image-container sqs-image-content"
-                      style={{
-                        overflow: 'hidden',
-                        WebkitMaskImage: '-webkit-radial-gradient(white, black)',
-                        position: 'relative',
-                        width: '100%',
-                        height: '100%'
-                      }}
-                    >
-                      <div className="content-fill" style={{ height: '100%' }}>
-                        <img
-                          src="/assets/images/team/serge_headshot.webp"
-                          alt="Serge Longin"
-                          width="1000"
-                          height="852"
-                          style={{
-                            display: 'block',
-                            objectFit: 'cover',
-                            objectPosition: '50% 50%',
-                            height: '100%',
-                            width: '100%'
-                          }}
-                          loading="lazy"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Serge's Title - Z-Index 9 */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, delay: 0.35, ease: "easeOut" }}
-            className="fe-block serge-title"
-            style={{
-              gridArea: '32/2/33/6',
-              zIndex: 9,
-              mixBlendMode: 'normal'
-            }}
-          >
-            <div className="sqs-block flex items-end justify-end md:items-start md:justify-start">
-              <h4
-                className="text-[1.5rem] font-bold text-gray-900"
-                style={{
-                  lineHeight: '1.1em',
-                  whiteSpace: 'pre-wrap'
-                }}
-              >
-                <strong>Cofounder &amp; GP</strong>
-              </h4>
-            </div>
-          </motion.div>
-
-          {/* Serge's Name - Z-Index 8 */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-            className="fe-block serge-name"
-            style={{
-              gridArea: '32/6/34/10',
-              zIndex: 8,
-              mixBlendMode: 'normal'
-            }}
-          >
-            <div className="sqs-block flex items-start justify-start">
-              <h3
-                className="text-[1.8rem] font-bold text-bdv-blue"
-                style={{
-                  lineHeight: '1.1em',
-                  whiteSpace: 'pre-wrap'
-                }}
-              >
-                Serge Longin
-              </h3>
-            </div>
-          </motion.div>
-
-          {/* Serge's Bio - Z-Index 7 */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, delay: 0.45, ease: "easeOut" }}
-            className="fe-block serge-bio"
-            style={{
-              gridArea: '33/2/39/10',
-              zIndex: 7,
-              mixBlendMode: 'normal'
-            }}
-          >
-            <div className="sqs-block flex items-start justify-start">
-              <p
-                className="text-[18px] text-gray-900"
-                style={{
-                  lineHeight: '1.3em',
-                  whiteSpace: 'pre-wrap'
-                }}
-              >
-                A repeat founder who bootstrapped two US startups—RevenueWell and Club Automation—to a combined exit of over $100M. Both were acquired by private equity after becoming category leaders in dental SaaS and fitness ops. Serge runs our rigorous idea validation process and brings product, GTM, finance, and operations experience to ensure our startups find their footing.
-              </p>
-            </div>
-          </motion.div>
+        {/* All 5 cards in a single row on desktop */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 md:gap-6">
+          {team.map((member, index) => (
+            <FlipCard
+              key={member.name}
+              member={member}
+              index={index}
+              onCardClick={setSelectedMember}
+            />
+          ))}
         </div>
-
-        {/* Desktop Grid Overrides */}
-        <style dangerouslySetInnerHTML={{__html: `
-          @media (min-width: 768px) {
-            /* Desktop: Increase spacing from SectionDivider */
-            #team {
-              margin-top: 1.3vmax !important;
-            }
-
-            .fluid-engine-grid {
-              --grid-gutter: calc(var(--sqs-site-gutter, 4vw) - 11.0px);
-              --cell-max-width: calc((var(--sqs-site-max-width, 1500px) - (11.0px * (24 - 1))) / 24);
-              --row-height-scaling-factor: 0.0215;
-              --container-width: min(var(--sqs-site-max-width, 1500px), calc(100vw - var(--sqs-site-gutter, 4vw) * 2));
-
-              grid-template-rows: repeat(38, minmax(calc(var(--container-width) * var(--row-height-scaling-factor)), auto)) !important;
-              grid-template-columns: minmax(var(--grid-gutter), 1fr) repeat(24, minmax(0, var(--cell-max-width))) minmax(var(--grid-gutter), 1fr) !important;
-            }
-
-            .fe-block.background-scribble {
-              grid-area: 1/8/32/27 !important;
-            }
-
-            .fe-block.background-scribble .sqs-block {
-              justify-content: center;
-              align-items: center;
-            }
-
-            .fe-block.heading {
-              grid-area: 1/9/7/19 !important;
-            }
-
-            .fe-block.heading .sqs-block {
-              justify-content: flex-start;
-              align-items: flex-start;
-            }
-
-            .fe-block.huey-photo {
-              grid-area: 6/5/24/15 !important;
-            }
-
-            .fe-block.huey-photo .sqs-block {
-              justify-content: center;
-              align-items: center;
-            }
-
-            .fe-block.huey-name {
-              grid-area: 24/5/26/11 !important;
-            }
-
-            .fe-block.huey-name .sqs-block {
-              justify-content: flex-start;
-              align-items: flex-start;
-            }
-
-            .fe-block.huey-title {
-              grid-area: 25/5/26/12 !important;
-            }
-
-            .fe-block.huey-title .sqs-block {
-              justify-content: flex-start;
-              align-items: flex-start;
-            }
-
-            .fe-block.huey-bio {
-              grid-area: 26/5/35/13 !important;
-              z-index: 8 !important;
-            }
-
-            .fe-block.huey-bio .sqs-block {
-              justify-content: flex-start;
-              align-items: flex-start;
-            }
-
-            .fe-block.serge-photo {
-              grid-area: 12/13/30/23 !important;
-            }
-
-            .fe-block.serge-photo .sqs-block {
-              justify-content: center;
-              align-items: center;
-            }
-
-            .fe-block.serge-name {
-              grid-area: 30/13/32/19 !important;
-              z-index: 6 !important;
-            }
-
-            .fe-block.serge-name .sqs-block {
-              justify-content: flex-start;
-              align-items: flex-start;
-            }
-
-            .fe-block.serge-title {
-              grid-area: 31/13/32/20 !important;
-              z-index: 7 !important;
-            }
-
-            .fe-block.serge-title .sqs-block {
-              justify-content: flex-start;
-              align-items: flex-start;
-            }
-
-            .fe-block.serge-bio {
-              grid-area: 32/13/38/23 !important;
-            }
-
-            .fe-block.serge-bio .sqs-block {
-              justify-content: flex-start;
-              align-items: flex-start;
-            }
-          }
-        `}} />
       </div>
+
+      {/* Modal */}
+      <TeamModal member={selectedMember} onClose={handleClose} />
     </section>
   );
 };

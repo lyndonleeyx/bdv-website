@@ -1,24 +1,24 @@
 import Header from './components/layout/Header';
 import Hero from './components/sections/Hero';
-import SectionDivider from './components/sections/SectionDivider';
+import PastLife from './components/sections/PastLife';
+import Focus from './components/sections/Focus';
+import Stages from './components/sections/Stages';
+import ValueAdd from './components/sections/ValueAdd';
 import Team from './components/sections/Team';
-import Portfolio from './components/sections/Portfolio';
-import Services from './components/sections/Services';
-import CTA from './components/sections/CTA';
-import Footer from './components/sections/Footer';
+import FooterCTA from './components/sections/FooterCTA';
 
 function App() {
   return (
     <div className="min-h-screen">
       <Header />
-      <main className="max-w-[1500px] mx-auto">
+      <main className="overflow-x-clip pb-24">
         <Hero />
-        <SectionDivider />
+        <PastLife />
+        <Focus />
+        <ValueAdd />
+        <Stages />
         <Team />
-        <Portfolio />
-        <Services />
-        <CTA />
-        <Footer />
+        <FooterCTA />
       </main>
     </div>
   );
