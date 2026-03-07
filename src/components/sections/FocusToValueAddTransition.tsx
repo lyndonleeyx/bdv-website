@@ -20,7 +20,6 @@
  */
 
 import SectionTransition from '../ui/SectionTransition';
-import Focus from './Focus';
 import ValueAdd from './ValueAdd';
 
 const FocusToValueAddTransition = () => (

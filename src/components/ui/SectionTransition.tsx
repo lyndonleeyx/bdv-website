@@ -17,7 +17,6 @@
  */
 
 import React, { useEffect } from 'react';
-import gsap from 'gsap';
 import { useScrollTransition } from '../../hooks/useScrollTransition';
 import type { SectionTransitionConfig } from '../../types/transitions';
 

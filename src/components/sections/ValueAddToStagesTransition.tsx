@@ -20,7 +20,6 @@
  */
 
 import SectionTransition from '../ui/SectionTransition';
-import ValueAdd from './ValueAdd';
 import Stages from './Stages';
 
 const ValueAddToStagesTransition = () => (

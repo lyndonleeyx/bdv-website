@@ -23,7 +23,6 @@
  */
 
 import SectionTransition from '../ui/SectionTransition';
-import Stages from './Stages';
 import Team from './Team';
 
 const StagesToTeamTransition = () => (
