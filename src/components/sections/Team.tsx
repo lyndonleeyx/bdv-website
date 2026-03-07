@@ -86,7 +86,7 @@ const FlipCard = ({
               />
             ) : (
               <div className="w-full h-full flex items-center justify-center">
-                <span className="text-muted text-[48px]">?</span>
+                <span className="text-text text-[48px]">?</span>
               </div>
             )}
           </div>
@@ -102,7 +102,7 @@ const FlipCard = ({
             ) : (
               <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-coral/20 to-lavender/30">
                 <span className="text-[64px] mb-2">&#128513;</span>
-                <span className="text-muted text-sm font-medium">
+                <span className="text-text text-sm font-medium">
                   Fun photo coming soon
                 </span>
               </div>
@@ -119,7 +119,7 @@ const FlipCard = ({
         >
           {member.name}
         </p>
-        <p className="text-muted" style={{ fontSize: '0.9rem' }}>
+        <p className="text-text" style={{ fontSize: '0.9rem' }}>
           {member.title}
         </p>
       </div>
@@ -177,7 +177,7 @@ const TeamModal = ({
             {/* Close button */}
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-black/5 hover:bg-black/10 transition-colors text-muted hover:text-text"
+              className="absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-black/5 hover:bg-black/10 transition-colors text-text hover:text-text"
               aria-label="Close"
             >
               <svg
@@ -206,7 +206,7 @@ const TeamModal = ({
                   />
                 ) : (
                   <div className="w-full h-full min-h-[240px] flex items-center justify-center">
-                    <span className="text-muted text-[48px]">?</span>
+                    <span className="text-text text-[48px]">?</span>
                   </div>
                 )}
               </div>
@@ -214,7 +214,7 @@ const TeamModal = ({
               {/* Right — text */}
               <div className="p-8 md:p-10 flex flex-col justify-center">
                 <p
-                  className="text-text/40 uppercase tracking-widest mb-3"
+                  className="text-text uppercase tracking-widest mb-3"
                   style={{ fontSize: '0.75rem', fontWeight: 500 }}
                 >
                   {member.title}
@@ -237,7 +237,7 @@ const TeamModal = ({
                 />
 
                 <p
-                  className="text-text/70"
+                  className="text-text"
                   style={{
                     fontSize: '0.95rem',
                     lineHeight: 1.7,
@@ -265,14 +265,15 @@ const Team = () => {
       style={{
         paddingBlock: 'clamp(3.5rem, 3rem + 1.5vw, 5rem)',
         paddingInline: 'clamp(1.5rem, 1rem + 3vw, 4rem)',
+        backgroundColor: 'transparent',
       }}
     >
-      <div className="max-w-[1400px] mx-auto">
+      <div className="relative z-10 max-w-[1400px] mx-auto">
         {/* Intro */}
         <AnimateIn>
           <div className="mb-12 md:mb-16">
             <p
-              className="text-text/40 uppercase tracking-widest mb-4"
+              className="text-text uppercase tracking-widest mb-4"
               style={{ fontSize: '0.875rem', fontWeight: 500 }}
             >
               Team
@@ -287,7 +288,7 @@ const Team = () => {
               Your Founding Team
             </h2>
             <p
-              className="text-muted mt-3"
+              className="text-text mt-3"
               style={{
                 fontSize: 'clamp(1rem, 0.85rem + 0.6vw, 1.25rem)',
                 fontWeight: 300,

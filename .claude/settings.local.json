@@ -7,7 +7,21 @@
       "Bash(python3:*)",
       "Bash(sips:*)",
       "Bash(git remote add:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(ffmpeg:*)",
+      "mcp__playwright__browser_take_screenshot",
+      "mcp__playwright__browser_run_code",
+      "mcp__playwright__browser_navigate",
+      "mcp__playwright__browser_close",
+      "Bash(lsof:*)",
+      "Bash(kill:*)",
+      "mcp__playwright__browser_click",
+      "mcp__playwright__browser_evaluate",
+      "Bash(xargs:*)",
+      "Bash(npm install:*)",
+      "Bash(ls:*)",
+      "Bash(npm run dev:*)",
+      "mcp__playwright__browser_snapshot"
     ],
     "deny": [],
     "ask": []

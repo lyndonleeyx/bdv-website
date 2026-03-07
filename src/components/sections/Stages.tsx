@@ -43,7 +43,12 @@ const CARD_OFFSET = 120;
 
 const Stages = () => {
   return (
-    <section id="stages" style={{ marginBottom: 'clamp(3.5rem, 3rem + 1.5vw, 5rem)' }}>
+    <section
+      id="stages"
+      style={{
+        backgroundColor: 'transparent'
+      }}
+    >
       {/* Section header */}
       <div
         style={{
@@ -55,26 +60,32 @@ const Stages = () => {
         <div className="max-w-[1400px] mx-auto">
           <AnimateIn>
             <p
-              className="text-text/40 uppercase tracking-widest mb-4"
-              style={{ fontSize: '0.875rem', fontWeight: 500 }}
+              className="uppercase tracking-widest mb-4"
+              style={{
+                fontSize: '0.875rem',
+                fontWeight: 500,
+                color: 'rgba(0,0,0,0.5)'
+              }}
             >
               Process
             </p>
             <h2
-              className="text-text mb-4"
+              className="mb-4"
               style={{
                 fontSize: 'clamp(2.5rem, 1.8rem + 2.9vw, 5rem)',
                 lineHeight: 1.1,
+                color: '#1a1a1a'
               }}
             >
               Four Stages to Launch
             </h2>
             <p
-              className="text-muted max-w-[500px]"
+              className="max-w-[500px]"
               style={{
                 fontSize: 'clamp(1rem, 0.85rem + 0.6vw, 1.25rem)',
                 lineHeight: 1.6,
                 fontWeight: 300,
+                color: 'rgba(0,0,0,0.65)'
               }}
             >
               Four stages from first conversation to funded company. Each one
@@ -93,14 +104,15 @@ const Stages = () => {
             top: `${index * CARD_OFFSET}px`,
             width: '100vw',
             marginLeft: 'calc(-50vw + 50%)',
-            backgroundColor: 'rgba(255,255,255,0.4)',
-            backdropFilter: 'blur(12px)',
-            WebkitBackdropFilter: 'blur(12px)',
-            borderTop: '1px solid rgba(0,0,0,0.06)',
+            backgroundColor: 'rgba(255, 255, 255, 0.15)',
+            backdropFilter: 'blur(16px) saturate(1.4)',
+            WebkitBackdropFilter: 'blur(16px) saturate(1.4)',
+            borderTop: '1px solid rgba(255,255,255,0.25)',
             borderRadius: '1.5rem 1.5rem 0 0',
-            zIndex: index + 1,
+            zIndex: index + 10,
             boxShadow:
-              index > 0 ? '0 -4px 20px rgba(0,0,0,0.06)' : undefined,
+              index > 0 ? '0 -4px 20px rgba(0,0,0,0.3)' : undefined,
+            marginBottom: index === stages.length - 1 ? '-1px' : undefined,
           }}
         >
           <div
@@ -116,7 +128,7 @@ const Stages = () => {
                 style={{
                   fontSize: '0.875rem',
                   fontWeight: 500,
-                  color: 'rgba(0,0,0,0.35)',
+                  color: 'rgba(0,0,0,0.4)',
                 }}
               >
                 {stage.number} —
@@ -150,7 +162,7 @@ const Stages = () => {
                 style={{
                   fontSize: '1rem',
                   lineHeight: 1.7,
-                  color: '#666',
+                  color: 'rgba(0,0,0,0.65)',
                   fontWeight: 300,
                 }}
               >
@@ -167,7 +179,7 @@ const Stages = () => {
                       backgroundColor:
                         dotIndex === index
                           ? '#1a1a1a'
-                          : 'rgba(0,0,0,0.12)',
+                          : 'rgba(0,0,0,0.2)',
                     }}
                   />
                 ))}
@@ -183,7 +195,8 @@ const Stages = () => {
                 style={{
                   maxHeight: '250px',
                   width: 'auto',
-                  opacity: 0.6,
+                  mixBlendMode: 'multiply',
+                  opacity: 0.8,
                 }}
               />
             </div>

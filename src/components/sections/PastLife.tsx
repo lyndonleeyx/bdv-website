@@ -1,4 +1,5 @@
-import AnimateIn from '../ui/AnimateIn';
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
 
 const companies = [
   { name: 'Affirm', logo: '/assets/images/logo/affirm_logo.png', cardImage: '/assets/images/cards/affirm-carousel.png', bg: '#1a1a2e', logoW: 105, logoTop: 23, logoLeft: 4 },
@@ -17,42 +18,101 @@ const companies = [
 const marqueeCards = [...companies, ...companies];
 
 const PastLife = () => {
+  const labelRef = useRef<HTMLParagraphElement>(null);
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const carouselRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Set initial state (invisible, slightly lower)
+    const elements = [labelRef.current, headingRef.current, carouselRef.current];
+    elements.forEach(el => {
+      if (el) gsap.set(el, { opacity: 0, y: 60 });
+    });
+
+    // Create waterfall animation
+    const tl = gsap.timeline({ paused: true });
+
+    // Label appears first
+    tl.to(labelRef.current, {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      ease: 'power2.out'
+    }, 0);
+
+    // Heading appears next
+    tl.to(headingRef.current, {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      ease: 'power2.out'
+    }, 0.15);
+
+    // Carousel appears last
+    tl.to(carouselRef.current, {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      ease: 'power2.out'
+    }, 0.30);
+
+    // Play animation when component becomes visible
+    tl.play();
+
+    return () => {
+      tl.kill();
+    };
+  }, []);
+
   return (
     <section
       id="past-life"
+      className="relative overflow-hidden"
       style={{
-        paddingTop: 'clamp(5rem, 4rem + 4vw, 11rem)',
+        paddingTop: 'clamp(3.5rem, 3rem + 4vw, 9rem)',
         paddingBottom: 'clamp(3.5rem, 3rem + 1.5vw, 5rem)',
+        minHeight: '100vh',
       }}
     >
+      {/* Background image — oversized to allow horizontal shifting */}
+      <div
+        className="absolute inset-0"
+        style={{
+          backgroundImage: 'url("/assets/images/decorative/building2.jpg")',
+          backgroundSize: '120% auto',
+          backgroundPosition: '25% 20%',
+        }}
+      />
       {/* Section heading */}
       <div
-        className="max-w-[1400px] mx-auto"
+        className="relative z-10 max-w-[1400px] mx-auto"
         style={{ paddingInline: 'clamp(1.5rem, 1rem + 3vw, 4rem)' }}
       >
-        <AnimateIn>
-          <p
-            className="text-text/40 uppercase tracking-widest mb-4"
-            style={{ fontSize: '0.875rem', fontWeight: 500 }}
-          >
-            Past Life
-          </p>
-          <h2
-            className="text-text mb-10 md:mb-14"
-            style={{
-              fontSize: 'clamp(2.5rem, 1.8rem + 2.9vw, 5rem)',
-              lineHeight: 1.1,
-            }}
-          >
-            Teams We've
-            <br />
-            Built & Advised
-          </h2>
-        </AnimateIn>
+        <p
+          ref={labelRef}
+          data-pastlife-label
+          className="text-text/40 uppercase tracking-widest mb-4"
+          style={{ fontSize: '0.875rem', fontWeight: 500 }}
+        >
+          Past Life
+        </p>
+        <h2
+          ref={headingRef}
+          data-pastlife-heading
+          className="text-text mb-10 md:mb-14"
+          style={{
+            fontSize: 'clamp(2.5rem, 1.8rem + 2.9vw, 5rem)',
+            lineHeight: 1.1,
+          }}
+        >
+          Teams We've
+          <br />
+          Built & Advised
+        </h2>
       </div>
 
       {/* Marquee container */}
-      <div className="overflow-hidden">
+      <div ref={carouselRef} data-pastlife-carousel className="relative z-10 overflow-hidden">
         <div
           className="flex gap-4 hover:[animation-play-state:paused]"
           style={{

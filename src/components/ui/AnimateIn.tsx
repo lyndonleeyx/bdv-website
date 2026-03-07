@@ -11,10 +11,10 @@ const AnimateIn = ({
   delay?: number;
 }) => (
   <motion.div
-    initial={{ opacity: 0, y: 30 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, margin: '-80px' }}
-    transition={{ duration: 0.6, ease: 'easeOut', delay }}
+    initial={{ opacity: 0 }}
+    whileInView={{ opacity: 1 }}
+    viewport={{ once: true, amount: 0.3 }}
+    transition={{ duration: 1, ease: 'easeOut', delay }}
     className={className}
   >
     {children}

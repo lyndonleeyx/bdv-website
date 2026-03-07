@@ -7,7 +7,6 @@ import {
   CurrencyDollar,
 } from '@phosphor-icons/react';
 import type { Icon } from '@phosphor-icons/react';
-import AnimateIn from '../ui/AnimateIn';
 
 const services: {
   icon: Icon;
@@ -63,35 +62,50 @@ const ValueAdd = () => {
   return (
     <section
       id="value-add"
+      className="relative overflow-hidden"
       style={{
+        backgroundImage: 'url("/assets/images/decorative/texture1.png")',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center center',
+        backgroundRepeat: 'no-repeat',
         paddingBlock: 'clamp(3.5rem, 3rem + 1.5vw, 5rem)',
         paddingInline: 'clamp(1.5rem, 1rem + 3vw, 4rem)',
+        marginTop: '-1px',
       }}
     >
-      <div className="max-w-[1400px] mx-auto">
-        <AnimateIn>
-          <p
-            className="text-text/40 uppercase tracking-widest mb-4"
-            style={{ fontSize: '0.875rem', fontWeight: 500 }}
-          >
-            Value Add
-          </p>
-          <h2
-            className="text-text mb-12 md:mb-16"
-            style={{
-              fontSize: 'clamp(2.5rem, 1.8rem + 2.9vw, 5rem)',
-              lineHeight: 1.1,
-            }}
-          >
-            How We Support
-            <br />
-            Founders
-          </h2>
-        </AnimateIn>
+      {/* Dark overlay matching Focus section tone */}
+      <div
+        className="absolute inset-0"
+        style={{ backgroundColor: 'rgba(26, 26, 26, 0.80)' }}
+      />
+      {/* Darker edges vignette */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background: 'radial-gradient(ellipse at center, transparent 30%, rgba(0, 0, 0, 0.5) 100%)',
+        }}
+      />
+      <div className="relative z-10 max-w-[1400px] mx-auto">
+        <p
+          className="text-white/40 uppercase tracking-widest mb-4"
+          style={{ fontSize: '0.875rem', fontWeight: 500 }}
+        >
+          Value Add
+        </p>
+        <h2
+          className="text-white mb-12 md:mb-16"
+          style={{
+            fontSize: 'clamp(2.5rem, 1.8rem + 2.9vw, 5rem)',
+            lineHeight: 1.1,
+          }}
+        >
+          How We Support
+          <br />
+          Founders
+        </h2>
 
-        <AnimateIn delay={0.1}>
-          <div>
-            {services.map((service) => {
+        <div>
+          {services.map((service) => {
               const IconComponent = service.icon;
 
               return (
@@ -100,7 +114,7 @@ const ValueAdd = () => {
                   <div
                     style={{
                       height: '1px',
-                      backgroundColor: '#DDDAD5',
+                      backgroundColor: 'rgba(255, 255, 255, 0.1)',
                     }}
                   />
 
@@ -118,7 +132,7 @@ const ValueAdd = () => {
                       weight="thin"
                       className="md:mt-1"
                       style={{
-                        color: '#AAA',
+                        color: 'rgba(255, 255, 255, 0.5)',
                         flexShrink: 0,
                       }}
                     />
@@ -130,7 +144,7 @@ const ValueAdd = () => {
                           fontSize: 'clamp(1.5rem, 1.2rem + 0.8vw, 2rem)',
                           fontWeight: 700,
                           lineHeight: 1.2,
-                          color: '#1A1A1A',
+                          color: '#FFFFFF',
                         }}
                       >
                         {service.keyword}
@@ -141,7 +155,7 @@ const ValueAdd = () => {
                           fontWeight: 400,
                           lineHeight: 1.4,
                           marginTop: '0.25rem',
-                          color: '#888',
+                          color: 'rgba(255, 255, 255, 0.5)',
                         }}
                       >
                         {service.subtitle}
@@ -153,7 +167,7 @@ const ValueAdd = () => {
                         fontSize: 'clamp(1rem, 0.85rem + 0.4vw, 1.125rem)',
                         fontWeight: 400,
                         lineHeight: 1.65,
-                        color: '#666',
+                        color: 'rgba(255, 255, 255, 0.6)',
                       }}
                     >
                       {service.description}
@@ -167,11 +181,10 @@ const ValueAdd = () => {
             <div
               style={{
                 height: '1px',
-                backgroundColor: '#DDDAD5',
+                backgroundColor: 'rgba(255, 255, 255, 0.1)',
               }}
             />
           </div>
-        </AnimateIn>
       </div>
     </section>
   );

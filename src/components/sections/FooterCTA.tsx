@@ -5,7 +5,7 @@ const FooterCTA = () => {
     <section id="contact">
       {/* CTA Area */}
       <div
-        className="max-w-[1400px] mx-auto"
+        className="relative z-10 max-w-[1400px] mx-auto"
         style={{
           paddingTop: 'clamp(3.5rem, 3rem + 1.5vw, 5rem)',
           paddingBottom: 'clamp(4rem, 3rem + 3vw, 6rem)',
@@ -14,7 +14,7 @@ const FooterCTA = () => {
       >
         <AnimateIn>
           <p
-            className="text-text/40 uppercase tracking-widest mb-4"
+            className="text-text uppercase tracking-widest mb-4"
             style={{ fontSize: '0.875rem', fontWeight: 500 }}
           >
             Get In Touch
@@ -34,7 +34,7 @@ const FooterCTA = () => {
 
         <AnimateIn delay={0.15}>
           <p
-            className="text-muted max-w-[500px] mb-8 md:mb-10"
+            className="text-text max-w-[500px] mb-8 md:mb-10"
             style={{
               fontSize: 'clamp(1rem, 0.85rem + 0.6vw, 1.25rem)',
               lineHeight: 1.6,
@@ -90,10 +90,10 @@ const FooterCTA = () => {
         }}
       >
         <div className="flex flex-col md:flex-row md:justify-between gap-6">
-          <p className="text-muted text-[14px]">
+          <p className="text-text text-[14px]">
             &copy;2026 Built Different Ventures. All rights reserved.
           </p>
-          <p className="text-muted text-[14px]">
+          <p className="text-text text-[14px]">
             9 Wallich St, #5th Floor, Sofitel Singapore City Centre, Singapore
             078885
           </p>

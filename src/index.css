@@ -13,13 +13,28 @@
   --color-lavender: #b8b0cc;
   --color-sage: #c4d8a0;
 
+  /* Maven11-inspired colors */
+  --color-maven-blue: rgb(170, 199, 223);
+  --color-maven-purple: rgb(180, 170, 210);
+  --color-maven-pink: rgb(230, 180, 200);
+
   /* Font families */
   --font-body: 'DM Sans', sans-serif;
 }
 
 @layer base {
   html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto; /* Lenis handles smooth scroll */
+  }
+
+  /* Lenis smooth scroll classes */
+  html.lenis,
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
   }
 
   body {
@@ -31,25 +46,46 @@
     padding: 0;
     overflow-x: hidden;
     isolation: isolate;
+    --bg-position-y: 20%; /* CSS variable for scroll-linked background position */
   }
 
+  /* Maven11-style continuous background - architectural image base */
   body::before {
     content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url('/assets/images/decorative/video-frame-bg.jpg');
-    background-size: cover;
-    background-position: center;
-    opacity: 0.5;
+    position: fixed; /* Fixed to viewport, content scrolls over it */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh; /* Always viewport height */
+    opacity: 1; /* Fully visible, no opacity */
+    filter: none; /* No blur */
     z-index: -2;
     pointer-events: none;
   }
 
+  /* Atmospheric gradient layer on top */
   body::after {
     content: '';
-    position: fixed;
-    inset: 0;
-    background-color: rgba(255, 255, 255, 0.7);
+    position: fixed; /* Fixed with background */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh; /* Always viewport height */
+    background: radial-gradient(
+        circle at 20% 10%,
+        rgba(170, 199, 223, 0.12) 0%,
+        transparent 40%
+      ),
+      radial-gradient(
+        circle at 80% 60%,
+        rgba(180, 170, 210, 0.08) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 50% 85%,
+        rgba(230, 180, 200, 0.06) 0%,
+        transparent 45%
+      );
     z-index: -1;
     pointer-events: none;
   }

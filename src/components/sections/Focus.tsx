@@ -1,119 +1,142 @@
-import AnimateIn from '../ui/AnimateIn';
-
-const photos = [
-  { src: '/assets/images/collage/collage-pic-1.png', pos: 'center 30%' },   // Row 1 wide: landscape dinner
-  { src: '/assets/images/collage/collage-pic-3.jpg', pos: 'top' },          // Row 1 narrow: portrait conference
-  { src: '/assets/images/collage/collage-pic-4.jpg', pos: 'center 35%' },   // Row 2 narrow: office visit
-  { src: '/assets/images/collage/collage-pic-5.jpeg', pos: 'center' },      // Row 2 wide: landscape group selfie
-  { src: '/assets/images/collage/collage-pic-6.jpeg', pos: 'center 25%' },  // Row 3 wide: outdoor dinner
-  { src: '/assets/images/collage/collage-pic-2.png', pos: 'top' },          // Row 3 narrow: portrait selfie
-];
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
 
 const Focus = () => {
+  const labelRef = useRef<HTMLParagraphElement>(null);
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const subheadingRef = useRef<HTMLParagraphElement>(null);
+  const bodyRef = useRef<HTMLParagraphElement>(null);
+
+  useEffect(() => {
+    // Set initial state (invisible, slightly lower)
+    const elements = [labelRef.current, headingRef.current, subheadingRef.current, bodyRef.current];
+    elements.forEach(el => {
+      if (el) gsap.set(el, { opacity: 0, y: 60 });
+    });
+
+    // Create waterfall animation
+    const tl = gsap.timeline({ paused: true });
+
+    // Label appears first
+    tl.to(labelRef.current, {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      ease: 'power2.out'
+    }, 0);
+
+    // Heading appears next
+    tl.to(headingRef.current, {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      ease: 'power2.out'
+    }, 0.15);
+
+    // Subheading appears next
+    tl.to(subheadingRef.current, {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      ease: 'power2.out'
+    }, 0.30);
+
+    // Body text appears last
+    tl.to(bodyRef.current, {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      ease: 'power2.out'
+    }, 0.45);
+
+    // Play animation when component becomes visible
+    tl.play();
+
+    return () => {
+      tl.kill();
+    };
+  }, []);
 
   return (
     <section
       id="focus"
+      className="relative overflow-hidden"
       style={{
-        paddingBlock: 'clamp(3.5rem, 3rem + 1.5vw, 5rem)',
-        paddingInline: 'clamp(1.5rem, 1rem + 3vw, 4rem)',
+        paddingBlock: 'clamp(6rem, 8vw, 12rem)',
+        paddingInline: 'clamp(2rem, 4vw, 4rem)',
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        backgroundImage: 'url("/assets/images/decorative/building3.jpg")',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center center',
+        backgroundRepeat: 'no-repeat',
       }}
     >
-      <div className="max-w-[1400px] mx-auto grid md:grid-cols-2 gap-8 md:gap-16 items-center">
-        {/* Left — text */}
-        <div>
-          <AnimateIn>
-            <p
-              className="text-text/40 uppercase tracking-widest mb-4"
-              style={{ fontSize: '0.875rem', fontWeight: 500 }}
-            >
-              Principle
-            </p>
-            <h2
-              className="text-text mb-10 md:mb-14"
-              style={{
-                fontSize: 'clamp(2.5rem, 1.8rem + 2.9vw, 5rem)',
-                lineHeight: 1.1,
-              }}
-            >
-              We're Your First Cofounder
-            </h2>
-          </AnimateIn>
+      {/* Dark overlay for text readability */}
+      <div
+        className="absolute inset-0 z-0"
+        style={{ backgroundColor: 'rgba(26, 26, 26, 0.65)' }}
+      />
+      <div className="relative z-10 max-w-[1400px] mx-auto w-full">
+        {/* Overline label */}
+        <p
+          ref={labelRef}
+          className="text-white/30 uppercase tracking-[0.3em] mb-8"
+          style={{ fontSize: '0.75rem', fontWeight: 600 }}
+        >
+          Principle
+        </p>
 
-          <AnimateIn delay={0.15}>
-            <div>
-              <p
-                className="text-text mb-6"
-                style={{
-                  fontSize: 'clamp(1.125rem, 0.9rem + 0.8vw, 1.5rem)',
-                  lineHeight: 1.5,
-                  fontWeight: 400,
-                }}
-              >
-                We act like cofounders—because we are.
-              </p>
-              <p
-                className="text-muted"
-                style={{
-                  fontSize: 'clamp(1rem, 0.85rem + 0.6vw, 1.25rem)',
-                  lineHeight: 1.6,
-                  fontWeight: 300,
-                }}
-              >
-                We roll up our sleeves across every phase of venture creation. Our
-                focus: solving high-stakes, cross-border, B2B problems where AI
-                can deliver true magic. Think trade compliance, corporate
-                insurance brokerage, global commodities trading. Wherever you are,
-                as long as you have a great idea, we're ready to get to work.
-              </p>
-            </div>
-          </AnimateIn>
-        </div>
+        {/* Main heading - large and impactful */}
+        <h2
+          ref={headingRef}
+          className="text-white mb-16"
+          style={{
+            fontSize: 'clamp(3.5rem, 8vw, 10rem)',
+            lineHeight: 0.95,
+            letterSpacing: '-0.02em',
+            fontWeight: 700,
+            maxWidth: '1200px',
+          }}
+        >
+          We're Your
+          <br />
+          First Cofounder
+        </h2>
 
-        {/* Right — mosaic grid */}
-        <AnimateIn delay={0.2}>
-          <div
-            className="grid grid-cols-3 grid-rows-3 gap-2"
-            style={{ height: '630px' }}
-          >
-            <img
-              src={photos[0].src}
-              alt=""
-              className="col-span-2 w-full h-full object-cover rounded-xl"
-              style={{ objectPosition: photos[0].pos }}
-            />
-            <img
-              src={photos[1].src}
-              alt=""
-              className="w-full h-full object-cover rounded-xl"
-              style={{ objectPosition: photos[1].pos }}
-            />
-            <img
-              src={photos[2].src}
-              alt=""
-              className="w-full h-full object-cover rounded-xl"
-              style={{ objectPosition: photos[2].pos }}
-            />
-            <img
-              src={photos[3].src}
-              alt=""
-              className="col-span-2 w-full h-full object-cover rounded-xl"
-              style={{ objectPosition: photos[3].pos }}
-            />
-            <img
-              src={photos[4].src}
-              alt=""
-              className="col-span-2 w-full h-full object-cover rounded-xl"
-              style={{ objectPosition: photos[4].pos }}
-            />
-            <img
-              src={photos[5].src}
-              alt=""
-              className="w-full h-full object-cover rounded-xl"
-              style={{ objectPosition: photos[5].pos }}
-            />
-          </div>
-        </AnimateIn>
+        {/* Subheading - bold statement */}
+        <p
+          ref={subheadingRef}
+          className="text-white/90 mb-12"
+          style={{
+            fontSize: 'clamp(1.5rem, 2vw, 2.5rem)',
+            lineHeight: 1.3,
+            fontWeight: 500,
+            maxWidth: '900px',
+          }}
+        >
+          We act like cofounders—because we are.
+        </p>
+
+        {/* Body text - spacious and readable */}
+        <p
+          ref={bodyRef}
+          className="text-white/60"
+          style={{
+            fontSize: 'clamp(1.125rem, 1.2vw, 1.5rem)',
+            lineHeight: 1.7,
+            fontWeight: 300,
+            maxWidth: '850px',
+            letterSpacing: '0.01em',
+          }}
+        >
+          We roll up our sleeves across every phase of venture creation. Our
+          focus: solving high-stakes, cross-border, B2B problems where AI
+          can deliver true magic. Think trade compliance, corporate
+          insurance brokerage, global commodities trading. Wherever you are,
+          as long as you have a great idea, we're ready to get to work.
+        </p>
       </div>
     </section>
   );
