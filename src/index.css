@@ -121,3 +121,27 @@
 .flip-card-inner { transform-style: preserve-3d; transition: transform 0.6s ease; }
 .group:hover .flip-card-inner { transform: rotateY(180deg); }
 
+/* ─── Mobile Overrides (max-width: 767px) ─── */
+@media (max-width: 767px) {
+  /* Disable hover flip on mobile — tap-to-flip handled in JS */
+  .group:hover .flip-card-inner { transform: none; }
+
+  /* Reduce Hero "Built Different" minimum size */
+  #hero-light h1 { font-size: clamp(3rem, 15vw, 6rem) !important; }
+
+  /* Reduce HeroDark "We Like Different" minimum */
+  #hero-dark h2 { font-size: clamp(2.5rem, 10vw, 4rem) !important; }
+
+  /* Reduce Focus "We're Your First Cofounder" minimum */
+  #focus h2 { font-size: clamp(2rem, 10vw, 3.5rem) !important; }
+
+  /* Reduce FooterCTA heading minimum */
+  #contact h2 { font-size: clamp(2rem, 8vw, 3rem) !important; }
+
+  /* Reduce backdrop blur intensity on Stages cards */
+  #stages .sticky {
+    backdrop-filter: blur(8px) saturate(1.4) !important;
+    -webkit-backdrop-filter: blur(8px) saturate(1.4) !important;
+  }
+}
+

@@ -13,15 +13,17 @@ interface SmoothScrollProviderProps {
 
 export const SmoothScrollProvider = ({ children }: SmoothScrollProviderProps) => {
   useEffect(() => {
+    const isMobile = window.matchMedia('(max-width: 767px)').matches;
+
     // Initialize Lenis with Maven11-style settings
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: isMobile ? 0.8 : 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // easeOutExpo
       orientation: 'vertical',
       gestureOrientation: 'vertical',
-      smoothWheel: true,
+      smoothWheel: !isMobile,
       wheelMultiplier: 1,
-      touchMultiplier: 2,
+      touchMultiplier: isMobile ? 1.5 : 2,
       infinite: false,
     });
 

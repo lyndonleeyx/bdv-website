@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import AnimateIn from '../ui/AnimateIn';
+import { useIsMobile } from '../../hooks/useIsMobile';
 
 interface TeamMember {
   name: string;
@@ -54,27 +55,47 @@ const FlipCard = ({
   member,
   index,
   onCardClick,
+  isMobile,
 }: {
   member: TeamMember;
   index: number;
   onCardClick: (member: TeamMember) => void;
-}) => (
+  isMobile: boolean;
+}) => {
+  const [isFlipped, setIsFlipped] = useState(false);
+
+  const handleClick = () => {
+    if (isMobile) {
+      if (isFlipped) {
+        onCardClick(member); // Second tap opens modal
+      } else {
+        setIsFlipped(true); // First tap flips card
+      }
+    } else {
+      onCardClick(member); // Desktop: click always opens modal
+    }
+  };
+
+  return (
   <AnimateIn delay={index * 0.1}>
     <div
       className="group cursor-pointer"
       role="button"
       tabIndex={0}
-      onClick={() => onCardClick(member)}
+      onClick={handleClick}
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
-          onCardClick(member);
+          handleClick();
         }
       }}
     >
       {/* Image with 3D flip */}
       <div className="perspective-1000">
-        <div className="relative aspect-[3/4] flip-card-inner">
+        <div
+          className="relative aspect-[3/4] flip-card-inner"
+          style={isMobile && isFlipped ? { transform: 'rotateY(180deg)' } : undefined}
+        >
           {/* Front face — formal headshot */}
           <div className="absolute inset-0 backface-hidden rounded-[24px] overflow-hidden bg-[#e8e3dc]">
             {member.image ? (
@@ -125,7 +146,8 @@ const FlipCard = ({
       </div>
     </div>
   </AnimateIn>
-);
+  );
+};
 
 const TeamModal = ({
   member,
@@ -177,7 +199,7 @@ const TeamModal = ({
             {/* Close button */}
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-black/5 hover:bg-black/10 transition-colors text-text hover:text-text"
+              className="absolute top-4 right-4 z-10 w-10 h-10 md:w-8 md:h-8 flex items-center justify-center rounded-full bg-black/5 hover:bg-black/10 transition-colors text-text hover:text-text"
               aria-label="Close"
             >
               <svg
@@ -256,6 +278,7 @@ const TeamModal = ({
 };
 
 const Team = () => {
+  const isMobile = useIsMobile();
   const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
   const handleClose = useCallback(() => setSelectedMember(null), []);
 
@@ -307,6 +330,7 @@ const Team = () => {
               member={member}
               index={index}
               onCardClick={setSelectedMember}
+              isMobile={isMobile}
             />
           ))}
         </div>

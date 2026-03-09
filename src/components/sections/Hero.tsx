@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { BlurOrb } from '../ui/BlurOrb';
+import { useIsMobile } from '../../hooks/useIsMobile';
 
 const Hero = () => {
+  const isMobile = useIsMobile();
   // Maven11-style cursor-follow gradient
   const [mousePosition, setMousePosition] = useState({ x: 50, y: 50 });
 
   useEffect(() => {
+    if (isMobile) return; // Skip mouse tracking on mobile
     const handleMouse = (e: MouseEvent) => {
       setMousePosition({
         x: (e.clientX / window.innerWidth) * 100,
@@ -15,7 +18,7 @@ const Hero = () => {
     };
     window.addEventListener('mousemove', handleMouse);
     return () => window.removeEventListener('mousemove', handleMouse);
-  }, []);
+  }, [isMobile]);
 
   return (
     <motion.section
@@ -60,8 +63,8 @@ const Hero = () => {
           >
             <BlurOrb
               color="rgb(170, 199, 223)"
-              blur={300}
-              size={700}
+              blur={isMobile ? 100 : 300}
+              size={isMobile ? 300 : 700}
               position={{ top: '-10%', right: '5%' }}
               opacity={0.15}
             />
@@ -82,8 +85,8 @@ const Hero = () => {
           >
             <BlurOrb
               color="rgb(180, 170, 210)"
-              blur={250}
-              size={600}
+              blur={isMobile ? 80 : 250}
+              size={isMobile ? 250 : 600}
               position={{ bottom: '10%', left: '5%' }}
               opacity={0.1}
             />
@@ -130,7 +133,7 @@ const Hero = () => {
                     opacity: 0,
                     y: 80,
                     scale: 0.8,
-                    filter: 'blur(20px)'
+                    filter: isMobile ? 'none' : 'blur(20px)'
                   }}
                   animate={{
                     opacity: 1,
@@ -155,7 +158,7 @@ const Hero = () => {
               initial={{
                 opacity: 0,
                 y: 40,
-                filter: 'blur(15px)'
+                filter: isMobile ? 'none' : 'blur(15px)'
               }}
               animate={{
                 opacity: 1,

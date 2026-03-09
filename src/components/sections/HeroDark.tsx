@@ -160,7 +160,7 @@ const HeroDark = () => {
 
             <h3
               ref={subheader3Ref}
-              className="gradient-text"
+              className="gradient-text md:whitespace-nowrap"
               style={{
                 fontSize: 'clamp(2rem, 5vw, 4rem)',
                 lineHeight: 1.1,
@@ -171,7 +171,6 @@ const HeroDark = () => {
                 WebkitTextFillColor: 'transparent',
                 backgroundClip: 'text',
                 color: 'transparent',
-                whiteSpace: 'nowrap',
               }}
             >
               different superpowers

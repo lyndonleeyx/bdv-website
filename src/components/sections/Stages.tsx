@@ -1,4 +1,5 @@
 import AnimateIn from '../ui/AnimateIn';
+import { useIsMobile } from '../../hooks/useIsMobile';
 
 const stages = [
   {
@@ -39,9 +40,9 @@ const stages = [
   },
 ];
 
-const CARD_OFFSET = 120;
-
 const Stages = () => {
+  const isMobile = useIsMobile();
+  const CARD_OFFSET = isMobile ? 60 : 120;
   return (
     <section
       id="stages"
@@ -135,12 +136,12 @@ const Stages = () => {
               </p>
 
               <h2
+                className="md:whitespace-nowrap"
                 style={{
                   fontSize: 'clamp(2.5rem, 5vw, 4rem)',
                   fontWeight: 900,
                   lineHeight: 1.05,
                   color: '#1a1a1a',
-                  whiteSpace: 'nowrap',
                 }}
               >
                 {stage.title}
@@ -193,7 +194,7 @@ const Stages = () => {
                 alt={`${stage.title} illustration`}
                 className="object-contain"
                 style={{
-                  maxHeight: '250px',
+                  maxHeight: isMobile ? '180px' : '250px',
                   width: 'auto',
                   mixBlendMode: 'multiply',
                   opacity: 0.8,

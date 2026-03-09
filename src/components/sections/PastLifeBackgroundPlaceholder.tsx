@@ -12,9 +12,9 @@ const PastLifeBackgroundPlaceholder = () => {
       className="relative overflow-hidden"
       style={{
         minHeight: '100vh',
-        backgroundImage: 'url("/assets/images/decorative/building2.jpg")',
+        backgroundImage: 'url("/assets/images/decorative/building2b.jpg")',
         backgroundSize: 'cover',
-        backgroundPosition: 'center 30%',
+        backgroundPosition: 'center top',
         backgroundRepeat: 'no-repeat',
       }}
     />

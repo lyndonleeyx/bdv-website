@@ -78,9 +78,11 @@ const PastLife = () => {
       <div
         className="absolute inset-0"
         style={{
-          backgroundImage: 'url("/assets/images/decorative/building2.jpg")',
-          backgroundSize: '120% auto',
-          backgroundPosition: '25% 20%',
+          backgroundImage: 'url("/assets/images/decorative/building2b.jpg")',
+          backgroundSize: 'cover',
+          backgroundPosition: '25% 40%',
+          backgroundRepeat: 'no-repeat',
+          transform: 'scaleX(-1)',
         }}
       />
       {/* Section heading */}

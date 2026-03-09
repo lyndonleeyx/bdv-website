@@ -31,9 +31,9 @@ const PastLifeEndState = () => {
       style={{
         paddingTop: 'clamp(3.5rem, 3rem + 4vw, 9rem)',
         paddingBottom: 'clamp(3.5rem, 3rem + 1.5vw, 5rem)',
-        backgroundImage: 'url("/assets/images/decorative/building2.jpg")',
+        backgroundImage: 'url("/assets/images/decorative/building2b.jpg")',
         backgroundSize: 'cover',
-        backgroundPosition: 'center 30%',
+        backgroundPosition: 'center top',
         minHeight: '100vh',
       }}
     >

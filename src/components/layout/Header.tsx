@@ -12,27 +12,60 @@ const navItems = [
   { label: 'Get In Touch', id: 'contact' },
 ];
 
+// CrossfadeSequence mapping: progress ranges → nav IDs
+// 4 sections, holdRatio=0.444, maxProgress=3.444, 180vh per progress unit
+const crossfadeSections = [
+  { id: 'hero', end: 1.444 },      // Hero + HeroDark
+  { id: 'past-life', end: 2.444 },
+  { id: 'focus', end: 3.444 },
+];
+
+// Sections below CrossfadeSequence — detected by DOM position
+const scrollSections = ['value-add', 'stages', 'team', 'contact'];
+
 const FloatingNav = () => {
   const [activeId, setActiveId] = useState('hero');
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveId(entry.target.id);
+    const handleScroll = () => {
+      const vh = window.innerHeight;
+      const scrollY = window.scrollY;
+
+      // CrossfadeSequence: pinned container is the first child of <main>
+      // Total scroll distance = 3.444 * 1.8 * vh
+      const maxProgress = 3.444;
+      const totalCrossfadeScroll = maxProgress * 1.8 * vh;
+
+      // While in the crossfade region
+      if (scrollY < totalCrossfadeScroll) {
+        const progress = (scrollY / totalCrossfadeScroll) * maxProgress;
+        for (const section of crossfadeSections) {
+          if (progress < section.end) {
+            setActiveId(section.id);
+            return;
           }
-        });
-      },
-      { rootMargin: '-50% 0px -50% 0px' },
-    );
+        }
+        setActiveId('focus'); // fallback to last crossfade section
+        return;
+      }
 
-    navItems.forEach(({ id }) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
+      // Below crossfade: check which section is at viewport center
+      const viewportCenter = vh / 2;
+      for (let i = scrollSections.length - 1; i >= 0; i--) {
+        const el = document.getElementById(scrollSections[i]);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top < viewportCenter) {
+            setActiveId(scrollSections[i]);
+            return;
+          }
+        }
+      }
+    };
 
-    return () => observer.disconnect();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Set initial state
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
@@ -42,7 +75,7 @@ const FloatingNav = () => {
         return (
           <button
             key={item.id}
-            onClick={() => scrollToSection(item.id)}
+            onClick={() => item.id === 'hero' ? window.scrollTo({ top: 0, behavior: 'smooth' }) : scrollToSection(item.id)}
             className={`relative text-[13px] font-medium tracking-wide uppercase px-4 py-2 rounded-full transition-colors ${
               isActive
                 ? 'text-white bg-white/10'
@@ -74,7 +107,7 @@ const Header = () => {
             src="/assets/images/logo/bdv-logo-full.png"
             alt="Built Different Ventures"
             className="h-[30px] md:h-[40px] w-auto cursor-pointer"
-            onClick={() => scrollToSection('hero')}
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           />
 
           {/* Right side — Contact pill + LinkedIn */}
