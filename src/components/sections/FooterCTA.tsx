@@ -22,7 +22,7 @@ const FooterCTA = () => {
           <h2
             className="text-text mb-6 md:mb-8"
             style={{
-              fontSize: 'clamp(3rem, 2.2rem + 3.4vw, 6rem)',
+              fontSize: 'clamp(3rem, 2.2rem + 3.4vw, 4.5rem)',
               lineHeight: 1.05,
             }}
           >

@@ -93,7 +93,7 @@ const Focus = () => {
           ref={headingRef}
           className="text-white mb-16"
           style={{
-            fontSize: 'clamp(3.5rem, 8vw, 10rem)',
+            fontSize: 'clamp(3.5rem, 8vw, 7rem)',
             lineHeight: 0.95,
             letterSpacing: '-0.02em',
             fontWeight: 700,
@@ -110,7 +110,7 @@ const Focus = () => {
           ref={subheadingRef}
           className="text-white/90 mb-12"
           style={{
-            fontSize: 'clamp(1.5rem, 2vw, 2.5rem)',
+            fontSize: 'clamp(1.5rem, 2vw, 1.875rem)',
             lineHeight: 1.3,
             fontWeight: 500,
             maxWidth: '900px',
@@ -124,7 +124,7 @@ const Focus = () => {
           ref={bodyRef}
           className="text-white/60"
           style={{
-            fontSize: 'clamp(1.125rem, 1.2vw, 1.5rem)',
+            fontSize: 'clamp(1.125rem, 1.2vw, 1.25rem)',
             lineHeight: 1.7,
             fontWeight: 300,
             maxWidth: '850px',

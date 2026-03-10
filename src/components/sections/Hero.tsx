@@ -128,7 +128,7 @@ const Hero = () => {
               {['Built', 'Different'].map((word, i) => (
                 <motion.span
                   key={i}
-                  style={{ display: 'inline-block', marginRight: i === 0 ? '0.3em' : '0' }}
+                  style={{ display: 'block' }}
                   initial={{
                     opacity: 0,
                     y: 80,
