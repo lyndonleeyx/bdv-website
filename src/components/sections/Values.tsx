@@ -29,7 +29,7 @@ const Values = () => {
     const items = valueRefs.current.filter(Boolean);
 
     const elements = [label, heading, ...items].filter(
-      (el): el is HTMLElement => el !== null
+      (el): el is HTMLParagraphElement | HTMLHeadingElement => el !== null
     );
 
     elements.forEach((el) => {
