@@ -38,6 +38,9 @@ export const SmoothScrollProvider = ({ children }: SmoothScrollProviderProps) =>
 
     requestAnimationFrame(raf);
 
+    // Expose Lenis instance globally so nav can use lenis.scrollTo()
+    (window as unknown as { __lenis: Lenis }).__lenis = lenis;
+
     // Animate background position based on scroll
     gsap.to('body', {
       '--bg-position-y': '80%',

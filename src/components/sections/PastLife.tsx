@@ -80,9 +80,8 @@ const PastLife = () => {
         style={{
           backgroundImage: 'url("/assets/images/decorative/building2b.jpg")',
           backgroundSize: 'cover',
-          backgroundPosition: '25% 40%',
+          backgroundPosition: 'center bottom',
           backgroundRepeat: 'no-repeat',
-          transform: 'scaleX(-1)',
         }}
       />
       {/* Section heading */}

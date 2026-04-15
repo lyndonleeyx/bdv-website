@@ -1,6 +1,7 @@
 import Header from './components/layout/Header';
 import CrossfadeSequence from './components/ui/CrossfadeSequence';
 import ErrorBoundary from './components/ui/ErrorBoundary';
+import ScrubFadeIn from './components/ui/ScrubFadeIn';
 import Hero from './components/sections/Hero';
 import HeroDark from './components/sections/HeroDark';
 import PastLife from './components/sections/PastLife';
@@ -8,6 +9,7 @@ import Focus from './components/sections/Focus';
 import ValueAdd from './components/sections/ValueAdd';
 import Stages from './components/sections/Stages';
 import Team from './components/sections/Team';
+import Values from './components/sections/Values';
 import FooterCTA from './components/sections/FooterCTA';
 
 function App() {
@@ -28,25 +30,38 @@ function App() {
 
         <ValueAdd />
 
-        {/* Building5 image for Stages + Team + Footer */}
-        <div
-          className="relative"
-          style={{
-            backgroundImage: 'url("/assets/images/decorative/building5.jpg")',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center 70%',
-            backgroundRepeat: 'no-repeat',
-            marginTop: '-1px',
-          }}
-        >
-          {/* Uniform white overlay for text readability over building5 */}
-          <div className="absolute inset-0 bg-gradient-to-b from-white/30 to-white/60" />
+        {/* Process-background image for Stages only */}
+        <ScrubFadeIn>
+          <div className="relative" style={{ marginTop: '-1px' }}>
+            {/* Flipped background image */}
+            <div
+              className="absolute inset-0"
+              style={{
+                backgroundImage: 'url("/assets/images/decorative/process-background.jpg")',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+                transform: 'scaleX(-1)',
+              }}
+            />
+            {/* Uniform white overlay for text readability */}
+            <div className="absolute inset-0 bg-gradient-to-b from-white/55 to-white/80" />
 
-          <div className="relative z-10">
-            <Stages />
-            <Team />
-            <FooterCTA />
+            <div className="relative z-10">
+              <Stages />
+            </div>
           </div>
+        </ScrubFadeIn>
+
+        {/* Team → Values → FooterCTA crossfade sequence */}
+        <div id="footer-crossfade-wrapper">
+          <CrossfadeSequence
+            sections={[
+              <Team key="team" />,
+              <Values key="values" />,
+              <FooterCTA key="footer-cta" />,
+            ]}
+          />
         </div>
       </main>
     </div>

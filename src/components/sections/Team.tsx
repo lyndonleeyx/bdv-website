@@ -1,6 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import AnimateIn from '../ui/AnimateIn';
 import { useIsMobile } from '../../hooks/useIsMobile';
 
 interface TeamMember {
@@ -16,36 +15,35 @@ const team: TeamMember[] = [
   {
     name: 'Huey Lin',
     title: 'Partner & Cofounder',
-    image: '/assets/images/team/huey_headshot.webp',
+    image: '/assets/images/team/huey-headshot-Photoroom.png',
     funImage: null,
     bio: 'Huey brings big ideas to life and scale. Part of the original PayPal mafia, Huey was one of the first product managers at PayPal, then became the founding COO at Affirm (NASDAQ: AFRM). She later served as President of Asia at Flexport and a Venture Partner at Notable Capital (fka GGV Capital). She now serves on the boards of Hang Seng Bank, Singapore Exchange, and Nium.',
   },
   {
     name: 'Serge Longin',
     title: 'Partner & Cofounder',
-    image: '/assets/images/team/serge_headshot.webp',
+    image: '/assets/images/team/serge-headshot-Photoroom.png',
     funImage: null,
     bio: 'A repeat founder who bootstrapped two US startups, RevenueWell and Club Automation, to a combined exit of over $100M. Both were acquired by private equity after becoming category leaders in dental SaaS and fitness ops. Serge runs our rigorous idea validation process and brings product, GTM, finance, and operations experience to ensure our startups find their footing.',
   },
   {
     name: 'Peter Rosberg',
     title: 'Partner & Studio CTO',
-    image: '/assets/images/team/peter_headshot.png',
+    image: '/assets/images/team/peter-headshot-Photoroom.png',
     funImage: null,
     bio: 'Full-stack technologist who has built and scaled engineering teams at multiple high-growth startups. Peter architects the technical foundation for every studio venture.',
   },
   {
     name: 'Lyndon Lee',
     title: 'Partner & CoBuilder',
-    image: '/assets/images/team/lyndon_headshot.jpeg',
+    image: '/assets/images/team/lyndon-headshot-Photoroom.png',
     funImage: null,
     bio: 'Product-minded builder with expertise in AI-powered solutions for complex enterprise workflows.',
-    imageStyle: { objectPosition: 'center 15%', transform: 'scale(1.4)' },
   },
   {
     name: 'Eric Le Blanc',
     title: 'Partner & CoBuilder',
-    image: null,
+    image: '/assets/images/team/eric-headshot-Photoroom.png',
     funImage: null,
     bio: 'Experienced operator and venture builder focused on bringing innovative B2B solutions from zero to one.',
   },
@@ -53,12 +51,10 @@ const team: TeamMember[] = [
 
 const FlipCard = ({
   member,
-  index,
   onCardClick,
   isMobile,
 }: {
   member: TeamMember;
-  index: number;
   onCardClick: (member: TeamMember) => void;
   isMobile: boolean;
 }) => {
@@ -77,7 +73,6 @@ const FlipCard = ({
   };
 
   return (
-  <AnimateIn delay={index * 0.1}>
     <div
       className="group cursor-pointer"
       role="button"
@@ -93,7 +88,7 @@ const FlipCard = ({
       {/* Image with 3D flip */}
       <div className="perspective-1000">
         <div
-          className="relative aspect-[3/4] flip-card-inner"
+          className="relative aspect-square md:aspect-[3/4] flip-card-inner"
           style={isMobile && isFlipped ? { transform: 'rotateY(180deg)' } : undefined}
         >
           {/* Front face — formal headshot */}
@@ -103,7 +98,7 @@ const FlipCard = ({
                 src={member.image}
                 alt={member.name}
                 className="w-full h-full object-cover"
-                style={member.imageStyle}
+                style={{ objectPosition: 'center -8%', ...member.imageStyle }}
               />
             ) : (
               <div className="w-full h-full flex items-center justify-center">
@@ -119,6 +114,7 @@ const FlipCard = ({
                 src={member.funImage}
                 alt={`${member.name} — casual`}
                 className="w-full h-full object-cover"
+                style={{ objectPosition: 'center -8%' }}
               />
             ) : (
               <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-coral/20 to-lavender/30">
@@ -133,19 +129,18 @@ const FlipCard = ({
       </div>
 
       {/* Info — outside card */}
-      <div className="mt-4">
+      <div className="mt-2 md:mt-4 text-center">
         <p
           className="text-text"
           style={{ fontSize: '1.05rem', fontWeight: 600 }}
         >
           {member.name}
         </p>
-        <p className="text-text" style={{ fontSize: '0.9rem' }}>
+        <p className="text-text hidden md:block" style={{ fontSize: '0.9rem' }}>
           {member.title}
         </p>
       </div>
     </div>
-  </AnimateIn>
   );
 };
 
@@ -285,50 +280,53 @@ const Team = () => {
   return (
     <section
       id="team"
+      className="relative h-full w-full overflow-hidden flex flex-col justify-center py-6 md:py-14 lg:py-20"
       style={{
-        paddingBlock: 'clamp(3.5rem, 3rem + 1.5vw, 5rem)',
         paddingInline: 'clamp(1.5rem, 1rem + 3vw, 4rem)',
-        backgroundColor: 'transparent',
+        backgroundImage: 'url("/assets/images/decorative/building5.jpg")',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center 85%',
+        backgroundRepeat: 'no-repeat',
       }}
     >
-      <div className="relative z-10 max-w-[1400px] mx-auto">
+      {/* White overlay: light wash across the section so text remains legible against the building */}
+      <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-white/70 pointer-events-none" />
+
+      <div className="relative z-10 max-w-[1400px] mx-auto w-full">
         {/* Intro */}
-        <AnimateIn>
-          <div className="mb-12 md:mb-16">
-            <p
-              className="text-text uppercase tracking-widest mb-4"
-              style={{ fontSize: '0.875rem', fontWeight: 500 }}
-            >
-              Team
-            </p>
-            <h2
-              className="text-text"
-              style={{
-                fontSize: 'clamp(2.5rem, 1.8rem + 2.9vw, 5rem)',
-                lineHeight: 1.1,
-              }}
-            >
-              Your Founding Team
-            </h2>
-            <p
-              className="text-text mt-3"
-              style={{
-                fontSize: 'clamp(1rem, 0.85rem + 0.6vw, 1.25rem)',
-                fontWeight: 300,
-              }}
-            >
-              Builders, operators & investors.
-            </p>
-          </div>
-        </AnimateIn>
+        <div className="mb-4 md:mb-8">
+          <p
+            className="text-text uppercase tracking-widest mb-4 hidden md:block"
+            style={{ fontSize: '0.875rem', fontWeight: 500 }}
+          >
+            Team
+          </p>
+          <h2
+            className="text-text"
+            style={{
+              fontSize: 'clamp(2.5rem, 1.8rem + 2.9vw, 5rem)',
+              lineHeight: 1.1,
+            }}
+          >
+            Your Founding Team
+          </h2>
+          <p
+            className="text-text mt-3 hidden md:block"
+            style={{
+              fontSize: 'clamp(1rem, 0.85rem + 0.6vw, 1.25rem)',
+              fontWeight: 300,
+            }}
+          >
+            Builders, operators & investors.
+          </p>
+        </div>
 
         {/* All 5 cards in a single row on desktop */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 md:gap-6">
-          {team.map((member, index) => (
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-5 lg:gap-6">
+          {team.map((member) => (
             <FlipCard
               key={member.name}
               member={member}
-              index={index}
               onCardClick={setSelectedMember}
               isMobile={isMobile}
             />

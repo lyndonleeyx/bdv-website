@@ -1,27 +1,46 @@
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { scrollToSection } from '../../utils/smoothScroll';
+
+// Get the global Lenis instance for smooth navigation scrolling
+const getLenis = () => (window as unknown as { __lenis?: { scrollTo: (target: number | string | HTMLElement, options?: { duration?: number; offset?: number }) => void } }).__lenis;
 
 const navItems = [
   { label: 'Home', id: 'hero' },
   { label: 'Past Life', id: 'past-life' },
-  { label: 'Principle', id: 'focus' },
+  { label: 'Focus', id: 'focus' },
   { label: 'Value Add', id: 'value-add' },
   { label: 'Process', id: 'stages' },
   { label: 'Team', id: 'team' },
   { label: 'Get In Touch', id: 'contact' },
 ];
 
-// CrossfadeSequence mapping: progress ranges → nav IDs
-// 4 sections, holdRatio=0.444, maxProgress=3.444, 180vh per progress unit
+// CrossfadeSequence: 4 sections [Hero, HeroDark, PastLife, Focus]
+// holdRatio=0.444, maxProgress=3.444, 180vh per progress unit
+// Each section's hold starts at progress = sectionIndex
 const crossfadeSections = [
-  { id: 'hero', end: 1.444 },      // Hero + HeroDark
+  { id: 'hero', end: 1.444 },      // Hero + HeroDark combined
   { id: 'past-life', end: 2.444 },
   { id: 'focus', end: 3.444 },
 ];
 
-// Sections below CrossfadeSequence — detected by DOM position
-const scrollSections = ['value-add', 'stages', 'team', 'contact'];
+// Map crossfade section IDs to their scroll targets (progress value for hold start)
+// Hero=0, HeroDark=1, PastLife=2, Focus=3
+const crossfadeScrollTargets: Record<string, number> = {
+  'hero': 0,
+  'past-life': 2,      // PastLife is section index 2
+  'focus': 3,           // Focus is section index 3
+};
+
+// Footer CrossfadeSequence: [Team, Values, FooterCTA], maxProgress = 2 + 0.444 = 2.444
+// Team hold begins at progress = 0, Values at 1, FooterCTA at 2
+const footerCrossfadeScrollTargets: Record<string, number> = {
+  'team': 0,
+  'contact': 2,
+};
+const footerMaxProgress = 2.444;
+
+// Sections between the two pinned sequences — detected by DOM position
+const scrollSections = ['value-add', 'stages'];
 
 const FloatingNav = () => {
   const [activeId, setActiveId] = useState('hero');
@@ -49,7 +68,33 @@ const FloatingNav = () => {
         return;
       }
 
-      // Below crossfade: check which section is at viewport center
+      // Footer crossfade region (pinned Values → FooterCTA)
+      const footerWrapper = document.getElementById('footer-crossfade-wrapper');
+      if (footerWrapper) {
+        const footerSeqStart =
+          footerWrapper.getBoundingClientRect().top + scrollY;
+        const footerTotalScroll = footerMaxProgress * 1.8 * vh;
+
+        if (scrollY >= footerSeqStart + footerTotalScroll) {
+          setActiveId('contact');
+          return;
+        }
+
+        if (scrollY >= footerSeqStart) {
+          const localProgress =
+            ((scrollY - footerSeqStart) / footerTotalScroll) * footerMaxProgress;
+          // 3 sections: Team (0), Values (1), FooterCTA (2)
+          // Values has no nav item, so it inherits 'team' active state.
+          if (localProgress >= 2) {
+            setActiveId('contact');
+          } else {
+            setActiveId('team');
+          }
+          return;
+        }
+      }
+
+      // Between the two pinned sequences: check which section is at viewport center
       const viewportCenter = vh / 2;
       for (let i = scrollSections.length - 1; i >= 0; i--) {
         const el = document.getElementById(scrollSections[i]);
@@ -75,7 +120,50 @@ const FloatingNav = () => {
         return (
           <button
             key={item.id}
-            onClick={() => item.id === 'hero' ? window.scrollTo({ top: 0, behavior: 'smooth' }) : scrollToSection(item.id)}
+            onClick={() => {
+              const lenis = getLenis();
+              if (item.id === 'hero') {
+                if (lenis) lenis.scrollTo(0, { duration: 1.5 });
+                else window.scrollTo({ top: 0, behavior: 'smooth' });
+              } else if (item.id in crossfadeScrollTargets) {
+                // Crossfade sections are pinned — calculate scroll position from progress
+                const vh = window.innerHeight;
+                const maxProgress = 3.444;
+                const totalScroll = maxProgress * 1.8 * vh;
+                const targetProgress = crossfadeScrollTargets[item.id];
+                const targetScroll = (targetProgress / maxProgress) * totalScroll;
+                if (lenis) lenis.scrollTo(targetScroll, { duration: 2 });
+                else window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+              } else if (item.id in footerCrossfadeScrollTargets) {
+                // Footer crossfade (Values → FooterCTA) — pinned, compute offset from DOM
+                const footerWrapper = document.getElementById(
+                  'footer-crossfade-wrapper'
+                );
+                if (footerWrapper) {
+                  const vh = window.innerHeight;
+                  const sequenceStart =
+                    footerWrapper.getBoundingClientRect().top + window.scrollY;
+                  const totalScroll = footerMaxProgress * 1.8 * vh;
+                  const targetProgress =
+                    footerCrossfadeScrollTargets[item.id];
+                  const targetScroll =
+                    sequenceStart +
+                    (targetProgress / footerMaxProgress) * totalScroll;
+                  if (lenis) lenis.scrollTo(targetScroll, { duration: 2 });
+                  else
+                    window.scrollTo({
+                      top: targetScroll,
+                      behavior: 'smooth',
+                    });
+                }
+              } else {
+                const el = document.getElementById(item.id);
+                if (el) {
+                  if (lenis) lenis.scrollTo(el, { duration: 1.5 });
+                  else el.scrollIntoView({ behavior: 'smooth' });
+                }
+              }
+            }}
             className={`relative text-[13px] font-medium tracking-wide uppercase px-4 py-2 rounded-full transition-colors ${
               isActive
                 ? 'text-white bg-white/10'

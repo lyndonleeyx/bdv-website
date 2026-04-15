@@ -2,10 +2,28 @@ import AnimateIn from '../ui/AnimateIn';
 
 const FooterCTA = () => {
   return (
-    <section id="contact">
+    <section
+      id="contact"
+      className="relative h-full w-full overflow-hidden flex flex-col"
+      style={{
+        backgroundImage: 'url("/assets/images/decorative/cta-background.jpg")',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+      }}
+    >
+      {/* Horizontal white overlay: strong on left for text, fades right so facade shows through */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            'linear-gradient(to right, rgba(255,255,255,0.90) 0%, rgba(255,255,255,0.85) 33%, rgba(255,255,255,0.05) 100%)',
+        }}
+      />
+
       {/* CTA Area */}
       <div
-        className="relative z-10 max-w-[1400px] mx-auto"
+        className="relative z-10 max-w-[1400px] mx-auto w-full flex-1 flex flex-col justify-center"
         style={{
           paddingTop: 'clamp(3.5rem, 3rem + 1.5vw, 5rem)',
           paddingBottom: 'clamp(4rem, 3rem + 3vw, 6rem)',
@@ -20,15 +38,13 @@ const FooterCTA = () => {
             Get In Touch
           </p>
           <h2
-            className="text-text mb-6 md:mb-8"
+            className="text-text mb-6 md:mb-8 whitespace-nowrap"
             style={{
-              fontSize: 'clamp(3rem, 2.2rem + 3.4vw, 4.5rem)',
-              lineHeight: 1.05,
+              fontSize: 'clamp(2.5rem, 1.8rem + 2.9vw, 5rem)',
+              lineHeight: 1.1,
             }}
           >
-            Let's Go
-            <br />
-            Build!
+            Let's Go Build!
           </h2>
         </AnimateIn>
 
@@ -75,7 +91,7 @@ const FooterCTA = () => {
 
       {/* Divider */}
       <div
-        className="max-w-[1400px] mx-auto"
+        className="relative z-10 max-w-[1400px] mx-auto w-full"
         style={{ paddingInline: 'clamp(1.5rem, 1rem + 3vw, 4rem)' }}
       >
         <div className="w-full h-[1px] bg-[#d4cfc8]" />
@@ -83,19 +99,20 @@ const FooterCTA = () => {
 
       {/* Footer */}
       <div
-        className="max-w-[1400px] mx-auto"
+        className="relative z-10 max-w-[1400px] mx-auto w-full"
         style={{
-          paddingBlock: 'clamp(2rem, 1.5rem + 1.5vw, 3rem)',
+          paddingTop: 'clamp(2rem, 1.5rem + 1.5vw, 3rem)',
+          paddingBottom: 'clamp(2rem, 1.5rem + 5vw, 7rem)',
           paddingInline: 'clamp(1.5rem, 1rem + 3vw, 4rem)',
         }}
       >
-        <div className="flex flex-col md:flex-row md:justify-between gap-6">
-          <p className="text-text text-[14px]">
-            &copy;2026 Built Different Ventures. All rights reserved.
-          </p>
+        <div className="flex flex-col gap-2">
           <p className="text-text text-[14px]">
             9 Wallich St, #5th Floor, Sofitel Singapore City Centre, Singapore
             078885
+          </p>
+          <p className="text-text text-[14px]">
+            &copy;2026 Built Different Ventures. All rights reserved.
           </p>
         </div>
       </div>
