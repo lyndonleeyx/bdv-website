@@ -8,9 +8,10 @@ const navItems = [
   { label: 'Home', id: 'hero' },
   { label: 'Past Life', id: 'past-life' },
   { label: 'Focus', id: 'focus' },
-  { label: 'Value Add', id: 'value-add' },
-  { label: 'Process', id: 'stages' },
+  { label: 'Support', id: 'support' },
+  { label: 'Process', id: 'process' },
   { label: 'Team', id: 'team' },
+  { label: 'Values', id: 'values' },
   { label: 'Get In Touch', id: 'contact' },
 ];
 
@@ -35,12 +36,13 @@ const crossfadeScrollTargets: Record<string, number> = {
 // Team hold begins at progress = 0, Values at 1, FooterCTA at 2
 const footerCrossfadeScrollTargets: Record<string, number> = {
   'team': 0,
+  'values': 1,
   'contact': 2,
 };
 const footerMaxProgress = 2.444;
 
 // Sections between the two pinned sequences — detected by DOM position
-const scrollSections = ['value-add', 'stages'];
+const scrollSections = ['support', 'process'];
 
 const FloatingNav = () => {
   const [activeId, setActiveId] = useState('hero');
@@ -84,9 +86,10 @@ const FloatingNav = () => {
           const localProgress =
             ((scrollY - footerSeqStart) / footerTotalScroll) * footerMaxProgress;
           // 3 sections: Team (0), Values (1), FooterCTA (2)
-          // Values has no nav item, so it inherits 'team' active state.
           if (localProgress >= 2) {
             setActiveId('contact');
+          } else if (localProgress >= 1) {
+            setActiveId('values');
           } else {
             setActiveId('team');
           }

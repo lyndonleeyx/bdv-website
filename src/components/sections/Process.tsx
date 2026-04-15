@@ -5,47 +5,47 @@ const stages = [
   {
     number: '1',
     title: 'Informal',
-    subtitle: 'Designing for Visionaries',
+    subtitle: 'Can you articulate the idea?',
     description:
-      'Write down a testable idea: Articulate your concept clearly enough to test it. Get to know us during this time!',
+      'Write down a testable idea. Articulate your concept clearly enough to test it. This is also where we get to know each other.',
     sketch: '/assets/images/decorative/bridge-sketch.png',
     color: '#B84332',
   },
   {
     number: '2',
     title: 'Exploration',
-    subtitle: 'Simplifying the Complex',
+    subtitle: 'Is the pain real?',
     description:
-      'Validate the pain exists: Talk to target customers until you deeply understand their problem and can complete their sentences about it.',
+      'Talk to target customers until you deeply understand their problem and can complete their sentences about it.',
     sketch: '/assets/images/decorative/junction-sketch.png',
     color: '#3D5A80',
   },
   {
     number: '3',
     title: 'Entrepreneur-in-Residence',
-    subtitle: 'Strengthening the Foundation',
+    subtitle: 'Will customers pay, and can you build it?',
     description:
-      "De-risk the solution: Confirm customers want what you're building, will pay for it, and that you can actually build it.",
+      "Confirm customers want what you're building, will pay for it, and that there's a credible path to deliver it.",
     sketch: '/assets/images/decorative/building-sketch.png',
     color: '#2A7F62',
   },
   {
     number: '4',
     title: 'Investment',
-    subtitle: 'Creating Moments that Resonate',
+    subtitle: 'Can you reach and acquire customers?',
     description:
-      'Prove you can reach them: Demonstrate a viable path to access and acquire customers in this market.',
+      'We invest. You ship the MVP, acquire your first raving fans, and prove repeatable customer acquisition.',
     sketch: '/assets/images/decorative/jetplane-sketch.png',
     color: '#C4841D',
   },
 ];
 
-const Stages = () => {
+const Process = () => {
   const isMobile = useIsMobile();
   const CARD_OFFSET = isMobile ? 60 : 120;
   return (
     <section
-      id="stages"
+      id="process"
       style={{
         backgroundColor: 'transparent'
       }}
@@ -209,4 +209,4 @@ const Stages = () => {
   );
 };
 
-export default Stages;
+export default Process;

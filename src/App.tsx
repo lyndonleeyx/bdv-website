@@ -6,8 +6,8 @@ import Hero from './components/sections/Hero';
 import HeroDark from './components/sections/HeroDark';
 import PastLife from './components/sections/PastLife';
 import Focus from './components/sections/Focus';
-import ValueAdd from './components/sections/ValueAdd';
-import Stages from './components/sections/Stages';
+import Support from './components/sections/Support';
+import Process from './components/sections/Process';
 import Team from './components/sections/Team';
 import Values from './components/sections/Values';
 import FooterCTA from './components/sections/FooterCTA';
@@ -28,9 +28,9 @@ function App() {
           ]}
         />
 
-        <ValueAdd />
+        <Support />
 
-        {/* Process-background image for Stages only */}
+        {/* Process-background image for Process only */}
         <ScrubFadeIn>
           <div className="relative" style={{ marginTop: '-1px' }}>
             {/* Flipped background image */}
@@ -48,7 +48,7 @@ function App() {
             <div className="absolute inset-0 bg-gradient-to-b from-white/55 to-white/80" />
 
             <div className="relative z-10">
-              <Stages />
+              <Process />
             </div>
           </div>
         </ScrubFadeIn>

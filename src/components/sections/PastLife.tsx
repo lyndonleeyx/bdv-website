@@ -78,7 +78,7 @@ const PastLife = () => {
       <div
         className="absolute inset-0"
         style={{
-          backgroundImage: 'url("/assets/images/decorative/building2b.jpg")',
+          backgroundImage: 'url("/assets/images/decorative/past-life-background.jpg")',
           backgroundSize: 'cover',
           backgroundPosition: 'center bottom',
           backgroundRepeat: 'no-repeat',

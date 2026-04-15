@@ -14,35 +14,35 @@ interface TeamMember {
 const team: TeamMember[] = [
   {
     name: 'Huey Lin',
-    title: 'Partner & Cofounder',
+    title: 'Cofounder',
     image: '/assets/images/team/huey-headshot-Photoroom.png',
     funImage: null,
     bio: 'Huey brings big ideas to life and scale. Part of the original PayPal mafia, Huey was one of the first product managers at PayPal, then became the founding COO at Affirm (NASDAQ: AFRM). She later served as President of Asia at Flexport and a Venture Partner at Notable Capital (fka GGV Capital). She now serves on the boards of Hang Seng Bank, Singapore Exchange, and Nium.',
   },
   {
     name: 'Serge Longin',
-    title: 'Partner & Cofounder',
+    title: 'Cofounder',
     image: '/assets/images/team/serge-headshot-Photoroom.png',
     funImage: null,
     bio: 'A repeat founder who bootstrapped two US startups, RevenueWell and Club Automation, to a combined exit of over $100M. Both were acquired by private equity after becoming category leaders in dental SaaS and fitness ops. Serge runs our rigorous idea validation process and brings product, GTM, finance, and operations experience to ensure our startups find their footing.',
   },
   {
     name: 'Peter Rosberg',
-    title: 'Partner & Studio CTO',
+    title: 'Studio CTO',
     image: '/assets/images/team/peter-headshot-Photoroom.png',
     funImage: null,
     bio: 'Full-stack technologist who has built and scaled engineering teams at multiple high-growth startups. Peter architects the technical foundation for every studio venture.',
   },
   {
     name: 'Lyndon Lee',
-    title: 'Partner & CoBuilder',
+    title: 'CoBuilder',
     image: '/assets/images/team/lyndon-headshot-Photoroom.png',
     funImage: null,
     bio: 'Product-minded builder with expertise in AI-powered solutions for complex enterprise workflows.',
   },
   {
     name: 'Eric Le Blanc',
-    title: 'Partner & CoBuilder',
+    title: 'CoBuilder',
     image: '/assets/images/team/eric-headshot-Photoroom.png',
     funImage: null,
     bio: 'Experienced operator and venture builder focused on bringing innovative B2B solutions from zero to one.',
@@ -283,7 +283,7 @@ const Team = () => {
       className="relative h-full w-full overflow-hidden flex flex-col justify-center py-6 md:py-14 lg:py-20"
       style={{
         paddingInline: 'clamp(1.5rem, 1rem + 3vw, 4rem)',
-        backgroundImage: 'url("/assets/images/decorative/building5.jpg")',
+        backgroundImage: 'url("/assets/images/decorative/team-background.jpg")',
         backgroundSize: 'cover',
         backgroundPosition: 'center 85%',
         backgroundRepeat: 'no-repeat',

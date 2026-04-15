@@ -138,8 +138,8 @@
   /* Reduce FooterCTA heading minimum */
   #contact h2 { font-size: clamp(2rem, 8vw, 3rem) !important; }
 
-  /* Reduce backdrop blur intensity on Stages cards */
-  #stages .sticky {
+  /* Reduce backdrop blur intensity on Process cards */
+  #process .sticky {
     backdrop-filter: blur(8px) saturate(1.4) !important;
     -webkit-backdrop-filter: blur(8px) saturate(1.4) !important;
   }

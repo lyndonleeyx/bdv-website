@@ -32,7 +32,7 @@ const Hero = () => {
         alignItems: 'center',
         padding: 'clamp(2rem, 4vw, 4rem)',
         paddingTop: 'clamp(6rem, 8vw, 10rem)',
-        backgroundImage: 'url("/assets/images/decorative/building1.jpg")',
+        backgroundImage: 'url("/assets/images/decorative/hero-background.jpg")',
         backgroundSize: 'cover',
         backgroundPosition: 'center 30%',
       }}

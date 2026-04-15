@@ -132,8 +132,8 @@ const Values = () => {
               ref={(el) => {
                 if (el) valueRefs.current[i] = el;
               }}
-              className="text-white"
               style={{
+                color: '#F5F1ED',
                 fontSize: 'clamp(1.25rem, 0.9rem + 1.6vw, 2.25rem)',
                 fontWeight: 600,
                 lineHeight: 1.3,

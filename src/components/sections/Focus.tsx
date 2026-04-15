@@ -67,7 +67,7 @@ const Focus = () => {
         minHeight: '100vh',
         display: 'flex',
         alignItems: 'center',
-        backgroundImage: 'url("/assets/images/decorative/building3.jpg")',
+        backgroundImage: 'url("/assets/images/decorative/focus-background.jpg")',
         backgroundSize: 'cover',
         backgroundPosition: 'center center',
         backgroundRepeat: 'no-repeat',
@@ -122,7 +122,7 @@ const Focus = () => {
         {/* Body text - spacious and readable */}
         <p
           ref={bodyRef}
-          className="text-white/60"
+          className="text-white/85"
           style={{
             fontSize: 'clamp(1.125rem, 1.2vw, 1.25rem)',
             lineHeight: 1.7,

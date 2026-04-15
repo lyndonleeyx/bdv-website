@@ -16,55 +16,55 @@ const services: {
 }[] = [
   {
     icon: Lightbulb,
-    keyword: 'Dream',
+    keyword: 'Validate',
     subtitle: 'Problem & Solution Validation',
     description:
-      "We run deep customer discovery and pressure-test ideas against real-world pain. If we can't build a defensible model, we don't move forward.",
+      "We sit in customer conversations with you. If the problem isn't real, we find out together, fast.",
   },
   {
     icon: Hammer,
     keyword: 'Build',
     subtitle: 'Product & UX Support',
     description:
-      'Our product and design experts turn insights into MVPs customers actually want to use.',
+      'We build early demos with you and help shape what to ship first.',
   },
   {
     icon: RocketLaunch,
     keyword: 'Grow',
     subtitle: 'First Customers & GTM',
     description:
-      'We unlock our global network in fintech, healthcare, logistics and more to secure your earliest design partners.',
+      'We work our network to find your first design partners and customers.',
   },
   {
     icon: UsersThree,
     keyword: 'Recruit',
     subtitle: 'Founder & Team Formation',
     description:
-      "We help bring on world-class cofounders and early operators—people we'd back ourselves.",
+      "We help bring on cofounders, first engineers, and early operators we'd back ourselves.",
   },
   {
     icon: Brain,
     keyword: 'Learn',
     subtitle: 'World-Class Advisor Network',
     description:
-      'You get access to a bench of proven operators—from Stripe, Reddit, Coinbase, Google, PayPal, and more—ready to unblock and guide you.',
+      'We connect you with advisors from Stripe, Reddit, Coinbase, Google, PayPal, and more.',
   },
   {
     icon: CurrencyDollar,
     keyword: 'Fund',
     subtitle: 'First Check & Follow On',
     description:
-      "For ideas and founders we believe in, we invest up to $1M in initial capital to get you to product-market fit. We're backed by top-tier venture firms across the US, Europe, and Asia—partners who can also support your next round when you're ready to scale.",
+      'We offer capital to get to product-market fit. Our LPs include top-tier venture firms who can back your next round.',
   },
 ];
 
-const ValueAdd = () => {
+const Support = () => {
   return (
     <section
-      id="value-add"
+      id="support"
       className="relative overflow-hidden"
       style={{
-        backgroundImage: 'url("/assets/images/decorative/texture1.png")',
+        backgroundImage: 'url("/assets/images/decorative/support-background.png")',
         backgroundSize: 'cover',
         backgroundPosition: 'center center',
         backgroundRepeat: 'no-repeat',
@@ -167,7 +167,7 @@ const ValueAdd = () => {
                         fontSize: 'clamp(1rem, 0.85rem + 0.4vw, 1.125rem)',
                         fontWeight: 400,
                         lineHeight: 1.65,
-                        color: 'rgba(255, 255, 255, 0.6)',
+                        color: 'rgba(255, 255, 255, 0.85)',
                       }}
                     >
                       {service.description}
@@ -190,4 +190,4 @@ const ValueAdd = () => {
   );
 };
 
-export default ValueAdd;
+export default Support;
