@@ -60,10 +60,7 @@ const HeroDark = () => {
 
     // Monitor wrapper div's opacity to detect when HeroDark is visible
     const wrapper = containerRef.current?.parentElement;
-    if (!wrapper) {
-      console.warn('HeroDark: wrapper element not found');
-      return;
-    }
+    if (!wrapper) return;
 
     let hasTriggered = false;
     let rafId: number;

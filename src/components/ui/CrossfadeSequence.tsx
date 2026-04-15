@@ -34,63 +34,58 @@ const CrossfadeSequence: React.FC<CrossfadeSequenceProps> = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const sectionRefs = useRef<(HTMLElement | null)[]>([]);
 
-  // Helper function to calculate opacity for a section with hold periods
-  const calculateSectionOpacity = (
-    progress: number,
-    index: number,
-    totalSections: number,
-    holdRatio: number
-  ): number => {
-    const transitionRatio = 1 - holdRatio; // e.g., 0.2 for 20% transition
-
-    // Phase 1: Fade IN from previous section
-    if (index > 0) {
-      const fadeInStart = (index - 1) + holdRatio; // e.g., 0.8 for section 1
-      const fadeInEnd = index; // e.g., 1.0 for section 1
-
-      if (progress >= fadeInStart && progress < fadeInEnd) {
-        const transitionProgress = (progress - fadeInStart) / transitionRatio;
-        return transitionProgress; // 0.0 → 1.0
-      }
-    }
-
-    // Phase 2: HOLD at full opacity
-    const holdStart = index; // e.g., 1.0 for section 1
-    const holdEnd = index + holdRatio; // e.g., 1.8 for section 1
-
-    // Last section stays visible from holdStart onward (no fade out)
-    if (index === totalSections - 1 && progress >= holdStart) {
-      return 1.0;
-    }
-
-    if (progress >= holdStart && progress < holdEnd) {
-      return 1.0; // HOLD at full opacity
-    }
-
-    // Phase 3: Fade OUT to next section
-    if (index < totalSections - 1) {
-      const fadeOutStart = index + holdRatio; // e.g., 1.8 for section 1
-      const fadeOutEnd = index + 1; // e.g., 2.0 for section 1
-
-      if (progress >= fadeOutStart && progress < fadeOutEnd) {
-        const transitionProgress = (progress - fadeOutStart) / transitionRatio;
-        return 1.0 - transitionProgress; // 1.0 → 0.0
-      }
-    }
-
-    // Outside this section's visibility range
-    return 0;
-  };
-
   useEffect(() => {
     if (!containerRef.current) return;
+
+    // Calculate opacity for a section based on scroll progress and hold periods
+    const calculateOpacity = (
+      progress: number,
+      index: number,
+      total: number
+    ): number => {
+      const transitionRatio = 1 - holdRatio;
+
+      // Phase 1: Fade IN from previous section
+      if (index > 0) {
+        const fadeInStart = (index - 1) + holdRatio;
+        const fadeInEnd = index;
+
+        if (progress >= fadeInStart && progress < fadeInEnd) {
+          return (progress - fadeInStart) / transitionRatio;
+        }
+      }
+
+      // Phase 2: HOLD at full opacity
+      const holdStart = index;
+      const holdEnd = index + holdRatio;
+
+      if (index === total - 1 && progress >= holdStart) {
+        return 1.0;
+      }
+
+      if (progress >= holdStart && progress < holdEnd) {
+        return 1.0;
+      }
+
+      // Phase 3: Fade OUT to next section
+      if (index < total - 1) {
+        const fadeOutStart = index + holdRatio;
+        const fadeOutEnd = index + 1;
+
+        if (progress >= fadeOutStart && progress < fadeOutEnd) {
+          return 1.0 - (progress - fadeOutStart) / transitionRatio;
+        }
+      }
+
+      return 0;
+    };
 
     const ctx = gsap.context(() => {
       const totalSections = sections.length;
 
       // Each section gets 180vh (80vh hold + 100vh transition), except the last
       // which only needs to fade in and hold — no transition after it
-      const maxProgress = totalSections - 1 + holdRatio; // e.g., 3.444 for 4 sections
+      const maxProgress = totalSections - 1 + holdRatio;
       const scrollDistance = maxProgress * 180; // 180vh per progress unit
 
       // Create a single ScrollTrigger that manages all crossfades
@@ -101,19 +96,12 @@ const CrossfadeSequence: React.FC<CrossfadeSequenceProps> = ({
         pin: true,
         scrub: 2.5,
         onUpdate: (self) => {
-          // Progress ranges from 0 to maxProgress (ends after last section's hold)
           const progress = self.progress * maxProgress;
 
           sectionRefs.current.forEach((section, index) => {
             if (!section) return;
 
-            const opacity = calculateSectionOpacity(
-              progress,
-              index,
-              totalSections,
-              holdRatio
-            );
-
+            const opacity = calculateOpacity(progress, index, totalSections);
             gsap.set(section, { opacity });
           });
         }
@@ -121,7 +109,7 @@ const CrossfadeSequence: React.FC<CrossfadeSequenceProps> = ({
     });
 
     return () => ctx.revert();
-  }, [sections, holdRatio, calculateSectionOpacity]);
+  }, [sections, holdRatio]);
 
   return (
     <div

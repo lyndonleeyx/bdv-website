@@ -1,5 +1,6 @@
 import Header from './components/layout/Header';
 import CrossfadeSequence from './components/ui/CrossfadeSequence';
+import ErrorBoundary from './components/ui/ErrorBoundary';
 import Hero from './components/sections/Hero';
 import HeroDark from './components/sections/HeroDark';
 import PastLife from './components/sections/PastLife';
@@ -11,6 +12,7 @@ import FooterCTA from './components/sections/FooterCTA';
 
 function App() {
   return (
+    <ErrorBoundary>
     <div className="min-h-screen">
       <Header />
       <main className="overflow-x-clip">
@@ -48,6 +50,7 @@ function App() {
         </div>
       </main>
     </div>
+    </ErrorBoundary>
   );
 }
 
