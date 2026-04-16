@@ -92,13 +92,13 @@ const FlipCard = ({
           style={isMobile && isFlipped ? { transform: 'rotateY(180deg)' } : undefined}
         >
           {/* Front face — formal headshot */}
-          <div className="absolute inset-0 backface-hidden rounded-[24px] overflow-hidden bg-[#e8e3dc]">
+          <div className="absolute inset-0 backface-hidden rounded-[24px] overflow-hidden bg-white">
             {member.image ? (
               <img
                 src={member.image}
                 alt={member.name}
                 className="w-full h-full object-cover"
-                style={{ objectPosition: 'center -8%', ...member.imageStyle }}
+                style={{ objectPosition: 'center 5%', ...member.imageStyle }}
               />
             ) : (
               <div className="w-full h-full flex items-center justify-center">
@@ -108,7 +108,7 @@ const FlipCard = ({
           </div>
 
           {/* Back face — fun photo (placeholder) */}
-          <div className="absolute inset-0 backface-hidden rotate-y-180 rounded-[24px] overflow-hidden bg-[#e8e3dc]">
+          <div className="absolute inset-0 backface-hidden rotate-y-180 rounded-[24px] overflow-hidden bg-white">
             {member.funImage ? (
               <img
                 src={member.funImage}
@@ -213,7 +213,7 @@ const TeamModal = ({
 
             <div className="grid md:grid-cols-[2fr_3fr]">
               {/* Left — photo */}
-              <div className="bg-[#e8e3dc] aspect-[3/4] md:aspect-auto">
+              <div className="bg-white aspect-[3/4] md:aspect-auto">
                 {member.image ? (
                   <img
                     src={member.image}

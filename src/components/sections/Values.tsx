@@ -93,7 +93,7 @@ const Values = () => {
       {/* Dark overlay for text readability */}
       <div
         className="absolute inset-0 z-0"
-        style={{ backgroundColor: 'rgba(26, 26, 26, 0.65)' }}
+        style={{ backgroundColor: 'rgba(26, 26, 26, 0.75)' }}
       />
 
       <div className="relative z-10 max-w-[1400px] mx-auto w-full">
