@@ -1,74 +1,147 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap');
 
 @theme {
-  /* Custom colors */
-  --color-beige-50: #faf9f7;
-  --color-beige-100: #f5f3f0;
-  --color-beige-200: #e8e4de;
-  --color-beige-300: #d4cec4;
+  /* Colors */
+  --color-cream: #FFFFFF;
+  --color-text: #1a1a1a;
+  --color-muted: #9a948b;
+  --color-coral: #B84332;
+  --color-blue: #3D5A80;
+  --color-teal: #2A7F62;
+  --color-yellow: #C4841D;
+  --color-lavender: #b8b0cc;
+  --color-sage: #c4d8a0;
 
-  --color-bdv-yellow: #FFD247;
-  --color-bdv-yellow-light: #fae588;
-  --color-bdv-blue: #0285B6;
+  /* Maven11-inspired colors */
+  --color-maven-blue: rgb(170, 199, 223);
+  --color-maven-purple: rgb(180, 170, 210);
+  --color-maven-pink: rgb(230, 180, 200);
 
-  /* Font family */
-  --font-sans: Helvetica, Arial, sans-serif;
-
-  /* Line heights (from Squarespace CSS) */
-  --heading-line-height: 1.1em;
-  --body-line-height: 1.3em;
+  /* Font families */
+  --font-body: 'DM Sans', sans-serif;
 }
 
 @layer base {
   html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto; /* Lenis handles smooth scroll */
+  }
+
+  /* Lenis smooth scroll classes */
+  html.lenis,
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
   }
 
   body {
-    background-image: url('/src/assets/images/decorative/website background.webp');
-    background-size: cover;
-    background-attachment: scroll;
-    background-repeat: no-repeat;
-    background-position: top center;
-    color: #111827;
-    font-family: var(--font-sans);
-    font-weight: 400;
+    background-color: #FFFFFF;
+    color: #1a1a1a;
+    font-family: var(--font-body);
+    font-weight: 300;
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
+    isolation: isolate;
+    --bg-position-y: 20%; /* CSS variable for scroll-linked background position */
   }
 
-  /* Make headings semi-bold to differentiate from body text */
-  .font-bold, h1, h2, h3, h4, h5, h6 {
-    font-weight: 550 !important;
+  /* Maven11-style continuous background - architectural image base */
+  body::before {
+    content: '';
+    position: fixed; /* Fixed to viewport, content scrolls over it */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh; /* Always viewport height */
+    opacity: 1; /* Fully visible, no opacity */
+    filter: none; /* No blur */
+    z-index: -2;
+    pointer-events: none;
   }
 
-  /* Make strong and b tags semi-bold */
-  strong, b {
-    font-weight: 550 !important;
+  /* Atmospheric gradient layer on top */
+  body::after {
+    content: '';
+    position: fixed; /* Fixed with background */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh; /* Always viewport height */
+    background: radial-gradient(
+        circle at 20% 10%,
+        rgba(170, 199, 223, 0.12) 0%,
+        transparent 40%
+      ),
+      radial-gradient(
+        circle at 80% 60%,
+        rgba(180, 170, 210, 0.08) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 50% 85%,
+        rgba(230, 180, 200, 0.06) 0%,
+        transparent 45%
+      );
+    z-index: -1;
+    pointer-events: none;
   }
 
-  /* Squarespace Section Height System */
-  /* section-height--large with vertical-alignment--middle applies 10vmax padding */
-  section[data-section-height="large"] .content-wrapper {
-    padding-top: 8vmax;
-    padding-bottom: 10vmax;
+  h1, h2 {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-style: normal;
   }
 
-  /* section-height--medium applies 6.6vmax padding */
-  section[data-section-height="medium"] .content-wrapper {
-    padding-top: 6.6vmax;
-    padding-bottom: 6.6vmax;
-  }
-
-  /* section-height--small applies 3vmax padding */
-  section[data-section-height="small"] .content-wrapper {
-    padding-top: 3vmax;
-    padding-bottom: 3vmax;
-  }
-
-  /* section-height--custom with 0 height applies 0 padding */
-  section[data-section-height="custom"] .content-wrapper {
-    padding-top: 0;
-    padding-bottom: 0;
+  /* Smaller headings stay DM Sans */
+  h3, h4, h5, h6 {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-style: normal;
   }
 }
+
+/* Hide scrollbar for horizontal scroll containers */
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+.hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Continuous marquee scroll */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* 3D Card Flip */
+.perspective-1000 { perspective: 1000px; }
+.backface-hidden { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.rotate-y-180 { transform: rotateY(180deg); }
+.flip-card-inner { transform-style: preserve-3d; transition: transform 0.6s ease; }
+.group:hover .flip-card-inner { transform: rotateY(180deg); }
+
+/* ─── Mobile Overrides (max-width: 767px) ─── */
+@media (max-width: 767px) {
+  /* Disable hover flip on mobile — tap-to-flip handled in JS */
+  .group:hover .flip-card-inner { transform: none; }
+
+  /* Reduce Hero "Built Different" minimum size */
+  #hero-light h1 { font-size: clamp(3rem, 15vw, 6rem) !important; }
+
+  /* Reduce HeroDark "We Like Different" minimum */
+  #hero-dark h2 { font-size: clamp(2.5rem, 10vw, 4rem) !important; }
+
+  /* Reduce Focus "We're Your First Cofounder" minimum */
+  #focus h2 { font-size: clamp(2rem, 10vw, 3.5rem) !important; }
+
+  /* Reduce FooterCTA heading minimum */
+  #contact h2 { font-size: clamp(2rem, 8vw, 3rem) !important; }
+
+  /* Reduce backdrop blur intensity on Process cards */
+  #process .sticky {
+    backdrop-filter: blur(8px) saturate(1.4) !important;
+    -webkit-backdrop-filter: blur(8px) saturate(1.4) !important;
+  }
+}
+

@@ -40,3 +40,11 @@ lerna-debug.log*
 
 # Vite
 .vite
+
+# Development screenshots & artifacts
+/*.png
+/*.jpg
+
+# Tool configs
+.playwright-mcp/
+.claude/settings.local.json

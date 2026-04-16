@@ -1,383 +1,189 @@
-import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { BlurOrb } from '../ui/BlurOrb';
+import { useIsMobile } from '../../hooks/useIsMobile';
 
 const Hero = () => {
-  const [displayText, setDisplayText] = useState('');
-  const [showCursor, setShowCursor] = useState(true);
-  const fullText = 'built:\n   different';
+  const isMobile = useIsMobile();
+  // Maven11-style cursor-follow gradient
+  const [mousePosition, setMousePosition] = useState({ x: 50, y: 50 });
 
   useEffect(() => {
-    let currentIndex = 0;
-    const typingInterval = setInterval(() => {
-      if (currentIndex <= fullText.length) {
-        setDisplayText(fullText.slice(0, currentIndex));
-        currentIndex++;
-      } else {
-        clearInterval(typingInterval);
-        setTimeout(() => setShowCursor(false), 500); // Hide cursor after 0.5s
-      }
-    }, 100); // 100ms per character
+    if (isMobile) return; // Skip mouse tracking on mobile
+    const handleMouse = (e: MouseEvent) => {
+      setMousePosition({
+        x: (e.clientX / window.innerWidth) * 100,
+        y: (e.clientY / window.innerHeight) * 100,
+      });
+    };
+    window.addEventListener('mousemove', handleMouse);
+    return () => window.removeEventListener('mousemove', handleMouse);
+  }, [isMobile]);
 
-    return () => clearInterval(typingInterval);
-  }, []);
   return (
-    <section
-      id="hero"
+    <motion.section
+      id="hero-light"
       className="relative overflow-hidden"
       style={{
-        paddingTop: '15vh',
-        paddingBottom: '0'
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        padding: 'clamp(2rem, 4vw, 4rem)',
+        paddingTop: 'clamp(6rem, 8vw, 10rem)',
+        backgroundImage: 'url("/assets/images/decorative/hero-background.jpg")',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center 30%',
       }}
     >
-      {/* Section Background */}
-      <div className="absolute inset-0 -z-10">
-        <img
-          src="/assets/images/decorative/website background.webp"
-          alt=""
-          width="3770"
-          height="4583"
-          className="w-full h-full object-cover"
-          style={{
-            objectPosition: '48.058% 12.001%'
-          }}
-          loading="eager"
-        />
-      </div>
-
-      {/* Content Wrapper */}
-      <div
-        className="content-wrapper"
-        style={{
-          paddingTop: 'calc(0vmax / 10)',
-          paddingBottom: '6.6vmax'
-        }}
-      >
-        {/* Fluid Engine Grid */}
+        {/* Dark overlay for better text contrast */}
         <div
-          className="fluid-engine-grid"
+          className="absolute inset-0 pointer-events-none"
           style={{
-            '--grid-gutter': 'calc(var(--sqs-mobile-site-gutter, 6vw) - 11.0px)',
-            '--cell-max-width': 'calc((var(--sqs-site-max-width, 1500px) - (11.0px * (8 - 1))) / 8)',
-            display: 'grid',
-            position: 'relative',
-            rowGap: '11px',
-            columnGap: '11px',
-            overflowX: 'visible'
-          } as React.CSSProperties}
-        >
-          {/* Yellow Stroke - Z-Index 1 */}
+            backgroundColor: 'rgba(0, 0, 0, 0.2)',
+            zIndex: 0,
+          }}
+        />
+
+        {/* Wrap all content for fade-out animation */}
+        <div className="hero-content">
+          {/* Floating blur orbs */}
           <motion.div
-            initial={{ opacity: 0 }}
             animate={{
-              opacity: 1,
-              y: [0, -20, 0]
+              x: [0, 40, 0],
+              y: [0, -30, 0],
+              scale: [1, 1.1, 1],
             }}
             transition={{
-              opacity: { duration: 0.65, delay: 0.101695 },
-              y: { duration: 40, repeat: Infinity, ease: "easeInOut" }
-            }}
-            className="fe-block yellow-stroke block"
-            style={{
-              zIndex: 1
+              duration: 12,
+              repeat: Infinity,
+              ease: "easeInOut"
             }}
           >
-            <div className="sqs-block image-block sqs-block-image sqs-stretched">
-              <div className="sqs-block-content" style={{ width: '100%' }}>
-                <div className="image-block-outer-wrapper">
-                  <div
-                    className="fluid-image-animation-wrapper sqs-image sqs-block-alignment-wrapper"
-                    style={{
-                      transitionTimingFunction: 'ease',
-                      transitionDuration: '0.65s',
-                      transitionDelay: '0.101695s',
-                      animationDuration: '0.65s'
-                    }}
-                  >
-                    <div
-                      className="fluid-image-container sqs-image-content"
-                      style={{
-                        overflow: 'visible',
-                        position: 'relative',
-                        width: '200%',
-                        marginLeft: '-50%',
-                        marginTop: '-50%'
-                      }}
-                    >
-                      <div className="content-fit">
-                        <img
-                          src="/assets/images/decorative/blue-yellow-stroke.png"
-                          alt=""
-                          width="2248"
-                          height="2172"
-                          style={{
-                            display: 'block',
-                            objectFit: 'contain',
-                            objectPosition: '50% 50%',
-                            width: '100%'
-                          }}
-                          loading="lazy"
-                        />
-                        <div
-                          className="fluidImageOverlay"
-                          style={{
-                            position: 'absolute',
-                            top: 0,
-                            left: 0,
-                            width: '100%',
-                            height: '100%',
-                            mixBlendMode: 'normal',
-                            opacity: 0
-                          }}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <BlurOrb
+              color="rgb(170, 199, 223)"
+              blur={isMobile ? 100 : 300}
+              size={isMobile ? 300 : 700}
+              position={{ top: '-10%', right: '5%' }}
+              opacity={0.15}
+            />
           </motion.div>
 
-          {/* Tagline - Z-Index 3 */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.65, delay: 0.118644 }}
-            className="fe-block tagline"
-            style={{
-              gridArea: '2/2/4/10',
-              zIndex: 3,
-              mixBlendMode: 'normal'
+            animate={{
+              x: [0, -30, 0],
+              y: [0, 40, 0],
+              scale: [1, 1.15, 1],
+            }}
+            transition={{
+              duration: 15,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 0.5
             }}
           >
-            <div className="sqs-block flex items-start justify-start">
-              <p
-                className="text-[1.3rem] text-gray-700"
-                style={{
-                  lineHeight: '1.3em',
-                  whiteSpace: 'normal'
-                }}
-              >
-                We're here to build—with you
-              </p>
-            </div>
+            <BlurOrb
+              color="rgb(180, 170, 210)"
+              blur={isMobile ? 80 : 250}
+              size={isMobile ? 250 : 600}
+              position={{ bottom: '10%', left: '5%' }}
+              opacity={0.1}
+            />
           </motion.div>
 
-          {/* "built: different" Heading - Z-Index 4 */}
-          <div
-            className="fe-block combined-heading"
+          {/* HUGE Maven11-style cursor-follow radial gradient */}
+          <motion.div
+            className="absolute inset-0 pointer-events-none"
             style={{
-              gridArea: '5/2/9/10',
-              zIndex: 4,
-              mixBlendMode: 'normal'
+              background: `radial-gradient(
+                circle 800px at ${mousePosition.x}% ${mousePosition.y}%,
+                rgba(170, 199, 223, 0.2) 0%,
+                rgba(180, 170, 210, 0.12) 25%,
+                rgba(230, 180, 200, 0.08) 50%,
+                transparent 100%
+              )`,
+              transition: 'background 0.15s ease-out',
+              zIndex: 1,
+              mixBlendMode: 'screen',
             }}
-          >
-            <div className="sqs-block flex items-start justify-start">
-              <h1
-                className="text-[4.5rem] md:text-[6.2rem] font-bold text-gray-900"
-                style={{
-                  lineHeight: '1.1em',
-                  whiteSpace: 'pre-wrap'
-                }}
-              >
-                {displayText}
-                {showCursor && <span className="typing-cursor">|</span>}
-              </h1>
-            </div>
-          </div>
+          />
 
-          {/* Hero Tape - Z-Index 5 */}
-          <div
-            className="fe-block hero-tape hidden md:flex"
-            style={{
-              gridArea: '10/2/11/8',
-              zIndex: 5,
-              marginTop: '-4rem'
-            }}
-          >
-            <div className="sqs-block flex items-start justify-center">
-              <div
-                className="fluid-image-container"
-                style={{
-                  overflow: 'hidden',
-                  maskImage: '-webkit-radial-gradient(center, white, black)',
-                  WebkitMaskImage: '-webkit-radial-gradient(center, white, black)',
-                  position: 'relative',
-                  width: '100%',
-                  maxWidth: '250px',
-                  height: '100%',
-                  transform: 'scale(0.8)'
-                }}
-              >
-                <img
-                  src="/assets/images/decorative/hero-tape.webp"
-                  alt=""
-                  width="781"
-                  height="304"
-                  style={{
-                    display: 'block',
-                    objectFit: 'contain',
-                    objectPosition: '50% 50%',
-                    width: '100%',
-                    height: 'auto',
-                    opacity: 0.8
+          {/* Content container */}
+          <div className="relative z-10 w-full mx-auto text-center px-4">
+            {/* LIQUID TEXT ENTRANCE - "Built Different" */}
+            <h1
+              className="uppercase"
+              style={{
+                fontSize: 'clamp(6rem, 18vw, 16rem)',
+                lineHeight: 0.85,
+                letterSpacing: '-0.03em',
+                fontWeight: 700,
+                marginBottom: 'clamp(2rem, 3vw, 3rem)',
+                width: '100%',
+                color: '#FFFFFF',
+                textShadow: '0 2px 30px rgba(0, 0, 0, 0.3), 0 0 60px rgba(170, 199, 223, 0.2)',
+              }}
+            >
+              {['Built', 'Different'].map((word, i) => (
+                <motion.span
+                  key={i}
+                  style={{ display: 'block' }}
+                  initial={{
+                    opacity: 0,
+                    y: 80,
+                    scale: 0.8,
+                    filter: isMobile ? 'none' : 'blur(20px)'
                   }}
-                  loading="lazy"
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Description - Z-Index 7 */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.65, delay: 0.20339 }}
-            className="fe-block description"
-            style={{
-              gridArea: '11/2/14/10',
-              zIndex: 7
-            }}
-          >
-            <div className="sqs-block flex items-start justify-start">
-              <div style={{ borderRadius: '30px', maxWidth: '560px' }}>
-                <p
-                  className="text-[1.26rem] text-gray-900"
-                  style={{
-                    lineHeight: '1.3em',
-                    whiteSpace: 'pre-wrap'
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    filter: 'blur(0px)'
+                  }}
+                  transition={{
+                    delay: i * 0.2,
+                    duration: 1.5,
+                    ease: [0.34, 1.56, 0.64, 1], // Elastic easing with overshoot
                   }}
                 >
-                  <strong>Built Different Ventures (BDV)</strong> co-builds category-defining companies with founders. We focus on complex, global service problems where AI can deliver outsized value.
-                </p>
-              </div>
-            </div>
-          </motion.div>
+                  {word}
+                </motion.span>
+              ))}
+            </h1>
+
+            {/* FLOWING DESCRIPTION - slides from left with blur */}
+            <motion.p
+              className="max-w-[800px] mx-auto"
+              initial={{
+                opacity: 0,
+                y: 40,
+                filter: isMobile ? 'none' : 'blur(15px)'
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+                filter: 'blur(0px)'
+              }}
+              transition={{
+                delay: 0.5,
+                duration: 1.2,
+                ease: [0.34, 1.56, 0.64, 1],
+              }}
+              style={{
+                fontSize: 'clamp(1.25rem, 1rem + 0.5vw, 1.75rem)',
+                lineHeight: 1.6,
+                fontWeight: 300,
+                color: '#FFFFFF',
+                textShadow: '0 2px 20px rgba(0, 0, 0, 0.4)',
+              }}
+            >
+              Built Different Ventures co-builds category-defining companies
+              with founders. We're your first cofounder.
+            </motion.p>
+          </div>
         </div>
-
-        {/* Grid Styles */}
-        <style dangerouslySetInnerHTML={{__html: `
-          /* Mobile: Tighter line-height for headings */
-          #hero h1 {
-            line-height: 1.05em !important;
-          }
-
-          #hero .fluid-engine-grid {
-            grid-template-rows: repeat(14, minmax(24px, auto));
-            grid-template-columns: minmax(var(--grid-gutter), 1fr) repeat(8, minmax(0, var(--cell-max-width))) minmax(var(--grid-gutter), 1fr);
-          }
-
-          /* Mobile stroke styling */
-          .fe-block.yellow-stroke {
-            grid-area: 1/1/15/10 !important;
-            opacity: 0.3;
-          }
-
-          .fe-block.yellow-stroke .sqs-block {
-            justify-content: center;
-            align-items: center;
-          }
-
-          /* Disable animations for users who prefer reduced motion */
-          @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0; }
-          }
-
-          .typing-cursor {
-            animation: blink 1s infinite;
-            margin-left: 2px;
-          }
-
-          @media (prefers-reduced-motion: reduce) {
-            #hero * {
-              animation-duration: 0.01ms !important;
-              animation-iteration-count: 1 !important;
-              transition-duration: 0.01ms !important;
-            }
-          }
-
-          @media (min-width: 768px) {
-            /* Desktop: Allow stroke to overflow into next section */
-            #hero {
-              overflow: visible !important;
-            }
-
-            /* Desktop: Restore normal line-height */
-            #hero h1 {
-              line-height: 1.1em !important;
-            }
-
-            /* Desktop: Reduce hero bottom padding */
-            #hero .content-wrapper {
-              padding-bottom: 0 !important;
-            }
-
-            #hero .fluid-engine-grid {
-              --grid-gutter: calc(var(--sqs-site-gutter, 4vw) - 11.0px);
-              --cell-max-width: calc((var(--sqs-site-max-width, 1500px) - (11.0px * (24 - 1))) / 24);
-              --row-height-scaling-factor: 0.0215;
-              --container-width: min(var(--sqs-site-max-width, 1500px), calc(100vw - var(--sqs-site-gutter, 4vw) * 2));
-
-              grid-template-rows: repeat(20, minmax(calc(var(--container-width) * var(--row-height-scaling-factor)), auto)) !important;
-              grid-template-columns: minmax(var(--grid-gutter), 1fr) repeat(24, minmax(0, var(--cell-max-width))) minmax(var(--grid-gutter), 1fr) !important;
-            }
-
-            .fe-block.yellow-stroke {
-              grid-area: 1/1/20/13 !important;
-              transform: translateX(-15%) translateY(-10%) scale(2.5);
-              opacity: 1;
-            }
-
-            .fe-block.yellow-stroke .sqs-block {
-              justify-content: center;
-              align-items: flex-start;
-            }
-
-            .fe-block.yellow-stroke img {
-              opacity: 1;
-              filter: saturate(1.4) contrast(1.15);
-            }
-
-            .fe-block.tagline {
-              grid-area: 2/2/4/12 !important;
-            }
-
-            .fe-block.tagline .sqs-block {
-              justify-content: flex-start;
-              align-items: flex-start;
-            }
-
-            .fe-block.combined-heading {
-              grid-area: 5/14/9/26 !important;
-            }
-
-            .fe-block.combined-heading .sqs-block {
-              justify-content: flex-start;
-              align-items: flex-start;
-            }
-
-            .fe-block.hero-tape {
-              grid-area: 10/17/11/25 !important;
-              margin-top: -6rem !important;
-            }
-
-            .fe-block.hero-tape .sqs-block {
-              justify-content: center;
-              align-items: flex-start;
-            }
-
-            .fe-block.description {
-              grid-area: 11/14/14/24 !important;
-            }
-
-            .fe-block.description .sqs-block {
-              justify-content: flex-start;
-              align-items: flex-start;
-            }
-          }
-        `}} />
-      </div>
-    </section>
+      </motion.section>
   );
 };
 
