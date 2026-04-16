@@ -28,10 +28,10 @@ const Hero = () => {
         minHeight: '100vh',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'flex-start',
+        justifyContent: isMobile ? 'center' : 'flex-start',
         alignItems: 'center',
         padding: 'clamp(2rem, 4vw, 4rem)',
-        paddingTop: 'clamp(6rem, 8vw, 10rem)',
+        paddingTop: isMobile ? undefined : 'clamp(6rem, 8vw, 10rem)',
         backgroundImage: 'url("/assets/images/decorative/hero-background.jpg")',
         backgroundSize: 'cover',
         backgroundPosition: 'center 30%',
@@ -115,7 +115,7 @@ const Hero = () => {
             <h1
               className="uppercase"
               style={{
-                fontSize: 'clamp(6rem, 18vw, 16rem)',
+                fontSize: isMobile ? 'clamp(10rem, 28vw, 14rem)' : 'clamp(6rem, 18vw, 16rem)',
                 lineHeight: 0.85,
                 letterSpacing: '-0.03em',
                 fontWeight: 700,

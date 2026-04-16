@@ -12,12 +12,20 @@ const FooterCTA = () => {
         backgroundRepeat: 'no-repeat',
       }}
     >
-      {/* Horizontal white overlay: strong on left for text, fades right so facade shows through */}
+      {/* Desktop overlay: strong on left for text, fades right so facade shows through */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0 pointer-events-none hidden md:block"
         style={{
           background:
             'linear-gradient(to right, rgba(255,255,255,0.90) 0%, rgba(255,255,255,0.85) 33%, rgba(255,255,255,0.05) 100%)',
+        }}
+      />
+      {/* Mobile overlay: strong at top for text, fades down so facade shows at bottom */}
+      <div
+        className="absolute inset-0 pointer-events-none md:hidden"
+        style={{
+          background:
+            'linear-gradient(to bottom, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.88) 60%, rgba(255,255,255,0.15) 100%)',
         }}
       />
 
