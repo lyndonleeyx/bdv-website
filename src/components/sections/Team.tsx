@@ -35,14 +35,14 @@ const team: TeamMember[] = [
   },
   {
     name: 'Lyndon Lee',
-    title: 'CoBuilder',
+    title: 'Cobuilder',
     image: '/assets/images/team/lyndon-headshot-Photoroom.png',
     funImage: null,
     bio: 'Product-minded builder with expertise in AI-powered solutions for complex enterprise workflows.',
   },
   {
     name: 'Eric Le Blanc',
-    title: 'CoBuilder',
+    title: 'Cobuilder',
     image: '/assets/images/team/eric-headshot-Photoroom.png',
     funImage: null,
     bio: 'Experienced operator and venture builder focused on bringing innovative B2B solutions from zero to one.',
