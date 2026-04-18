@@ -102,7 +102,7 @@ const CrossfadeSequence: React.FC<CrossfadeSequenceProps> = ({
             if (!section) return;
 
             const opacity = calculateOpacity(progress, index, totalSections);
-            gsap.set(section, { opacity });
+            gsap.set(section, { opacity, pointerEvents: opacity > 0.1 ? 'auto' : 'none' });
           });
         }
       });
@@ -132,6 +132,7 @@ const CrossfadeSequence: React.FC<CrossfadeSequenceProps> = ({
             width: '100%',
             height: '100vh',
             opacity: index === 0 ? 1 : 0, // First section starts visible
+            pointerEvents: index === 0 ? 'auto' : 'none',
             willChange: 'opacity',
           }}
         >

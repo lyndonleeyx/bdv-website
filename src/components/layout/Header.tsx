@@ -204,7 +204,7 @@ const Header = () => {
           {/* Right side — Contact pill + LinkedIn */}
           <div className="flex items-center gap-3">
             <a
-              href="mailto:hello@builtdifferent.vc"
+              href="mailto:lyndon@bdv.team"
               className="hidden md:inline-flex items-center border border-[#1a1a1a]/20 rounded-full px-5 py-2 text-[13px] font-medium tracking-wide uppercase text-[#1a1a1a] hover:bg-[#1a1a1a] hover:text-white transition-colors"
             >
               Contact Us
