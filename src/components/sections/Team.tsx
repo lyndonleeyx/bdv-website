@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useIsMobile } from '../../hooks/useIsMobile';
+
 
 interface TeamMember {
   name: string;
@@ -8,6 +8,7 @@ interface TeamMember {
   image: string | null;
   funImage: string | null;
   bio: string;
+  linkedin?: string;
   imageStyle?: React.CSSProperties;
 }
 
@@ -18,6 +19,7 @@ const team: TeamMember[] = [
     image: '/assets/images/team/huey-headshot-Photoroom.png',
     funImage: null,
     bio: 'Huey brings big ideas to life and scale. Part of the original PayPal mafia, Huey was one of the first product managers at PayPal, then became the founding COO at Affirm (NASDAQ: AFRM). She later served as President of Asia at Flexport and a Venture Partner at Notable Capital (fka GGV Capital). She now serves on the boards of Hang Seng Bank, Singapore Exchange, and Nium.',
+    linkedin: 'https://www.linkedin.com/in/hueyrulin/',
   },
   {
     name: 'Serge Longin',
@@ -25,6 +27,7 @@ const team: TeamMember[] = [
     image: '/assets/images/team/serge-headshot-Photoroom.png',
     funImage: null,
     bio: 'A repeat founder who bootstrapped two US startups, RevenueWell and Club Automation, to a combined exit of over $100M. Both were acquired by private equity after becoming category leaders in dental SaaS and fitness ops. Serge runs our rigorous idea validation process and brings product, GTM, finance, and operations experience to ensure our startups find their footing.',
+    linkedin: 'https://www.linkedin.com/in/sergelongin/',
   },
   {
     name: 'Peter Rosberg',
@@ -32,6 +35,7 @@ const team: TeamMember[] = [
     image: '/assets/images/team/peter-headshot-Photoroom.png',
     funImage: null,
     bio: 'Full-stack technologist who has built and scaled engineering teams at multiple high-growth startups. Peter architects the technical foundation for every studio venture.',
+    linkedin: 'https://www.linkedin.com/in/peterrosberg',
   },
   {
     name: 'Lyndon Lee',
@@ -39,6 +43,7 @@ const team: TeamMember[] = [
     image: '/assets/images/team/lyndon-headshot-Photoroom.png',
     funImage: null,
     bio: 'Product-minded builder with expertise in AI-powered solutions for complex enterprise workflows.',
+    linkedin: 'https://www.linkedin.com/in/lyndonleeyx/',
   },
   {
     name: 'Eric Le Blanc',
@@ -46,30 +51,23 @@ const team: TeamMember[] = [
     image: '/assets/images/team/eric-headshot-Photoroom.png',
     funImage: null,
     bio: 'Experienced operator and venture builder focused on bringing innovative B2B solutions from zero to one.',
+    linkedin: 'https://www.linkedin.com/in/eric--leblanc/',
   },
 ];
 
 const FlipCard = ({
   member,
   onCardClick,
-  isMobile,
 }: {
   member: TeamMember;
   onCardClick: (member: TeamMember) => void;
-  isMobile: boolean;
 }) => {
-  const [isFlipped, setIsFlipped] = useState(false);
-
   const handleClick = () => {
-    if (isMobile) {
-      if (isFlipped) {
-        onCardClick(member); // Second tap opens modal
-      } else {
-        setIsFlipped(true); // First tap flips card
-      }
-    } else {
-      onCardClick(member); // Desktop: click always opens modal
+    if (member.linkedin) {
+      window.open(member.linkedin, '_blank', 'noopener,noreferrer');
+      return;
     }
+    onCardClick(member);
   };
 
   return (
@@ -85,47 +83,20 @@ const FlipCard = ({
         }
       }}
     >
-      {/* Image with 3D flip */}
-      <div className="perspective-1000">
-        <div
-          className="relative aspect-square md:aspect-[3/4] flip-card-inner"
-          style={isMobile && isFlipped ? { transform: 'rotateY(180deg)' } : undefined}
-        >
-          {/* Front face — formal headshot */}
-          <div className="absolute inset-0 backface-hidden rounded-[24px] overflow-hidden bg-white">
-            {member.image ? (
-              <img
-                src={member.image}
-                alt={member.name}
-                className="w-full h-full object-cover"
-                style={{ objectPosition: 'center 5%', ...member.imageStyle }}
-              />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center">
-                <span className="text-text text-[48px]">?</span>
-              </div>
-            )}
+      {/* Headshot */}
+      <div className="relative aspect-square md:aspect-[3/4] rounded-[24px] overflow-hidden bg-white">
+        {member.image ? (
+          <img
+            src={member.image}
+            alt={member.name}
+            className="w-full h-full object-cover"
+            style={{ objectPosition: 'center 5%', ...member.imageStyle }}
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center">
+            <span className="text-text text-[48px]">?</span>
           </div>
-
-          {/* Back face — fun photo (placeholder) */}
-          <div className="absolute inset-0 backface-hidden rotate-y-180 rounded-[24px] overflow-hidden bg-white">
-            {member.funImage ? (
-              <img
-                src={member.funImage}
-                alt={`${member.name} — casual`}
-                className="w-full h-full object-cover"
-                style={{ objectPosition: 'center -8%' }}
-              />
-            ) : (
-              <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-coral/20 to-lavender/30">
-                <span className="text-[64px] mb-2">&#128513;</span>
-                <span className="text-text text-sm font-medium">
-                  Fun photo coming soon
-                </span>
-              </div>
-            )}
-          </div>
-        </div>
+        )}
       </div>
 
       {/* Info — outside card */}
@@ -273,7 +244,6 @@ const TeamModal = ({
 };
 
 const Team = () => {
-  const isMobile = useIsMobile();
   const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
   const handleClose = useCallback(() => setSelectedMember(null), []);
 
@@ -328,7 +298,6 @@ const Team = () => {
               key={member.name}
               member={member}
               onCardClick={setSelectedMember}
-              isMobile={isMobile}
             />
           ))}
         </div>

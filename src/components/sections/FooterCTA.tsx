@@ -75,7 +75,7 @@ const FooterCTA = () => {
           <div className="flex items-center gap-3">
             {/* Contact pill button */}
             <a
-              href="mailto:hello@builtdifferent.vc"
+              href="mailto:lyndon@bdv.team"
               className="inline-flex items-center border border-[#1a1a1a]/20 rounded-full px-6 py-3 text-[14px] font-medium tracking-wide uppercase text-[#1a1a1a] hover:bg-[#1a1a1a] hover:text-white transition-colors"
             >
               Contact Us
