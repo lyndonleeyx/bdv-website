@@ -10,7 +10,7 @@ const values = [
 ];
 
 const gradientTextStyle = {
-  background: 'linear-gradient(135deg, #7EC8D4 0%, #C49A7C 50%, #D4A8A0 100%)',
+  background: 'linear-gradient(135deg, #74D2E2 0%, #F0B95E 50%, #E08690 100%)',
   WebkitBackgroundClip: 'text' as const,
   WebkitTextFillColor: 'transparent' as const,
   backgroundClip: 'text' as const,
@@ -93,7 +93,7 @@ const Values = () => {
       {/* Dark overlay for text readability */}
       <div
         className="absolute inset-0 z-0"
-        style={{ backgroundColor: 'rgba(26, 26, 26, 0.75)' }}
+        style={{ backgroundColor: 'rgba(26, 26, 26, 0.65)' }}
       />
 
       <div className="relative z-10 max-w-[1400px] mx-auto w-full">
@@ -101,11 +101,12 @@ const Values = () => {
         <div className="mb-10 md:mb-16">
           <p
             ref={labelRef}
-            className="text-white/50 uppercase mb-4"
+            className="text-white/70 uppercase mb-4"
             style={{
               fontSize: '0.75rem',
               fontWeight: 600,
               letterSpacing: '0.3em',
+              textShadow: '0 1px 8px rgba(0,0,0,0.5)',
             }}
           >
             Values
@@ -133,11 +134,12 @@ const Values = () => {
                 if (el) valueRefs.current[i] = el;
               }}
               style={{
-                color: '#F5F1ED',
+                color: '#FFFFFF',
                 fontSize: 'clamp(1.25rem, 0.9rem + 1.6vw, 2.25rem)',
                 fontWeight: 600,
                 lineHeight: 1.3,
                 letterSpacing: '-0.01em',
+                textShadow: '0 2px 12px rgba(0,0,0,0.4)',
               }}
             >
               {value}
