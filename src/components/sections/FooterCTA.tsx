@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import AnimateIn from '../ui/AnimateIn';
 
 const FooterCTA = () => {
@@ -6,28 +7,14 @@ const FooterCTA = () => {
       id="contact"
       className="relative h-full w-full overflow-hidden flex flex-col"
       style={{
-        backgroundImage: 'url("/assets/images/decorative/cta-background.jpg")',
+        backgroundImage: 'url("/assets/images/decorative/team-background.jpg")',
         backgroundSize: 'cover',
-        backgroundPosition: 'center',
+        backgroundPosition: 'center 85%',
         backgroundRepeat: 'no-repeat',
       }}
     >
-      {/* Desktop overlay: strong on left for text, fades right so facade shows through */}
-      <div
-        className="absolute inset-0 pointer-events-none hidden md:block"
-        style={{
-          background:
-            'linear-gradient(to right, rgba(255,255,255,0.90) 0%, rgba(255,255,255,0.85) 33%, rgba(255,255,255,0.05) 100%)',
-        }}
-      />
-      {/* Mobile overlay: strong at top for text, fades down so facade shows at bottom */}
-      <div
-        className="absolute inset-0 pointer-events-none md:hidden"
-        style={{
-          background:
-            'linear-gradient(to bottom, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.88) 60%, rgba(255,255,255,0.15) 100%)',
-        }}
-      />
+      {/* Overlay matching Team section style */}
+      <div className="absolute inset-0 bg-gradient-to-b from-white/70 to-white/85 pointer-events-none" />
 
       {/* CTA Area */}
       <div
@@ -52,7 +39,7 @@ const FooterCTA = () => {
               lineHeight: 1.1,
             }}
           >
-            Let's Go Build!
+            Build With Us
           </h2>
         </AnimateIn>
 
@@ -114,14 +101,16 @@ const FooterCTA = () => {
           paddingInline: 'clamp(1.5rem, 1rem + 3vw, 4rem)',
         }}
       >
-        <div className="flex flex-col gap-2">
-          <p className="text-text text-[14px]">
-            9 Wallich St, #5th Floor, Sofitel Singapore City Centre, Singapore
-            078885
-          </p>
-          <p className="text-text text-[14px]">
-            &copy;2026 Built Different Ventures. All rights reserved.
-          </p>
+        <div className="flex flex-wrap items-center gap-x-2 text-[13px] text-text/50">
+          <span>&copy;{new Date().getFullYear()} BDV CoBuilder Ops, Inc.</span>
+          <span className="hidden sm:inline">&middot;</span>
+          <div className="flex items-center gap-x-2">
+            <Link to="/disclaimer" className="hover:text-text transition-colors">Disclaimer</Link>
+            <span>&middot;</span>
+            <Link to="/privacy" className="hover:text-text transition-colors">Privacy</Link>
+            <span>&middot;</span>
+            <Link to="/terms" className="hover:text-text transition-colors">Terms</Link>
+          </div>
         </div>
       </div>
     </section>

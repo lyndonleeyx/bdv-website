@@ -1,23 +1,20 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 
-const Focus = () => {
+const Thesis = () => {
   const labelRef = useRef<HTMLParagraphElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const subheadingRef = useRef<HTMLParagraphElement>(null);
   const bodyRef = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
-    // Set initial state (invisible, slightly lower)
     const elements = [labelRef.current, headingRef.current, subheadingRef.current, bodyRef.current];
     elements.forEach(el => {
       if (el) gsap.set(el, { opacity: 0, y: 60 });
     });
 
-    // Create waterfall animation
     const tl = gsap.timeline({ paused: true });
 
-    // Label appears first
     tl.to(labelRef.current, {
       opacity: 1,
       y: 0,
@@ -25,7 +22,6 @@ const Focus = () => {
       ease: 'power2.out'
     }, 0);
 
-    // Heading appears next
     tl.to(headingRef.current, {
       opacity: 1,
       y: 0,
@@ -33,7 +29,6 @@ const Focus = () => {
       ease: 'power2.out'
     }, 0.15);
 
-    // Subheading appears next
     tl.to(subheadingRef.current, {
       opacity: 1,
       y: 0,
@@ -41,7 +36,6 @@ const Focus = () => {
       ease: 'power2.out'
     }, 0.30);
 
-    // Body text appears last
     tl.to(bodyRef.current, {
       opacity: 1,
       y: 0,
@@ -49,7 +43,6 @@ const Focus = () => {
       ease: 'power2.out'
     }, 0.45);
 
-    // Play animation when component becomes visible
     tl.play();
 
     return () => {
@@ -59,7 +52,7 @@ const Focus = () => {
 
   return (
     <section
-      id="focus"
+      id="thesis"
       className="relative overflow-hidden"
       style={{
         paddingBlock: 'clamp(6rem, 8vw, 12rem)',
@@ -73,22 +66,19 @@ const Focus = () => {
         backgroundRepeat: 'no-repeat',
       }}
     >
-      {/* Dark overlay for text readability */}
       <div
         className="absolute inset-0 z-0"
         style={{ backgroundColor: 'rgba(26, 26, 26, 0.65)' }}
       />
       <div className="relative z-10 max-w-[1400px] mx-auto w-full">
-        {/* Overline label */}
         <p
           ref={labelRef}
           className="text-white/30 uppercase tracking-[0.3em] mb-8"
           style={{ fontSize: '0.75rem', fontWeight: 600 }}
         >
-          Principle
+          Thesis
         </p>
 
-        {/* Main heading - large and impactful */}
         <h2
           ref={headingRef}
           className="text-white mb-16"
@@ -100,12 +90,11 @@ const Focus = () => {
             maxWidth: '1200px',
           }}
         >
-          We're Your
+          High-Stakes B2B,
           <br />
-          First Cofounder
+          AI-Native
         </h2>
 
-        {/* Subheading - bold statement */}
         <p
           ref={subheadingRef}
           className="text-white/90 mb-12"
@@ -116,10 +105,9 @@ const Focus = () => {
             maxWidth: '900px',
           }}
         >
-          We act like cofounders—because we are.
+          We target industries where complexity is the moat.
         </p>
 
-        {/* Body text - spacious and readable */}
         <p
           ref={bodyRef}
           className="text-white/85"
@@ -131,15 +119,15 @@ const Focus = () => {
             letterSpacing: '0.01em',
           }}
         >
-          We roll up our sleeves across every phase of venture creation. Our
-          focus: solving high-stakes, cross-border, B2B problems where AI
-          can deliver true magic. Think trade compliance, corporate
-          insurance brokerage, global commodities trading. Wherever you are,
-          as long as you have a great idea, we're ready to get to work.
+          Trade compliance, corporate insurance brokerage, global commodities
+          trading — wherever regulated, cross-border B2B workflows still run on
+          spreadsheets and phone calls, AI can deliver transformational value.
+          We roll up our sleeves across every phase of venture creation to prove
+          it.
         </p>
       </div>
     </section>
   );
 };
 
-export default Focus;
+export default Thesis;

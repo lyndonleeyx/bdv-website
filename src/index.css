@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Allura&display=swap');
 
 @theme {
   /* Colors */
@@ -126,22 +127,8 @@
   /* Disable hover flip on mobile — tap-to-flip handled in JS */
   .group:hover .flip-card-inner { transform: none; }
 
-  /* Reduce Hero "Built Different" minimum size */
-  #hero-light h1 { font-size: clamp(3rem, 15vw, 6rem) !important; }
+  /* Reduce Thesis heading minimum */
+  #thesis h2 { font-size: clamp(2rem, 10vw, 3.5rem) !important; }
 
-  /* Reduce HeroDark "We Like Different" minimum */
-  #hero-dark h2 { font-size: clamp(2.5rem, 10vw, 4rem) !important; }
-
-  /* Reduce Focus "We're Your First Cofounder" minimum */
-  #focus h2 { font-size: clamp(2rem, 10vw, 3.5rem) !important; }
-
-  /* Reduce FooterCTA heading minimum */
-  #contact h2 { font-size: clamp(2rem, 8vw, 3rem) !important; }
-
-  /* Reduce backdrop blur intensity on Process cards */
-  #process .sticky {
-    backdrop-filter: blur(8px) saturate(1.4) !important;
-    -webkit-backdrop-filter: blur(8px) saturate(1.4) !important;
-  }
 }
 
