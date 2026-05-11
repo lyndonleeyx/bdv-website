@@ -204,7 +204,7 @@ const Hero = () => {
               {isMobile ? (
                 <>
                   <span style={{ position: 'relative', display: 'block' }}>
-                    Your 200th
+                    Building can
                     <motion.div
                       initial={{ width: '0%' }}
                       animate={{
@@ -229,7 +229,7 @@ const Hero = () => {
                     />
                   </span>
                   <span style={{ position: 'relative', display: 'block' }}>
-                    investor.
+                    be lonely.
                     <motion.div
                       initial={{ width: '0%' }}
                       animate={{
@@ -256,7 +256,7 @@ const Hero = () => {
                 </>
               ) : (
                 <span style={{ position: 'relative' }}>
-                  Your 200th investor.
+                  Building can be lonely.
                   <motion.div
                     initial={{ width: '0%' }}
                     animate={{
