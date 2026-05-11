@@ -16,8 +16,9 @@ const navItems = [
 // CrossfadeSequence: 3 sections [Hero, TrackRecord, Thesis]
 // holdRatio=0.444, maxProgress=2.444, 180vh per progress unit
 const crossfadeSections = [
-  { id: 'hero', end: 1.444 },
-  { id: 'track-record', end: 2.444 },
+  { id: 'hero', end: 1 },
+  { id: 'track-record', end: 2 },
+  { id: 'thesis', end: 2.444 },
 ];
 
 const crossfadeScrollTargets: Record<string, number> = {
