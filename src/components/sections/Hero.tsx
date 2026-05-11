@@ -199,74 +199,88 @@ const Hero = () => {
                 lineHeight: 1.05,
                 margin: 0,
                 transformOrigin: 'top left',
-                whiteSpace: isMobile ? 'normal' : 'nowrap',
               }}
             >
-              <span
-                style={{
-                  position: 'relative',
-                  display: isMobile ? 'block' : 'inline',
-                }}
-              >
-                Your 200th
-                <motion.div
-                  initial={{ width: '0%' }}
-                  animate={{
-                    width: '100%',
-                    backgroundColor: ['#FFFFFF', '#FFFFFF', GHOST_COLOR],
-                  }}
-                  transition={{
-                    width: { delay: 1.8, duration: 0.4, ease: 'easeInOut' },
-                    backgroundColor: {
-                      delay: 2.6,
-                      duration: 0.64,
-                      ease: 'easeInOut',
-                    },
-                  }}
-                  style={{
-                    position: 'absolute',
-                    left: 0,
-                    top: '55%',
-                    height: '3px',
-                    backgroundColor: '#FFFFFF',
-                  }}
-                />
-              </span>
-              {!isMobile && '\u00A0'}
-              <span
-                style={{
-                  position: 'relative',
-                  display: isMobile ? 'block' : 'inline',
-                }}
-              >
-                investor.
-                <motion.div
-                  initial={{ width: '0%' }}
-                  animate={{
-                    width: '100%',
-                    backgroundColor: ['#FFFFFF', '#FFFFFF', GHOST_COLOR],
-                  }}
-                  transition={{
-                    width: {
-                      delay: isMobile ? 2.05 : 1.8,
-                      duration: 0.4,
-                      ease: 'easeInOut',
-                    },
-                    backgroundColor: {
-                      delay: 2.6,
-                      duration: 0.64,
-                      ease: 'easeInOut',
-                    },
-                  }}
-                  style={{
-                    position: 'absolute',
-                    left: 0,
-                    top: '55%',
-                    height: '3px',
-                    backgroundColor: '#FFFFFF',
-                  }}
-                />
-              </span>
+              {isMobile ? (
+                <>
+                  <span style={{ position: 'relative', display: 'block' }}>
+                    Your 200th
+                    <motion.div
+                      initial={{ width: '0%' }}
+                      animate={{
+                        width: '100%',
+                        backgroundColor: ['#FFFFFF', '#FFFFFF', GHOST_COLOR],
+                      }}
+                      transition={{
+                        width: { delay: 1.8, duration: 0.4, ease: 'easeInOut' },
+                        backgroundColor: {
+                          delay: 2.6,
+                          duration: 0.64,
+                          ease: 'easeInOut',
+                        },
+                      }}
+                      style={{
+                        position: 'absolute',
+                        left: 0,
+                        top: '55%',
+                        height: '3px',
+                        backgroundColor: '#FFFFFF',
+                      }}
+                    />
+                  </span>
+                  <span style={{ position: 'relative', display: 'block' }}>
+                    investor.
+                    <motion.div
+                      initial={{ width: '0%' }}
+                      animate={{
+                        width: '100%',
+                        backgroundColor: ['#FFFFFF', '#FFFFFF', GHOST_COLOR],
+                      }}
+                      transition={{
+                        width: { delay: 2.05, duration: 0.4, ease: 'easeInOut' },
+                        backgroundColor: {
+                          delay: 2.6,
+                          duration: 0.64,
+                          ease: 'easeInOut',
+                        },
+                      }}
+                      style={{
+                        position: 'absolute',
+                        left: 0,
+                        top: '55%',
+                        height: '3px',
+                        backgroundColor: '#FFFFFF',
+                      }}
+                    />
+                  </span>
+                </>
+              ) : (
+                <span style={{ position: 'relative' }}>
+                  Your 200th investor.
+                  <motion.div
+                    initial={{ width: '0%' }}
+                    animate={{
+                      width: '100%',
+                      backgroundColor: ['#FFFFFF', '#FFFFFF', GHOST_COLOR],
+                    }}
+                    transition={{
+                      width: { delay: 1.8, duration: 0.4, ease: 'easeInOut' },
+                      backgroundColor: {
+                        delay: 2.6,
+                        duration: 0.64,
+                        ease: 'easeInOut',
+                      },
+                    }}
+                    style={{
+                      position: 'absolute',
+                      left: 0,
+                      top: '55%',
+                      height: '3px',
+                      backgroundColor: '#FFFFFF',
+                    }}
+                  />
+                </span>
+              )}
             </motion.h1>
           </div>
 
