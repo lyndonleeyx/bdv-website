@@ -17,22 +17,19 @@ const companies = [
 // Duplicate for seamless loop
 const marqueeCards = [...companies, ...companies];
 
-const PastLife = () => {
+const TrackRecord = () => {
   const labelRef = useRef<HTMLParagraphElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Set initial state (invisible, slightly lower)
     const elements = [labelRef.current, headingRef.current, carouselRef.current];
     elements.forEach(el => {
       if (el) gsap.set(el, { opacity: 0, y: 60 });
     });
 
-    // Create waterfall animation
     const tl = gsap.timeline({ paused: true });
 
-    // Label appears first
     tl.to(labelRef.current, {
       opacity: 1,
       y: 0,
@@ -40,7 +37,6 @@ const PastLife = () => {
       ease: 'power2.out'
     }, 0);
 
-    // Heading appears next
     tl.to(headingRef.current, {
       opacity: 1,
       y: 0,
@@ -48,7 +44,6 @@ const PastLife = () => {
       ease: 'power2.out'
     }, 0.15);
 
-    // Carousel appears last
     tl.to(carouselRef.current, {
       opacity: 1,
       y: 0,
@@ -56,7 +51,6 @@ const PastLife = () => {
       ease: 'power2.out'
     }, 0.30);
 
-    // Play animation when component becomes visible
     tl.play();
 
     return () => {
@@ -66,7 +60,7 @@ const PastLife = () => {
 
   return (
     <section
-      id="past-life"
+      id="track-record"
       className="relative overflow-hidden"
       style={{
         paddingTop: 'clamp(3.5rem, 3rem + 4vw, 9rem)',
@@ -74,7 +68,6 @@ const PastLife = () => {
         minHeight: '100vh',
       }}
     >
-      {/* Background image — oversized to allow horizontal shifting */}
       <div
         className="absolute inset-0"
         style={{
@@ -84,22 +77,19 @@ const PastLife = () => {
           backgroundRepeat: 'no-repeat',
         }}
       />
-      {/* Section heading */}
       <div
         className="relative z-10 max-w-[1400px] mx-auto"
         style={{ paddingInline: 'clamp(1.5rem, 1rem + 3vw, 4rem)' }}
       >
         <p
           ref={labelRef}
-          data-pastlife-label
           className="text-text/40 uppercase tracking-widest mb-4"
           style={{ fontSize: '0.875rem', fontWeight: 500 }}
         >
-          Past Life
+          Track Record
         </p>
         <h2
           ref={headingRef}
-          data-pastlife-heading
           className="text-text mb-10 md:mb-14"
           style={{
             fontSize: 'clamp(2.5rem, 1.8rem + 2.9vw, 5rem)',
@@ -112,8 +102,7 @@ const PastLife = () => {
         </h2>
       </div>
 
-      {/* Marquee container */}
-      <div ref={carouselRef} data-pastlife-carousel className="relative z-10 overflow-hidden">
+      <div ref={carouselRef} className="relative z-10 overflow-hidden">
         <div
           className="flex gap-4 hover:[animation-play-state:paused]"
           style={{
@@ -131,14 +120,12 @@ const PastLife = () => {
                 backgroundColor: company.bg,
               }}
             >
-              {/* Background photo */}
               <img
                 src={company.cardImage}
                 alt=""
                 className="absolute inset-0 w-full h-full object-cover"
                 style={company.imgPos ? { objectPosition: company.imgPos } : undefined}
               />
-              {/* Dark gradient overlay for logo visibility */}
               <div
                 className="absolute inset-0"
                 style={{
@@ -146,7 +133,6 @@ const PastLife = () => {
                     'linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.1) 35%, transparent 50%)',
                 }}
               />
-              {/* Logo — white, top-left */}
               <img
                 src={company.logo}
                 alt={company.name}
@@ -166,4 +152,4 @@ const PastLife = () => {
   );
 };
 
-export default PastLife;
+export default TrackRecord;

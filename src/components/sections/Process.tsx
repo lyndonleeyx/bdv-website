@@ -65,7 +65,7 @@ const Process = () => {
               style={{
                 fontSize: '0.875rem',
                 fontWeight: 500,
-                color: 'rgba(0,0,0,0.5)'
+                color: 'rgba(255,255,255,0.4)'
               }}
             >
               Process
@@ -75,7 +75,7 @@ const Process = () => {
               style={{
                 fontSize: 'clamp(2.5rem, 1.8rem + 2.9vw, 5rem)',
                 lineHeight: 1.1,
-                color: '#1a1a1a'
+                color: '#FFFFFF'
               }}
             >
               Four Stages to Launch
@@ -86,7 +86,7 @@ const Process = () => {
                 fontSize: 'clamp(1rem, 0.85rem + 0.6vw, 1.25rem)',
                 lineHeight: 1.6,
                 fontWeight: 300,
-                color: 'rgba(0,0,0,0.65)'
+                color: 'rgba(255,255,255,0.65)'
               }}
             >
               Four stages from first conversation to funded company. Each one
@@ -105,10 +105,10 @@ const Process = () => {
             top: `${index * CARD_OFFSET}px`,
             width: '100vw',
             marginLeft: 'calc(-50vw + 50%)',
-            backgroundColor: 'rgba(255, 255, 255, 0.15)',
+            backgroundColor: 'rgba(10, 12, 25, 0.82)',
             backdropFilter: 'blur(16px) saturate(1.4)',
             WebkitBackdropFilter: 'blur(16px) saturate(1.4)',
-            borderTop: '1px solid rgba(255,255,255,0.25)',
+            borderTop: '1px solid rgba(255,255,255,0.10)',
             borderRadius: '1.5rem 1.5rem 0 0',
             zIndex: index + 10,
             boxShadow:
@@ -129,7 +129,7 @@ const Process = () => {
                 style={{
                   fontSize: '0.875rem',
                   fontWeight: 500,
-                  color: 'rgba(0,0,0,0.4)',
+                  color: 'rgba(255,255,255,0.4)',
                 }}
               >
                 {stage.number} —
@@ -141,7 +141,7 @@ const Process = () => {
                   fontSize: 'clamp(2.5rem, 5vw, 4rem)',
                   fontWeight: 900,
                   lineHeight: 1.05,
-                  color: '#1a1a1a',
+                  color: '#FFFFFF',
                 }}
               >
                 {stage.title}
@@ -152,7 +152,7 @@ const Process = () => {
                 style={{
                   fontSize: '1rem',
                   fontWeight: 600,
-                  color: '#1a1a1a',
+                  color: '#FFFFFF',
                 }}
               >
                 {stage.subtitle}
@@ -163,7 +163,7 @@ const Process = () => {
                 style={{
                   fontSize: '1rem',
                   lineHeight: 1.7,
-                  color: 'rgba(0,0,0,0.65)',
+                  color: 'rgba(255,255,255,0.85)',
                   fontWeight: 300,
                 }}
               >
@@ -179,8 +179,8 @@ const Process = () => {
                     style={{
                       backgroundColor:
                         dotIndex === index
-                          ? '#1a1a1a'
-                          : 'rgba(0,0,0,0.2)',
+                          ? '#FFFFFF'
+                          : 'rgba(255,255,255,0.3)',
                     }}
                   />
                 ))}
@@ -196,7 +196,7 @@ const Process = () => {
                 style={{
                   maxHeight: isMobile ? '180px' : '250px',
                   width: 'auto',
-                  mixBlendMode: 'multiply',
+                  mixBlendMode: 'screen',
                   opacity: 0.8,
                 }}
               />

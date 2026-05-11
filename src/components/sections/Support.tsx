@@ -1,9 +1,7 @@
 import {
   Lightbulb,
-  Hammer,
-  RocketLaunch,
   UsersThree,
-  Brain,
+  RocketLaunch,
   CurrencyDollar,
 } from '@phosphor-icons/react';
 import type { Icon } from '@phosphor-icons/react';
@@ -16,45 +14,31 @@ const services: {
 }[] = [
   {
     icon: Lightbulb,
-    keyword: 'Validate',
+    keyword: 'Process',
     subtitle: 'Problem & Solution Validation',
     description:
-      "We sit in customer conversations with you. If the problem isn't real, we find out together, fast.",
-  },
-  {
-    icon: Hammer,
-    keyword: 'Build',
-    subtitle: 'Product & UX Support',
-    description:
-      'We build early demos with you and help shape what to ship first.',
-  },
-  {
-    icon: RocketLaunch,
-    keyword: 'Grow',
-    subtitle: 'First Customers & GTM',
-    description:
-      'We work our network to find your first design partners and customers.',
+      "We sit in customer conversations with you. If the problem isn't real, we find out together, fast. We build early demos with you and help shape what to ship first.",
   },
   {
     icon: UsersThree,
-    keyword: 'Recruit',
-    subtitle: 'Founder & Team Formation',
+    keyword: 'Network',
+    subtitle: 'Talent & Advisors',
     description:
-      "We help bring on cofounders, first engineers, and early operators we'd back ourselves.",
+      "We help bring on cofounders, first engineers, and early operators. We connect you with advisors from Stripe, Reddit, Coinbase, Google, PayPal, and more.",
   },
   {
-    icon: Brain,
-    keyword: 'Learn',
-    subtitle: 'World-Class Advisor Network',
+    icon: RocketLaunch,
+    keyword: 'Customers',
+    subtitle: 'Validation & Signing',
     description:
-      'We connect you with advisors from Stripe, Reddit, Coinbase, Google, PayPal, and more.',
+      'We work our network to find your first design partners and customers. We help turn conversations into signed contracts.',
   },
   {
     icon: CurrencyDollar,
-    keyword: 'Fund',
+    keyword: 'Capital',
     subtitle: 'First Check & Follow On',
     description:
-      'We offer capital to get to product-market fit. Our LPs include top-tier venture firms who can back your next round.',
+      "BDV Holding I, LLC leads the first check and supports portfolio companies through follow-on rounds. Holding's LPs include top-tier venture firms.",
   },
 ];
 
@@ -62,41 +46,25 @@ const Support = () => {
   return (
     <section
       id="support"
-      className="relative overflow-hidden"
       style={{
-        backgroundImage: 'url("/assets/images/decorative/support-background.png")',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center center',
-        backgroundRepeat: 'no-repeat',
+        backgroundColor: 'transparent',
         paddingBlock: 'clamp(3.5rem, 3rem + 1.5vw, 5rem)',
         paddingInline: 'clamp(1.5rem, 1rem + 3vw, 4rem)',
-        marginTop: '-1px',
       }}
     >
-      {/* Dark overlay matching Focus section tone */}
-      <div
-        className="absolute inset-0"
-        style={{ backgroundColor: 'rgba(26, 26, 26, 0.80)' }}
-      />
-      {/* Darker edges vignette */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background: 'radial-gradient(ellipse at center, transparent 30%, rgba(0, 0, 0, 0.5) 100%)',
-        }}
-      />
-      <div className="relative z-10 max-w-[1400px] mx-auto">
+      <div className="max-w-[1400px] mx-auto">
         <p
-          className="text-white/40 uppercase tracking-widest mb-4"
-          style={{ fontSize: '0.875rem', fontWeight: 500 }}
+          className="uppercase tracking-widest mb-4"
+          style={{ fontSize: '0.875rem', fontWeight: 500, color: 'rgba(0,0,0,0.5)' }}
         >
           Value Add
         </p>
         <h2
-          className="text-white mb-12 md:mb-16"
+          className="mb-12 md:mb-16"
           style={{
             fontSize: 'clamp(2.5rem, 1.8rem + 2.9vw, 5rem)',
             lineHeight: 1.1,
+            color: '#1a1a1a',
           }}
         >
           How We Support
@@ -110,15 +78,13 @@ const Support = () => {
 
               return (
                 <div key={service.keyword}>
-                  {/* Divider */}
                   <div
                     style={{
                       height: '1px',
-                      backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                      backgroundColor: 'rgba(0, 0, 0, 0.1)',
                     }}
                   />
 
-                  {/* Row — desktop: 3-col grid, mobile: stacked */}
                   <div
                     className="grid md:grid-cols-[28px_300px_1fr] md:gap-8 gap-3"
                     style={{
@@ -132,19 +98,18 @@ const Support = () => {
                       weight="thin"
                       className="md:mt-1"
                       style={{
-                        color: 'rgba(255, 255, 255, 0.5)',
+                        color: 'rgba(0, 0, 0, 0.4)',
                         flexShrink: 0,
                       }}
                     />
 
-                    {/* Title — keyword + subtitle */}
                     <div>
                       <h3
                         style={{
                           fontSize: 'clamp(1.5rem, 1.2rem + 0.8vw, 2rem)',
                           fontWeight: 700,
                           lineHeight: 1.2,
-                          color: '#FFFFFF',
+                          color: '#1a1a1a',
                         }}
                       >
                         {service.keyword}
@@ -155,7 +120,7 @@ const Support = () => {
                           fontWeight: 400,
                           lineHeight: 1.4,
                           marginTop: '0.25rem',
-                          color: 'rgba(255, 255, 255, 0.5)',
+                          color: 'rgba(0, 0, 0, 0.5)',
                         }}
                       >
                         {service.subtitle}
@@ -167,7 +132,7 @@ const Support = () => {
                         fontSize: 'clamp(1rem, 0.85rem + 0.4vw, 1.125rem)',
                         fontWeight: 400,
                         lineHeight: 1.65,
-                        color: 'rgba(255, 255, 255, 0.85)',
+                        color: 'rgba(0, 0, 0, 0.65)',
                       }}
                     >
                       {service.description}
@@ -177,11 +142,10 @@ const Support = () => {
               );
             })}
 
-            {/* Final divider */}
             <div
               style={{
                 height: '1px',
-                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                backgroundColor: 'rgba(0, 0, 0, 0.1)',
               }}
             />
           </div>

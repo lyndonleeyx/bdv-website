@@ -82,6 +82,7 @@ const Values = () => {
       id="values"
       className="relative h-full w-full overflow-hidden flex items-center"
       style={{
+        minHeight: '100vh',
         backgroundImage: 'url("/assets/images/decorative/values-background.jpg")',
         backgroundSize: 'cover',
         backgroundPosition: 'center center',

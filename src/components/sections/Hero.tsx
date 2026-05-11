@@ -1,15 +1,53 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { BlurOrb } from '../ui/BlurOrb';
 import { useIsMobile } from '../../hooks/useIsMobile';
+import { useIsNarrow } from '../../hooks/useIsNarrow';
+
+/* ── Word-by-word reveal helper ── */
+const WordReveal = ({
+  words,
+  baseDelay,
+  wordStagger,
+  style,
+}: {
+  words: string[];
+  baseDelay: number;
+  wordStagger: number;
+  style?: React.CSSProperties;
+}) => (
+  <>
+    {words.map((word, i) => (
+      <motion.span
+        key={i}
+        initial={{ opacity: 0, y: 42 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{
+          delay: baseDelay + i * wordStagger,
+          duration: 0.64,
+          ease: [0.16, 1, 0.3, 1],
+        }}
+        style={{ display: 'inline-block', ...style }}
+      >
+        {word}
+        {i < words.length - 1 && '\u00A0'}
+      </motion.span>
+    ))}
+  </>
+);
+
+const GHOST_COLOR = 'rgba(255,255,255,0.25)';
 
 const Hero = () => {
   const isMobile = useIsMobile();
-  // Maven11-style cursor-follow gradient
+  const isNarrow = useIsNarrow();
   const [mousePosition, setMousePosition] = useState({ x: 50, y: 50 });
+  const [isShrunken, setIsShrunken] = useState(false);
+  const headlineRef = useRef<HTMLHeadingElement>(null);
+  const [headlineWidth, setHeadlineWidth] = useState(0);
 
   useEffect(() => {
-    if (isMobile) return; // Skip mouse tracking on mobile
+    if (isMobile) return;
     const handleMouse = (e: MouseEvent) => {
       setMousePosition({
         x: (e.clientX / window.innerWidth) * 100,
@@ -20,170 +58,300 @@ const Hero = () => {
     return () => window.removeEventListener('mousemove', handleMouse);
   }, [isMobile]);
 
+  // Collapse struck text wrapper after shrink animation completes
+  useEffect(() => {
+    const timer = setTimeout(() => setIsShrunken(true), 3200);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Track main headline width so paragraph can match it
+  useEffect(() => {
+    if (!headlineRef.current) return;
+    const observer = new ResizeObserver((entries) => {
+      setHeadlineWidth(entries[0].contentRect.width);
+    });
+    observer.observe(headlineRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  const headlineFontSize = 'clamp(4.5rem, 9vw, 10rem)';
+
   return (
     <motion.section
       id="hero-light"
       className="relative overflow-hidden"
       style={{
         minHeight: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: isMobile ? 'center' : 'flex-start',
-        alignItems: 'center',
-        padding: 'clamp(2rem, 4vw, 4rem)',
-        paddingTop: isMobile ? undefined : 'clamp(6rem, 8vw, 10rem)',
         backgroundImage: 'url("/assets/images/decorative/hero-background.jpg")',
         backgroundSize: 'cover',
         backgroundPosition: 'center 30%',
       }}
     >
-        {/* Dark overlay for better text contrast */}
-        <div
+      {/* Dark overlay */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ backgroundColor: 'rgba(0, 0, 0, 0.35)', zIndex: 0 }}
+      />
+
+      <div
+        className="hero-content"
+        style={{
+          position: 'absolute',
+          inset: 0,
+          zIndex: 2,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'flex-start',
+          alignItems: 'flex-start',
+          padding: isNarrow ? '100px 24px 80px' : '100px 56px 100px 120px',
+        }}
+      >
+        {/* Floating blur orbs */}
+        <motion.div
+          animate={{ x: [0, 40, 0], y: [0, -30, 0], scale: [1, 1.1, 1] }}
+          transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
+        >
+          <BlurOrb
+            color="rgb(170, 199, 223)"
+            blur={isMobile ? 100 : 300}
+            size={isMobile ? 300 : 700}
+            position={{ top: '-10%', right: '5%' }}
+            opacity={0.15}
+          />
+        </motion.div>
+
+        <motion.div
+          animate={{ x: [0, -30, 0], y: [0, 40, 0], scale: [1, 1.15, 1] }}
+          transition={{
+            duration: 15,
+            repeat: Infinity,
+            ease: 'easeInOut',
+            delay: 0.5,
+          }}
+        >
+          <BlurOrb
+            color="rgb(180, 170, 210)"
+            blur={isMobile ? 80 : 250}
+            size={isMobile ? 250 : 600}
+            position={{ bottom: '10%', left: '5%' }}
+            opacity={0.1}
+          />
+        </motion.div>
+
+        {/* Cursor-follow radial gradient */}
+        <motion.div
           className="absolute inset-0 pointer-events-none"
           style={{
-            backgroundColor: 'rgba(0, 0, 0, 0.2)',
-            zIndex: 0,
+            background: `radial-gradient(
+              circle 240px at ${mousePosition.x}% ${mousePosition.y}%,
+              rgba(255, 255, 255, 0.18) 0%,
+              rgba(255, 255, 255, 0.08) 40%,
+              transparent 100%
+            )`,
+            transition: 'background 0.15s ease-out',
+            zIndex: 1,
+            mixBlendMode: 'screen',
           }}
         />
 
-        {/* Wrap all content for fade-out animation */}
-        <div className="hero-content">
-          {/* Floating blur orbs */}
-          <motion.div
-            animate={{
-              x: [0, 40, 0],
-              y: [0, -30, 0],
-              scale: [1, 1.1, 1],
-            }}
-            transition={{
-              duration: 12,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          >
-            <BlurOrb
-              color="rgb(170, 199, 223)"
-              blur={isMobile ? 100 : 300}
-              size={isMobile ? 300 : 700}
-              position={{ top: '-10%', right: '5%' }}
-              opacity={0.15}
-            />
-          </motion.div>
+        {/* ═══ HEADLINE GROUP ═══ */}
+        <div style={{ position: 'relative', zIndex: 10 }}>
 
-          <motion.div
-            animate={{
-              x: [0, -30, 0],
-              y: [0, 40, 0],
-              scale: [1, 1.15, 1],
-            }}
-            transition={{
-              duration: 15,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 0.5
-            }}
-          >
-            <BlurOrb
-              color="rgb(180, 170, 210)"
-              blur={isMobile ? 80 : 250}
-              size={isMobile ? 250 : 600}
-              position={{ bottom: '10%', left: '5%' }}
-              opacity={0.1}
-            />
-          </motion.div>
-
-          {/* HUGE Maven11-style cursor-follow radial gradient */}
-          <motion.div
-            className="absolute inset-0 pointer-events-none"
+          {/* STRUCK HEADLINE WRAPPER —
+              In flow so the text is visible on screen during the initial animation.
+              After shrink completes, height collapses to just fit the tiny label,
+              pulling the main headline up into position. transformOrigin 'top left'
+              keeps the shrunk text pinned at the top-left (no visual jump). */}
+          <div
             style={{
-              background: `radial-gradient(
-                circle 800px at ${mousePosition.x}% ${mousePosition.y}%,
-                rgba(170, 199, 223, 0.2) 0%,
-                rgba(180, 170, 210, 0.12) 25%,
-                rgba(230, 180, 200, 0.08) 50%,
-                transparent 100%
-              )`,
-              transition: 'background 0.15s ease-out',
-              zIndex: 1,
-              mixBlendMode: 'screen',
+              overflow: 'visible',
+              height: isShrunken
+                ? `calc(${isMobile ? 2 : 1} * 0.315 * clamp(4.5rem, 9vw, 10rem) + 8px)`
+                : 'auto',
             }}
-          />
-
-          {/* Content container */}
-          <div className="relative z-10 w-full mx-auto text-center px-4">
-            {/* LIQUID TEXT ENTRANCE - "Built Different" */}
-            <h1
-              className="uppercase"
-              style={{
-                fontSize: isMobile ? 'clamp(10rem, 28vw, 14rem)' : 'clamp(6rem, 18vw, 16rem)',
-                lineHeight: 0.85,
-                letterSpacing: '-0.03em',
-                fontWeight: 700,
-                marginBottom: 'clamp(2rem, 3vw, 3rem)',
-                width: '100%',
-                color: '#FFFFFF',
-                textShadow: '0 2px 30px rgba(0, 0, 0, 0.3), 0 0 60px rgba(170, 199, 223, 0.2)',
-              }}
-            >
-              {['Built', 'Different'].map((word, i) => (
-                <motion.span
-                  key={i}
-                  style={{ display: 'block' }}
-                  initial={{
-                    opacity: 0,
-                    y: 80,
-                    scale: 0.8,
-                    filter: isMobile ? 'none' : 'blur(20px)'
-                  }}
-                  animate={{
-                    opacity: 1,
-                    y: 0,
-                    scale: 1,
-                    filter: 'blur(0px)'
-                  }}
-                  transition={{
-                    delay: i * 0.2,
-                    duration: 1.5,
-                    ease: [0.34, 1.56, 0.64, 1], // Elastic easing with overshoot
-                  }}
-                >
-                  {word}
-                </motion.span>
-              ))}
-            </h1>
-
-            {/* FLOWING DESCRIPTION - slides from left with blur */}
-            <motion.p
-              className="max-w-[800px] mx-auto"
-              initial={{
-                opacity: 0,
-                y: 40,
-                filter: isMobile ? 'none' : 'blur(15px)'
-              }}
+          >
+            <motion.h1
+              initial={{ opacity: 0, y: 60 }}
               animate={{
                 opacity: 1,
                 y: 0,
-                filter: 'blur(0px)'
+                scale: [null, 1, 1, 0.3],
+                color: ['#FFFFFF', '#FFFFFF', '#FFFFFF', GHOST_COLOR],
               }}
               transition={{
-                delay: 0.5,
-                duration: 1.2,
+                opacity: { duration: 0.8 },
+                y: { duration: 0.8, ease: [0.34, 1.56, 0.64, 1] },
+                scale: {
+                  times: [0, 0.45, 0.65, 1],
+                  duration: 3.2,
+                  ease: 'easeInOut',
+                },
+                color: {
+                  times: [0, 0.45, 0.65, 1],
+                  duration: 3.2,
+                },
+              }}
+              style={{
+                fontFamily: "'DM Sans', sans-serif",
+                fontSize: headlineFontSize,
+                fontWeight: 800,
+                letterSpacing: '-0.03em',
+                lineHeight: 1.05,
+                margin: 0,
+                transformOrigin: 'top left',
+              }}
+            >
+              {isMobile ? (
+                <>
+                  <span style={{ position: 'relative', display: 'block' }}>
+                    Your 200th
+                    <motion.div
+                      initial={{ width: '0%' }}
+                      animate={{
+                        width: '100%',
+                        backgroundColor: ['#FFFFFF', '#FFFFFF', GHOST_COLOR],
+                      }}
+                      transition={{
+                        width: { delay: 1.8, duration: 0.4, ease: 'easeInOut' },
+                        backgroundColor: {
+                          delay: 2.6,
+                          duration: 0.64,
+                          ease: 'easeInOut',
+                        },
+                      }}
+                      style={{
+                        position: 'absolute',
+                        left: 0,
+                        top: '55%',
+                        height: '3px',
+                        backgroundColor: '#FFFFFF',
+                      }}
+                    />
+                  </span>
+                  <span style={{ position: 'relative', display: 'block' }}>
+                    investor.
+                    <motion.div
+                      initial={{ width: '0%' }}
+                      animate={{
+                        width: '100%',
+                        backgroundColor: ['#FFFFFF', '#FFFFFF', GHOST_COLOR],
+                      }}
+                      transition={{
+                        width: { delay: 2.05, duration: 0.4, ease: 'easeInOut' },
+                        backgroundColor: {
+                          delay: 2.6,
+                          duration: 0.64,
+                          ease: 'easeInOut',
+                        },
+                      }}
+                      style={{
+                        position: 'absolute',
+                        left: 0,
+                        top: '55%',
+                        height: '3px',
+                        backgroundColor: '#FFFFFF',
+                      }}
+                    />
+                  </span>
+                </>
+              ) : (
+                <span style={{ position: 'relative' }}>
+                  Your 200th investor.
+                  <motion.div
+                    initial={{ width: '0%' }}
+                    animate={{
+                      width: '100%',
+                      backgroundColor: ['#FFFFFF', '#FFFFFF', GHOST_COLOR],
+                    }}
+                    transition={{
+                      width: { delay: 1.8, duration: 0.4, ease: 'easeInOut' },
+                      backgroundColor: {
+                        delay: 2.6,
+                        duration: 0.64,
+                        ease: 'easeInOut',
+                      },
+                    }}
+                    style={{
+                      position: 'absolute',
+                      left: 0,
+                      top: '55%',
+                      height: '3px',
+                      backgroundColor: '#FFFFFF',
+                    }}
+                  />
+                </span>
+              )}
+            </motion.h1>
+          </div>
+
+          {/* MAIN HEADLINE + TAGLINE — stacked vertically */}
+          <div>
+            <motion.h1
+              ref={headlineRef}
+              style={{
+                fontFamily: "'DM Sans', sans-serif",
+                fontSize: headlineFontSize,
+                fontWeight: 700,
+                letterSpacing: '-0.03em',
+                lineHeight: 1.05,
+                color: '#FFFFFF',
+                margin: 0,
+                textShadow: '0 2px 30px rgba(0, 0, 0, 0.3)',
+                width: 'fit-content',
+              }}
+            >
+              <span style={{ display: 'block' }}>
+                <WordReveal
+                  words={['Your', 'First']}
+                  baseDelay={3.3}
+                  wordStagger={0.09}
+                />
+              </span>
+              <span style={{ display: 'block' }}>
+                <WordReveal
+                  words={['Cofounder']}
+                  baseDelay={3.53}
+                  wordStagger={0.09}
+                />
+                <motion.span
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: 1, scale: [0, 1.3, 1] }}
+                  transition={{ delay: 4.2, duration: 0.3, ease: 'easeOut' }}
+                  style={{ display: 'inline-block' }}
+                >
+                  .
+                </motion.span>
+              </span>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                delay: 4.4,
+                duration: 0.8,
                 ease: [0.34, 1.56, 0.64, 1],
               }}
               style={{
-                fontSize: 'clamp(1.25rem, 1rem + 0.5vw, 1.75rem)',
-                lineHeight: 1.6,
-                fontWeight: 300,
-                color: '#FFFFFF',
-                textShadow: '0 2px 20px rgba(0, 0, 0, 0.4)',
+                fontSize: '19px',
+                lineHeight: 1.55,
+                fontWeight: 400,
+                color: 'rgba(255, 255, 255, 0.92)',
+                maxWidth: headlineWidth > 0 ? `${headlineWidth}px` : undefined,
+                margin: 0,
+                marginTop: '24px',
+                letterSpacing: '0.005em',
+                textAlign: 'left',
               }}
             >
-              Built Different Ventures co-builds category-defining companies
-              with founders. We're your first cofounder.
+              BDV is your first cofounder. We co-build AI-native B2B companies
+              in regulated, cross-border industries. We bring the conviction,
+              capital, and team to back you before anyone else will.
             </motion.p>
           </div>
         </div>
-      </motion.section>
+      </div>
+    </motion.section>
   );
 };
 
