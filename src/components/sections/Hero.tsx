@@ -74,7 +74,7 @@ const Hero = () => {
     return () => observer.disconnect();
   }, []);
 
-  const headlineFontSize = 'clamp(4.5rem, 9vw, 10rem)';
+  const headlineFontSize = 'clamp(4.25rem, 8.5vw, 9.5rem)';
 
   return (
     <motion.section
@@ -166,7 +166,7 @@ const Hero = () => {
             style={{
               overflow: 'visible',
               height: isShrunken
-                ? `calc(${isMobile ? 2 : 1} * 0.315 * clamp(4.5rem, 9vw, 10rem) + 8px)`
+                ? `calc(2 * 0.315 * ${headlineFontSize})`
                 : 'auto',
             }}
           >
@@ -201,86 +201,30 @@ const Hero = () => {
                 transformOrigin: 'top left',
               }}
             >
-              {isMobile ? (
-                <>
-                  <span style={{ position: 'relative', display: 'block' }}>
-                    Building can
-                    <motion.div
-                      initial={{ width: '0%' }}
-                      animate={{
-                        width: '100%',
-                        backgroundColor: ['#FFFFFF', '#FFFFFF', GHOST_COLOR],
-                      }}
-                      transition={{
-                        width: { delay: 1.8, duration: 0.4, ease: 'easeInOut' },
-                        backgroundColor: {
-                          delay: 2.6,
-                          duration: 0.64,
-                          ease: 'easeInOut',
-                        },
-                      }}
-                      style={{
-                        position: 'absolute',
-                        left: 0,
-                        top: '55%',
-                        height: '3px',
-                        backgroundColor: '#FFFFFF',
-                      }}
-                    />
-                  </span>
-                  <span style={{ position: 'relative', display: 'block' }}>
-                    be lonely.
-                    <motion.div
-                      initial={{ width: '0%' }}
-                      animate={{
-                        width: '100%',
-                        backgroundColor: ['#FFFFFF', '#FFFFFF', GHOST_COLOR],
-                      }}
-                      transition={{
-                        width: { delay: 2.05, duration: 0.4, ease: 'easeInOut' },
-                        backgroundColor: {
-                          delay: 2.6,
-                          duration: 0.64,
-                          ease: 'easeInOut',
-                        },
-                      }}
-                      style={{
-                        position: 'absolute',
-                        left: 0,
-                        top: '55%',
-                        height: '3px',
-                        backgroundColor: '#FFFFFF',
-                      }}
-                    />
-                  </span>
-                </>
-              ) : (
-                <span style={{ position: 'relative' }}>
-                  Building can be lonely.
-                  <motion.div
-                    initial={{ width: '0%' }}
-                    animate={{
-                      width: '100%',
-                      backgroundColor: ['#FFFFFF', '#FFFFFF', GHOST_COLOR],
-                    }}
-                    transition={{
-                      width: { delay: 1.8, duration: 0.4, ease: 'easeInOut' },
-                      backgroundColor: {
-                        delay: 2.6,
-                        duration: 0.64,
-                        ease: 'easeInOut',
-                      },
-                    }}
-                    style={{
-                      position: 'absolute',
-                      left: 0,
-                      top: '55%',
-                      height: '3px',
-                      backgroundColor: '#FFFFFF',
-                    }}
-                  />
-                </span>
-              )}
+              <motion.span
+                initial={{ textDecorationColor: 'rgba(255,255,255,0)' }}
+                animate={{
+                  textDecorationColor: [
+                    'rgba(255,255,255,0)',
+                    'rgba(255,255,255,0)',
+                    '#FFFFFF',
+                    '#FFFFFF',
+                    GHOST_COLOR,
+                  ],
+                }}
+                transition={{
+                  textDecorationColor: {
+                    duration: 3.3,
+                    times: [0, 0.545, 0.667, 0.788, 1],
+                  },
+                }}
+                style={{
+                  textDecoration: 'line-through',
+                  textDecorationThickness: '3px',
+                }}
+              >
+                Building can be lonely.
+              </motion.span>
             </motion.h1>
           </div>
 
@@ -291,26 +235,35 @@ const Hero = () => {
               style={{
                 fontFamily: "'DM Sans', sans-serif",
                 fontSize: headlineFontSize,
-                fontWeight: 700,
+                fontWeight: 900,
                 letterSpacing: '-0.03em',
                 lineHeight: 1.05,
                 color: '#FFFFFF',
                 margin: 0,
-                textShadow: '0 2px 30px rgba(0, 0, 0, 0.3)',
+                textShadow:
+                  '0 1px 0 rgba(0,0,0,0.4), 0 2px 0 rgba(0,0,0,0.35), 0 3px 0 rgba(0,0,0,0.3), 0 4px 0 rgba(0,0,0,0.25), 0 5px 0 rgba(0,0,0,0.2), 0 6px 12px rgba(0,0,0,0.4), 0 12px 40px rgba(0,0,0,0.3)',
+                WebkitTextStroke: '0.5px rgba(255,255,255,0.15)',
                 width: 'fit-content',
               }}
             >
               <span style={{ display: 'block' }}>
                 <WordReveal
-                  words={['Your', 'First']}
+                  words={['BDV', 'is']}
                   baseDelay={3.3}
                   wordStagger={0.09}
                 />
               </span>
               <span style={{ display: 'block' }}>
                 <WordReveal
+                  words={['Your', 'First']}
+                  baseDelay={3.48}
+                  wordStagger={0.09}
+                />
+              </span>
+              <span style={{ display: 'block' }}>
+                <WordReveal
                   words={['Cofounder']}
-                  baseDelay={3.53}
+                  baseDelay={3.66}
                   wordStagger={0.09}
                 />
                 <motion.span
@@ -344,7 +297,7 @@ const Hero = () => {
                 textAlign: 'left',
               }}
             >
-              BDV is your first cofounder. We co-build AI-native B2B companies
+              We co-build AI-native B2B companies
               in regulated, cross-border industries. We bring the conviction,
               capital, and team to back you before anyone else will.
             </motion.p>

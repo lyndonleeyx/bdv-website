@@ -213,7 +213,7 @@ const Header = () => {
   return (
     <>
       <header
-        className="absolute top-0 left-0 right-0 z-20 w-full"
+        className="fixed top-0 left-0 right-0 z-50 w-full"
         style={{ paddingInline: 'clamp(1.5rem, 1rem + 3vw, 4rem)' }}
       >
         <div className="max-w-[1400px] mx-auto flex items-center justify-between py-6">
